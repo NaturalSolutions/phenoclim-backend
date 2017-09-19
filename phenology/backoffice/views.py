@@ -618,6 +618,7 @@ def snowing_detail(request, area_id, snowing_id=-1):
 
 @login_required(login_url='login/')
 def user_detail(request):
+    models.Observer.objects.get_or_create(user=request.user)
     if not request.user.observer:
         request.user.observer = models.Observer()
         request.user.save()
