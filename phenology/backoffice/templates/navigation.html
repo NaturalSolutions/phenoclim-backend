@@ -36,11 +36,12 @@
         ><a href="{% url 'all-surveys' %}">{% trans "All my surveys" %}</a>
         </li>
 
+        <li>
+          <a class="btn btn-default navbar-btn" href="{% url 'logout' %}">{% trans "Logout" %}</a>
+        </li>
+
       </ul><!-- /.nav-justified -->
 
-      <ul class="nav navbar-nav navbar-right">
-          <a class="btn btn-default navbar-btn" href="{% url 'logout' %}">{% trans "Logout" %}</a>
-      </ul><!-- /button -->
 
     </div><!-- /.container-fluid -->
   </nav>
