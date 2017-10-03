@@ -28,3 +28,11 @@ psql.sh
 /phenology/salt_*_check.py
 /phenology/salt_*_check.py
 .idea
+
+.Python
+include/
+lib/
+man/
+share/
+phenology/db.sqlite3
+pip-selfcheck.json
