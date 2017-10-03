@@ -618,7 +618,9 @@ def snowing_detail(request, area_id, snowing_id=-1):
 
 @login_required(login_url='login/')
 def user_detail(request):
+    print request.user
     models.Observer.objects.get_or_create(user=request.user)
+    print request.user.observer
     if not request.user.observer:
         request.user.observer = models.Observer()
         request.user.save()
@@ -726,6 +728,7 @@ def password_reset(request):
 @login_required(login_url='login/')
 def dashboard(request):
     areas = {a.id: get_area_data(None, a.id) for a in request.user.observer.areas.all()}
+
     if models.Observer.objects.filter(user=request.user).count > 0:
         return render_to_response("my_surveys.html",
                                   {
@@ -747,6 +750,17 @@ def dashboard(request):
 def all_surveys(request):
     surveys = models.Survey.objects.all()[:100]
     return render_to_response("all_surveys.html", {
+        "surveys": surveys}, RequestContext(request))
+
+
+######
+# MY STUDIES
+######
+
+@login_required(login_url='login/')
+def my_studies(request):
+    surveys = models.Survey.objects.all()[:100]
+    return render_to_response("my_studies.html", {
         "surveys": surveys}, RequestContext(request))
 
 

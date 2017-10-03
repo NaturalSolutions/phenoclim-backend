@@ -61,6 +61,9 @@ urls = patterns(
     url(r'^mysurveys$', views.dashboard, name='my-surveys'),
     url(r'^get_species_list$', views.get_species_list, name='species-list'),
 
+    # mystudies
+    url(r'^mystudies$', views.my_studies, name='my-studies'),
+
     # datatable
     url(r'^allsurveys$', views.all_surveys, name='all-surveys'),
     url(r'^getsurveys$', views.get_surveys, name='get-surveys'),
