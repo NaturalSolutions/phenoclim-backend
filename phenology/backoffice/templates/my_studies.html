@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% load bootstrap3 %}
+
+{% block title %} {% trans 'My studies' %} {% endblock %}
+
+{% block content %}
+<div class="row  table-row">
+
+  <div class="col-xs-5  table-col">
+    <h4><u>{% trans "My Areas" %} :</u></h4>
+
+    <table class="table table-striped mytable table-bordered">
+      <tr>
+        <th></th>
+        <th>{% trans "name" %}</th>
+        <th>{% trans "city" %}</th>
+      </tr>
+      {% for area in user.observer.areas.all %}
+        <tr>
+          <td width="10px">
+            <a href="{% url 'area-detail' area.id %}" class="btn btn-default">
+              {% bootstrap_icon "pencil" %}
+            </a>
+          </td>
+          <td>{{ area.name }}</td>
+          <td width="40%">{{ area.commune }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+    {% buttons %}
+      <a href="{% url 'area-detail' %}" class="pull-right btn btn-primary" style="margin-bottom: 10px;">
+        {% bootstrap_icon "plus" %} {% trans "Add a new area" %}
+      </a>
+    {% endbuttons %}
+  </div>
+
+  <div class="col-xs-7 table-col">
+    <div id="map"></div>
+    </div>
+ </div>
+
+{% endblock %}
