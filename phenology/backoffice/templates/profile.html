@@ -3,15 +3,17 @@
 
 {% load bootstrap3 %}
 
-{% block title %} {% trans 'My profil' %} {% endblock %}
+{% block title %}
+  {% trans 'My profil' %}
+  <a href="password_change" class="btn btn-info btn-sm">
+    {% trans 'Change password' %}
+  </a>
+{% endblock %}
 
 {% block content %}
 <div class="row  table-row">
 
   <div class="col-xs-12  table-col">
-    <a href="password_change" class="btn btn-info btn-lg pull-right">
-      {% trans 'Change password' %}
-    </a>
     <form method="post" class="form-horizontal" role="form">
       {% csrf_token %}
       {% bootstrap_form form layout='horizontal' %}
