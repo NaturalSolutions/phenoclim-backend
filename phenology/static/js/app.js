@@ -60,7 +60,8 @@ phenoclim.map = function(options){
     // add an OpenStreetMap tile layer
     // 'http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png'
     // 'http://tile.mtbmap.cz/mtbmap_tiles/{z}/{x}/{y}.png'
-    L.tileLayer('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', {
+    var API_KEY = '851c476fad9743cca9b16af9c72ecc05';
+    L.tileLayer('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey=' + API_KEY, {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this._map);
 
@@ -164,4 +165,3 @@ $( document ).ready(function() {
     $(".map").trigger( "map_init");
   }
 });
-
