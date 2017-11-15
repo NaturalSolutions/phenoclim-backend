@@ -759,9 +759,9 @@ def all_surveys(request):
 
 @login_required(login_url='login/')
 def my_studies(request):
-    surveys = models.Survey.objects.all()[:100]
+    form = AccountForm(instance=request.user.observer)
     return render_to_response("my_studies.html", {
-        "surveys": surveys}, RequestContext(request))
+        "form": form }, RequestContext(request))
 
 
 ####
