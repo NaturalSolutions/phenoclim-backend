@@ -16,17 +16,17 @@
         </li>
 
         <li
-          {% if 'mysurveys' in request.get_full_path or '/survey' in request.get_full_path %}
-          class="active"
-          {% endif %}
-          ><a href="{% url 'my-surveys' %}">{% trans "Dashboard" %}</a>
-        </li>
-
-        <li
           {% if 'mystudies' in request.get_full_path %}
           class="active"
           {% endif %}
           ><a href="{% url 'my-studies' %}">{% trans "My studies" %}</a>
+        </li>
+
+        <li
+          {% if 'mysurveys' in request.get_full_path or '/survey' in request.get_full_path %}
+          class="active"
+          {% endif %}
+          ><a href="{% url 'my-surveys' %}">{% trans "Dashboard" %}</a>
         </li>
 
         <li
