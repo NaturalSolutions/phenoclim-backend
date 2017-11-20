@@ -36,3 +36,5 @@ man/
 share/
 phenology/db.sqlite3
 pip-selfcheck.json
+
+*.vscode
