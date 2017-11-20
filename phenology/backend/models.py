@@ -82,6 +82,10 @@ NATIONALITY_CHOICES = (
     ('france', _('france')),
     ('italie', _('italia')),
     ('suisse', _('switzerland')),
+    ('slovenie', _('slovenia')),
+    ('monaco', _('monaco')),
+    ('liechtenstein', _('liechtenstein')),
+    ('andorre', _('andorra')),
 )
 
 MILIEU_CHOICES = (
