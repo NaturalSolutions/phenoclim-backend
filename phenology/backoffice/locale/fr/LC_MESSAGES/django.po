@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-15 10:41+0100\n"
+"POT-Creation-Date: 2017-11-20 12:33+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,40 +41,40 @@ msgstr ""
 msgid "This name is already found in your area"
 msgstr "Ce nom est déjà attribué à un individu de votre zone"
 
-#: views.py:32 templates/survey.html:44
+#: views.py:39 templates/survey.html:44
 msgid "isObserved"
 msgstr "Observé"
 
-#: views.py:32
+#: views.py:39
 msgid "isDead"
 msgstr "Mort"
 
-#: views.py:33 templates/survey.html:51
+#: views.py:40 templates/survey.html:51
 msgid "isLost"
 msgstr "Individu perdu ou mort"
 
-#: views.py:33 templates/survey.html:58
+#: views.py:40 templates/survey.html:58
 msgid "isNever"
 msgstr "Stade absent"
 
-#: views.py:33 templates/survey.html:65
+#: views.py:40 templates/survey.html:65
 msgid "isPassed"
 msgstr "Stade déjà passé"
 
-#: views.py:443 views.py:484 views.py:499 views.py:539 views.py:587
-#: views.py:633 views.py:658
+#: views.py:450 views.py:491 views.py:506 views.py:547 views.py:595
+#: views.py:641 views.py:666
 msgid "Form is successifully updated"
 msgstr "L'enregistrement s'est bien effectué"
 
-#: views.py:491
+#: views.py:498
 msgid "Your are not allowed to see this form"
 msgstr "Vous n'êtes pas autorisé à voir cette page"
 
-#: views.py:670
+#: views.py:678
 msgid "Welcome on Phenoclim website"
 msgstr "Bienvenue dans la communauté Phénoclim !"
 
-#: views.py:710
+#: views.py:718
 msgid "New password"
 msgstr "Mot de passe oublié"
 
@@ -148,7 +148,7 @@ msgstr "Au dessus de 1000m"
 msgid "below 1000m"
 msgstr "En dessous de 1000m"
 
-#: templates/my_studies.html:6 templates/navigation.html:29
+#: templates/my_studies.html:6 templates/navigation.html:22
 msgid "My studies"
 msgstr "Mes zones d'observation"
 
@@ -173,11 +173,19 @@ msgstr "Ajouter une nouvelle zone d'observation"
 msgid "My surveys"
 msgstr "Mes observations"
 
-#: templates/my_surveys.html:75
+#: templates/my_surveys.html:32
+msgid "Area: "
+msgstr "Zone : "
+
+#: templates/my_surveys.html:72
+msgid "Delete"
+msgstr "Supprimer"
+
+#: templates/my_surveys.html:83
 msgid "Fill new snowing"
 msgstr "Enneigement"
 
-#: templates/my_surveys.html:90
+#: templates/my_surveys.html:106
 msgid "Vizualisation"
 msgstr "Date d’apparition des stades par année"
 
@@ -185,7 +193,7 @@ msgstr "Date d’apparition des stades par année"
 msgid "My Profil"
 msgstr "Mon profil"
 
-#: templates/navigation.html:22
+#: templates/navigation.html:29
 msgid "Dashboard"
 msgstr "Saisir mes observations"
 
@@ -400,6 +408,31 @@ msgstr "à observer"
 #: templates/survey.html:31
 msgid "after"
 msgstr "après"
+
+#: templates/survey_confirm_delete.html:5
+msgid "Confirm delete?"
+msgstr "Confirmer la suppression"
+
+#: templates/survey_confirm_delete.html:11
+msgid "Are you sure?"
+msgstr "Etes-vous sur?"
+
+#: templates/survey_confirm_delete.html:12
+#, python-format
+msgid ""
+"\n"
+"            <p> You're about to delete the stage %(answer_t)s for "
+"%(individual_t)s .\n"
+"            "
+msgstr ""
+"\n"
+"            <p> Etes-vous sur de vouloir supprimer l'observation %(answer_t)s pour l'"
+"%(individual_t)s .\n"
+"            "
+
+#: templates/survey_confirm_delete.html:20
+msgid "Confirm"
+msgstr "Confirmer"
 
 #~ msgid "Enneigement"
 #~ msgstr "Enneigement"
