@@ -129,10 +129,11 @@ phenoclim.map = function(options){
           var prop = event.target.feature.geometry.properties;
           if(prop.object=="individual" && prop.id){
             setTimeout(function(){ $(".display__individual[data-id=" + prop.id + "]").show();$(".display__individual[data-id=" + prop.id + "]>a").click(); }, 10);
-            };
+            }
         });
       });
       $(".display__individual>a").on("click", function(event){
+        event.preventDefault();
         var id=$(this).parent().attr("data-id");
         self.geojson.eachLayer(function(layer){
           var prop =layer.feature.geometry.properties;
