@@ -28,27 +28,31 @@
         {% for area in user.observer.areas.all %}
           <div class="row">
             <div class="col col-xs-12 no-margin no-padding">
-              <ul class="display__accordeon">
-                <li class="display__area">
+                <h5 class="display__accordeon">
+                  {% trans 'Area: ' %}
                   <a href="{% url 'area-detail' area.id %}">
-                    {{ area }} [ {{ area.commune }} - {{ area.altitude|default:'' }} m]
+                  {{ area }} [ {{ area.commune }} - {{ area.altitude|default:'' }} m]
                   </a>
-                  <ul>
-                    {% regroup area.alive_individuals.all by species as area_species %}
-                    {% for individuals_by_species in area_species %}
-                    <li class="display__species ion-load-d icon-bullet">
-                      <a href="" rel="{% url 'species-detail' individuals_by_species.grouper.id %}">
-                        {{ individuals_by_species.grouper }}
+                </h5>
+                {% regroup area.alive_individuals.all by species as area_species %}
+                {% for individuals_by_species in area_species %}
+                  <legend class="display__species ion-load-d icon-bullet">
+                    {{ individuals_by_species.grouper }}
+                  </legend>
+                  {% for individual in individuals_by_species.list %}
+                  <div class="panel panel-default">
+                    <div class="panel-heading display__individual ion-leaf icon-bullet" data-id="{{ individual.id }}">
+                      <a href="" rel="{% url 'individual-detail' individual.id %}">
+                        {{ individual }}
                       </a>
-                      <ul style="list-style-type:none">
-                        {% for individual in individuals_by_species.list %}
-                        <li class="display__individual ion-leaf icon-bullet" data-id="{{ individual.id }}">
-                          <a href="" rel="{% url 'individual-detail' individual.id %}">
-                            {{ individual }}
-                          </a>
-                          <ul>
-                            {% for stage, dates, survey in individual.get_tasks %}
-                            <li class="display__stage">
+                    </div>
+                      <table class="table">
+                        <thead>
+                        </thead>
+                        <tbody>
+                          {% for stage, dates, survey in individual.get_tasks %}
+                          <tr>
+                            <td>
                               <a class="
                               {% if survey %}
                               found
@@ -63,24 +67,36 @@
                               {% endif %}">
                               {{ stage }} [{{ dates.0.year}}] {% if survey %}- {{survey.date}}{% endif %}
                               </a>
-                            </li>
-                            {% endfor %}
-                          </ul>
-                        </li>
-                      {% endfor %}
-                      </ul>
-                    </li>
-                    {% endfor %}
-                    <li class="icon ion-ios-medical icon-bullet">
-                      <a class="btn no-padding btn-link" href="{% url 'snowing-detail' area.id %}">{% trans 'Fill new snowing' %}</a>
-                      {% if area.last_snowing %}
-                        <br/>
-                        <i style="font-style:italic;font-size:0.9em">{{ area.last_snowing.date|date:"D d F Y"}}</i>
-                      {% endif %}
-                    </li>
-                  </ul>
-                </li>
-              </ul>
+                              {% if survey and survey.id %}
+                                <a class="btn btn-xs btn-danger pull-right cancel"
+                                   href="{% url 'entry_delete' survey.id %}">{% trans 'Delete' %}</a>
+                              {% endif %}
+                            </td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                </div>
+                {% endfor %}
+              {% endfor %}
+              <legend class="icon ion-ios-medical icon-bullet" >
+                <a class="btn no-padding btn-link" href="{% url 'snowing-detail' area.id %}">{% trans 'Fill new snowing' %}</a>
+              </legend>
+              {% if area.last_snowing %}
+              <div class="panel panel-default">
+                <table class="table">
+                  <thead>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                      <i style="font-style:italic;font-size:0.9em">{{ area.last_snowing.date|date:"D d F Y"}}</i>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              {% endif %}
             </div>
           </div>
         {% endfor %}

@@ -14,6 +14,12 @@ from django.shortcuts import render_to_response, redirect
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
 from django.http import HttpResponse
+from django.views.generic import DeleteView
+from django.core.urlresolvers import reverse_lazy, reverse
+import os
+base_path = os.path.join(os.path.dirname(__file__))
+
+
 
 from querystring_parser import parser
 from .utils import as_workbook
@@ -864,3 +870,23 @@ def viz_snowings(request):
     areas = sorted(areas, key=lambda a: compare_postalcode(area_ids[a.id]))
     return render_to_response("viz_snowings.html", {"areas": areas},
                               RequestContext(request))
+
+
+#######
+# DELETE VIEWS
+#https://ultimatedjango.com/learn-django/lessons/delete-contact-full-lesson/
+# TODO permission
+#######
+class SurveyDelete(DeleteView):
+    model = models.Survey
+    template_name = base_path + '/templates/survey_confirm_delete.html'
+
+    def get_object(self, queryset=None):
+        obj = super(SurveyDelete, self).get_object()
+        currentSurvey = models.Survey.objects.get(id=obj.id)
+
+        self.survey = currentSurvey
+        return obj
+
+    def get_success_url(self):
+        return reverse_lazy('my-surveys',)

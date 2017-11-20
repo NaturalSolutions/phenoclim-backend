@@ -535,7 +535,7 @@ class Survey(models.Model):
             self.individual.save()
 
     def __str__(self):
-        return u"%s" % self.answer
+        return u"%s %s" % (self.individual, self.answer)
 
     def unicode(self):
         return ugettext(self.answer)

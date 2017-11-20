@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+{{object_name}} {% trans 'Confirm delete?' %}
+{% endblock %}
+
+{% block content %}
+    <div id="content-container" class="container p-none">
+        <div class="side-p">
+            <h3>{% trans 'Are you sure?' %}</h3>
+            {% blocktrans with answer_t=object.answer individual_t=object.individual %}
+            <p> You're about to delete the stage {{ answer_t }} for {{ individual_t }} .
+            {% endblocktrans %} </p>
+            <form action="" method="post">
+                {% csrf_token %}
+                <input class="btn btn-link"
+                       type="button" value="Cancel"
+                       onclick="window.history.go(-1);"/>
+                <input class="btn btn-danger" type="submit" value="{% trans 'Confirm' %}"/>
+            </form>
+        </div>
+    </div>
+{% endblock %}
