@@ -23,7 +23,7 @@ salt_config.py
 psql.sh
 /phenology/phenology/local_settings.py
 /phenology/phenology/localsettings.py
-/phenology/settings_local.py.in
+*/phenology/settings_local.py.in
 /phenology/salt_*_check.py
 /phenology/salt_*_check.py
 /phenology/salt_*_check.py
