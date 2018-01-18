@@ -100,6 +100,9 @@ phenoclim.map = function(options){
       ).addTo(self._map);
       var bounds = self.geojson.getBounds();
       self._map.fitBounds(bounds, { maxZoom: 18, padding: [10, 10] });
+      //DEFAULT AREA/Create
+      if(options.geojson.features[0].coordinates[0] == 4 && options.geojson.features[0].coordinates[1] == 44)
+        self._map.fitBounds(bounds2, { maxZoom: 18, padding: [10, 10] });
     }
     else{
       self._map.fitBounds(bounds2);

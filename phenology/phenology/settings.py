@@ -32,7 +32,7 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'data/media')
 MEDIA_URL = '/media/'
 
 # Application definition
@@ -176,8 +176,10 @@ TILES_SETTINGS = {
 
 
 DEFAULT_POSITION = {
-    "lat": 45.930659,
-    "lon": 6.863750
+    # "lat": 45.930659,
+    # "lon": 6.863750
+    "lat": 44,
+    "lon": 4
 }
 
 THUMBNAIL_ALIASES = {
