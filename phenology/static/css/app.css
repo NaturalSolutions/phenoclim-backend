@@ -388,3 +388,10 @@ th:first-letter {
   padding-left: 0.1em;
   padding-right: 0.1em;
 }
+
+
+/* Optimization */
+form .answer > label {
+    display: block;
+    margin-top: 5px;
+}
