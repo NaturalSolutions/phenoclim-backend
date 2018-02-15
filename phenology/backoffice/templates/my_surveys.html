@@ -142,11 +142,11 @@
 
           // Accordion
           $('.display__species').on("click", function(event){
-            var current = $(this).next('.collapse');
+            var currentCollapse = $(this).next('.collapse');
             var slibCollapseIn =  $(this).siblings('.collapse.in');
             var slibBtn = $(this).siblings('.display__species');
-            $(this).addClass('active');
-            current.collapse('show');
+            $(this).toggleClass('active');
+            currentCollapse.collapse('toggle');
             slibCollapseIn.collapse('hide');
             slibBtn.removeClass('active');
           });
