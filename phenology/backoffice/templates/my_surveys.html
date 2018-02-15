@@ -36,71 +36,67 @@
                 </h5>
                 {% regroup area.alive_individuals.all by species as area_species %}
                 {% for individuals_by_species in area_species %}
-                  <legend class="display__species ion-load-d icon-bullet">
-                    {{ individuals_by_species.grouper }}
-                  </legend>
-                  {% for individual in individuals_by_species.list %}
-                  <div class="panel panel-default">
-                    <div class="panel-heading display__individual ion-leaf icon-bullet" data-id="{{ individual.id }}">
-                      <a href="" rel="{% url 'individual-detail' individual.id %}">
-                        {{ individual }}
-                      </a>
+                  <div class="btn btn-default btn-lg btn-block block-species display__species">
+                    <span class="ion-load-d">
+                      {{ individuals_by_species.grouper }}
+                    </span>
+                  </div>
+                  <div class="collapse">
+                    {% for individual in individuals_by_species.list %}
+                    <div class="panel panel-default">
+                      <div class="panel-heading display__individual ion-leaf icon-bullet" data-id="{{ individual.id }}">
+                        <a href="" rel="{% url 'individual-detail' individual.id %}">
+                          {{ individual }}
+                        </a>
+                      </div>
+                        <table class="table">
+                          <thead>
+                          </thead>
+                          <tbody>
+                            {% for stage, dates, survey in individual.get_tasks %}
+                            <tr>
+                              <td>
+                                <a class="
+                                {% if survey %}
+                                found
+                                {% else %}
+                                missed
+                                {% endif %}"
+                                href="
+                                {% if survey %}
+                                {% url 'survey-detail' survey.id %}
+                                {% else %}
+                                {% url 'survey-detail' %}?stage_id={{stage.id}}&ind_id={{individual.id}}
+                                {% endif %}">
+                                {{ stage }} [{{ dates.0.year}}] {% if survey %}- {{survey.date}}{% endif %}
+                                </a>
+                                {% if survey and survey.id %}
+                                  <a class="btn btn-xs btn-danger pull-right cancel"
+                                     href="{% url 'entry_delete' survey.id %}">{% trans 'Delete' %}</a>
+                                {% endif %}
+                              </td>
+                            </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
                     </div>
-                      <table class="table">
-                        <thead>
-                        </thead>
-                        <tbody>
-                          {% for stage, dates, survey in individual.get_tasks %}
-                          <tr>
-                            <td>
-                              <a class="
-                              {% if survey %}
-                              found
-                              {% else %}
-                              missed
-                              {% endif %}"
-                              href="
-                              {% if survey %}
-                              {% url 'survey-detail' survey.id %}
-                              {% else %}
-                              {% url 'survey-detail' %}?stage_id={{stage.id}}&ind_id={{individual.id}}
-                              {% endif %}">
-                              {{ stage }} [{{ dates.0.year}}] {% if survey %}- {{survey.date}}{% endif %}
-                              </a>
-                              {% if survey and survey.id %}
-                                <a class="btn btn-xs btn-danger pull-right cancel"
-                                   href="{% url 'entry_delete' survey.id %}">{% trans 'Delete' %}</a>
-                              {% endif %}
-                            </td>
-                          </tr>
-                          {% endfor %}
-                        </tbody>
-                      </table>
-                </div>
+                    {% endfor %}
+                  </div>
                 {% endfor %}
-              {% endfor %}
-              <legend class="icon ion-ios-medical icon-bullet" >
-                <a class="btn no-padding btn-link" href="{% url 'snowing-detail' area.id %}">{% trans 'Fill new snowing' %}</a>
-              </legend>
-              {% if area.last_snowing %}
-              <div class="panel panel-default">
-                <table class="table">
-                  <thead>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                      <i style="font-style:italic;font-size:0.9em">{{ area.last_snowing.date|date:"D d F Y"}}</i>
-                    </td>
-                  </tr>
-                  </tbody>
-                </table>
+                <div class="block-snowing">
+                  <a class="btn btn-default btn-lg btn-block" href="{% url 'snowing-detail' area.id %}">
+                    <span class=" ion-ios-medical "> {% trans 'Fill new snowing' %} </span>
+                    {% if area.last_snowing %}
+                      <i style="font-style:italic;font-size:0.9em"> ( {{ area.last_snowing.date|date:"D d F Y"}} )</i>
+                    {% endif %}
+                  </a>
               </div>
-              {% endif %}
             </div>
           </div>
-        {% endfor %}
 
+          <hr></hr>
+
+        {% endfor %}
           <div class="row">
             <div class="col-xs-12 no-padding">
                 <h5 class="text-center padding-10">{% trans 'Vizualisation' %} :</h5>
@@ -145,19 +141,14 @@
         $( document ).ready(function(){
 
           // Accordion
-          $(".display__area a").on("click", function(event){
-            var li = $(this).parent("li");
-            var children = $(li).children("ul").children("li");
-            var is_hidden = children.filter(":hidden").length > 0;
-            if ($(li).children("ul").length > 0){
-              if(is_hidden === false){
-                children.slideUp(300);
-              }
-              else{
-                children.slideDown(300);
-              }
-              return false;
-            }
+          $('.display__species').on("click", function(event){
+            var current = $(this).next('.collapse');
+            var slibCollapseIn =  $(this).siblings('.collapse.in');
+            var slibBtn = $(this).siblings('.display__species');
+            $(this).addClass('active');
+            current.collapse('show');
+            slibCollapseIn.collapse('hide');
+            slibBtn.removeClass('active');
           });
 
           // set map height

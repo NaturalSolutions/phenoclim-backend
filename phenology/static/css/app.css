@@ -379,9 +379,20 @@ th:first-letter {
 }
 /*****************************/
 
-/*.display__stage, .display__individual{
+/* .display__stage, .display__individual{
   display: none;
-}*/
+} */
+
+a.display__species{
+  display:block;
+}
+.block-snowing {
+  margin-top: 20px;
+}
+.block-species {
+  text-align: left;
+  border-radius: 0px;
+}
 
 .graph-controls select{
   font-size: 0.85em;
