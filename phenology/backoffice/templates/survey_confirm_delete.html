@@ -10,7 +10,7 @@
         <div class="side-p">
             <h3>{% trans 'Are you sure?' %}</h3>
             {% blocktrans with answer_t=object.answer individual_t=object.individual %}
-            <p> You're about to delete the stage {{ answer_t }} for {{ individual_t }} .
+            <p> You're about to delete the stage for {{ individual_t }} .
             {% endblocktrans %} </p>
             <form action="" method="post">
                 {% csrf_token %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 14:18+0100\n"
+"POT-Creation-Date: 2018-02-16 16:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -417,28 +417,26 @@ msgstr "après"
 msgid "Confirm delete?"
 msgstr "Confirmer la suppression"
 
-#: templates/survey_confirm_delete.html:13
+#: templates/survey_confirm_delete.html:11
 msgid "Are you sure?"
 msgstr "Etes-vous sur ?"
 
-#: templates/survey_confirm_delete.html:14
-#, python-format
+#: templates/survey_confirm_delete.html:12
 msgid ""
 "\n"
-"            <p> You're about to delete the stage %(answer_t)s for "
-"%(individual_t)s .\n"
+"            <p> You're about to delete the stage for %(individual_t)s .\n"
 "            "
 msgstr ""
 "\n"
-"            <p> Etes-vous sur de vouloir supprimer l'observation "
-"%(answer_t)s pour l'%(individual_t)s .\n"
+"            <p> Etes-vous sur de vouloir supprimer cet état pour "
+"l'%(individual_t)s .\n"
 "            "
 
-#: templates/survey_confirm_delete.html:20
+#: templates/survey_confirm_delete.html:18
 msgid "Cancel"
 msgstr "Annuler"
 
-#: templates/survey_confirm_delete.html:22
+#: templates/survey_confirm_delete.html:20
 msgid "Confirm"
 msgstr "Confirmer"
 
