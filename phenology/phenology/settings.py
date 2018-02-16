@@ -174,10 +174,8 @@ TILES_SETTINGS = {
     'GLOBAL_MAP_BBOX': [4.669189453125, 43.69965122967144, 7.9046630859375, 46.464349400461124],  # Whole Alpes
 }
 
-
+# Default position beetween alpes and pyrenees set the center of map on south of France
 DEFAULT_POSITION = {
-    # "lat": 45.930659,
-    # "lon": 6.863750
     "lat": 44,
     "lon": 4
 }
