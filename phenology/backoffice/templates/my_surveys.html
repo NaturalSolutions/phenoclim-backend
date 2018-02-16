@@ -56,24 +56,35 @@
                             {% for stage, dates, survey in individual.get_tasks %}
                             <tr>
                               <td>
-                                <a class="
+                                <span class="
                                 {% if survey %}
                                 found
                                 {% else %}
                                 missed
-                                {% endif %}"
-                                href="
-                                {% if survey %}
-                                {% url 'survey-detail' survey.id %}
-                                {% else %}
-                                {% url 'survey-detail' %}?stage_id={{stage.id}}&ind_id={{individual.id}}
-                                {% endif %}">
+                                {% endif %}" >
                                 {{ stage }} [{{ dates.0.year}}] {% if survey %}- {{survey.date}}{% endif %}
-                                </a>
+                                </span>
+                                <div class="pull-right">
+                                  {% if survey %}
+                                  <a class="btn btn-xs btn-warning update"
+                                     href="
+                                     {% url 'survey-detail' survey.id %}
+                                     ">
+                                     {% trans 'Update' %}
+                                   </a>
+                                  {% else %}
+                                  <a class="btn btn-xs btn-primary update"
+                                     href="
+                                     {% url 'survey-detail' %}?stage_id={{stage.id}}&ind_id={{individual.id}}
+                                     ">
+                                     {% trans 'Add' %}
+                                   </a>
+                                  {% endif %}
                                 {% if survey and survey.id %}
-                                  <a class="btn btn-xs btn-danger pull-right cancel"
+                                  <a class="btn btn-xs btn-danger cancel"
                                      href="{% url 'entry_delete' survey.id %}">{% trans 'Delete' %}</a>
                                 {% endif %}
+                              </div>
                               </td>
                             </tr>
                             {% endfor %}

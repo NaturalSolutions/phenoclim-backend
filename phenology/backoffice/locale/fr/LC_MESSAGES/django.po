@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 16:37+0100\n"
+"POT-Creation-Date: 2018-02-16 17:32+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -177,15 +177,23 @@ msgstr "Mes observations"
 msgid "Area: "
 msgstr "Zone : "
 
-#: templates/my_surveys.html:75
+#: templates/my_surveys.html:73
+msgid "Update"
+msgstr "Modifier"
+
+#: templates/my_surveys.html:80
+msgid "Add"
+msgstr "Ajouter"
+
+#: templates/my_surveys.html:85
 msgid "Delete"
 msgstr "Supprimer"
 
-#: templates/my_surveys.html:88
+#: templates/my_surveys.html:99
 msgid "Fill new snowing"
 msgstr "Enneigement"
 
-#: templates/my_surveys.html:102
+#: templates/my_surveys.html:113
 msgid "Vizualisation"
 msgstr "Date d’apparition des stades par année"
 
@@ -422,6 +430,7 @@ msgid "Are you sure?"
 msgstr "Etes-vous sur ?"
 
 #: templates/survey_confirm_delete.html:12
+#, python-format
 msgid ""
 "\n"
 "            <p> You're about to delete the stage for %(individual_t)s .\n"
