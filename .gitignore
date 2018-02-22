@@ -7,6 +7,7 @@
 /venv-phenology/
 /develop_eggs/
 
+settings.py
 makina-states*-deploy.log
 settings_local.py
 src/
