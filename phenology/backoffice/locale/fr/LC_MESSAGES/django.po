@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 17:32+0100\n"
+"POT-Creation-Date: 2018-03-12 16:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -86,35 +86,43 @@ msgstr "Exporter mes données"
 msgid "Export my snowings"
 msgstr "Exporter mes enneigements"
 
-#: templates/all_surveys.html:27
+#: templates/all_surveys.html:16
+msgid "Chart surveys"
+msgstr "Graphique des observations"
+
+#: templates/all_surveys.html:28
 #, fuzzy
 msgid "date"
 msgstr "Valider"
 
-#: templates/all_surveys.html:30 templates/profile_area.html:10
+#: templates/all_surveys.html:31 templates/profile_area.html:10
 msgid "Area"
 msgstr "Zone d'observation"
 
-#: templates/all_surveys.html:33 templates/profile_area.html:48
+#: templates/all_surveys.html:34 templates/profile_area.html:48
 #: templates/profile_individual.html:54
 msgid "Species"
 msgstr "Espèce"
 
-#: templates/all_surveys.html:36 templates/profile_individual.html:9
+#: templates/all_surveys.html:37 templates/profile_individual.html:9
 msgid "Individual"
 msgstr "Individu"
 
-#: templates/all_surveys.html:39
+#: templates/all_surveys.html:40
 msgid "Organism"
 msgstr "Organisme"
 
-#: templates/all_surveys.html:42
+#: templates/all_surveys.html:43
 msgid "Stage"
 msgstr "Stade de développement"
 
-#: templates/all_surveys.html:45
+#: templates/all_surveys.html:46
 msgid "Answer"
 msgstr "Réponse"
+
+#: templates/chart_surveys.html:28
+msgid "Vizualisation"
+msgstr "Date d’apparition des stades par année"
 
 #: templates/generic_form.html:14 templates/profile.html:22
 #: templates/profile_area.html:32 templates/profile_individual.html:32
@@ -192,10 +200,6 @@ msgstr "Supprimer"
 #: templates/my_surveys.html:99
 msgid "Fill new snowing"
 msgstr "Enneigement"
-
-#: templates/my_surveys.html:113
-msgid "Vizualisation"
-msgstr "Date d’apparition des stades par année"
 
 #: templates/navigation.html:15
 msgid "My Profil"

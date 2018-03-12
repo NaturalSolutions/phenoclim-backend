@@ -890,3 +890,17 @@ class SurveyDelete(DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('my-surveys',)
+
+#######
+# CHART SURVEYS
+#######
+@login_required(login_url='login/')
+def chart_surveys(request):
+    models.Observer.objects.get_or_create(user=request.user)
+    areas = {a.id: get_area_data(None, a.id) for a in request.user.observer.areas.all()}
+    if models.Observer.objects.filter(user=request.user).count > 0:
+        return render_to_response("chart_surveys.html",
+                                  {
+                                      "areas": areas
+                                  },
+                                  RequestContext(request))
