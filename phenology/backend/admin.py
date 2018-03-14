@@ -34,9 +34,9 @@ class StageAdmin(TabAdmin, ImportExportModelAdmin):
 class SurveyAdmin(ImportExportModelAdmin):
     resource_class = ressources.SurveyResource
     list_display = ('date', 'ind_name', 'species_name',
-                    'stage_name', '_answer', 'remark', 'area_name', 'status')
+                    'stage_name', '_answer', 'remark', 'area_name', 'status', 'comment')
     search_fields = ['date', 'individual__name', 'individual__species__name',
-                     'stage__name', 'answer', 'remark', 'individual__area__name', 'status']
+                     'stage__name', 'answer', 'remark', 'individual__area__name', 'status', 'comment']
 
     def _answer(self, obj):
         return ugettext(obj.answer)

@@ -534,6 +534,8 @@ class Survey(models.Model):
                             choices=STATUS_CHOICES,
                             default=STATUS_CHOICES[0][0],
                             blank=True)
+    comment = models.TextField(max_length=240, verbose_name=_("comment"),
+                              blank=True)
 
     class Meta:
         verbose_name = _("Survey")

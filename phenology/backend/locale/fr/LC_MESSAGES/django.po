@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-14 11:43+0100\n"
+"POT-Creation-Date: 2018-03-14 16:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,7 +68,7 @@ msgstr "Nom"
 msgid "Stages"
 msgstr "Stades de dévelopement"
 
-#: admin.py:193 models.py:540
+#: admin.py:193 models.py:542
 msgid "Surveys"
 msgstr "Observations"
 
@@ -420,7 +420,11 @@ msgstr "date de saisie"
 msgid "statut"
 msgstr ""
 
-#: models.py:539
+#: models.py:537
+msgid "comment"
+msgstr "commentaire"
+
+#: models.py:541
 msgid "Survey"
 msgstr "Observation"
 
