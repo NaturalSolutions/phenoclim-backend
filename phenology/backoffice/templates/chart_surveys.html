@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+{% load json_filters %}
+
+{% block title %}{{ form.instance.name }}{% endblock %}
+
+{% block content %}
+
+    <script type="text/javascript">
+    // general options related to map // app.js
+    phenoclim.options = {
+      areas: {{ areas|jsonify|safe }},
+      isLinked: true,
+    }
+    </script>
+
+    <div class="row  table-row">
+
+      <div class=" col-xs-6 col-md-5  table-col">
+
+        <div class="container-fluid">
+
+       
+          <div class="row">
+            <div class="col-xs-12 no-padding">
+                <h5 class="text-center padding-10">{% trans 'Vizualisation' %} :</h5>
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-xs-9 graph no-padding">
+                    </div>
+                    <div class="col-xs-3 no-padding graph-controls">
+                      <select name="area" class="form-control" data-id="areas">
+                        {% for area in user.observer.areas.all %}
+                            <option value="{{area.id}}">{{area.name}}</option>
+                        {% endfor %}
+                      </select>
+                      <select name="individual" class="form-control" data-id="individuals">
+                        {% for area in user.observer.areas.all %}
+                          {% for a in area.alive_individuals.all %}
+                            {% if a.survey_set.count > 0 %}
+                              <option rel="{{a.species_id}}" data-area="{{area.id}}" value="{{a.id}}">{{a.name}}</option>
+                            {% endif %}
+                          {% endfor %}
+                        {% endfor %}
+                      </select>
+                      <select name="stage" class="form-control" data-id="stages">
+                      </select>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div> 
+
+       </div>
+    </div>
+
+
+  </div>
+
+  <script type="text/javascript">
+
+        $( document ).ready(function(){
+
+          // viz obj
+          phenoclim.session.chart_Obj = phenoclim.viz.areaChart({margin : {top: 20, right: 20, bottom: 20, left: 60}});
+
+          // hide areas combobox if there is just one option
+          if ($("[data-id=areas] option").length === 1) {
+            $("[data-id=areas]").hide();
+          }
+
+          // handler
+          $("[data-id=areas]").on("change", function(event){
+            var individual_field = $("[data-id=individuals]")
+            $("option", individual_field).hide();
+            // get area_id
+            var area_id = $(this).val();
+
+            var area_individuals = $("option[data-area=" + area_id + "]", individual_field);
+            area_individuals.show();
+
+            $("[data-id=individuals]").val(area_individuals.first().attr("value"));
+            $("[data-id=individuals]").trigger("change");
+          });
+
+          // handler
+          $("[data-id=individuals]").on("change", function(event){
+              if(refreshStages() !== false){refreshChart();}
+          });
+
+          // handler
+          $("[data-id=stages]").on("change", refreshChart);
+
+          // init
+          $("[data-id=areas]").trigger("change");
+        });
+
+        // function to refresh stages
+        function refreshStages(){
+          var $stages_field = $("[data-id=stages]");
+          var $individual_option = $("[data-id=individuals] :selected");
+          var individual_id = +$individual_option.attr("value");
+          var area_id = +$individual_option.attr("data-area");
+          var species_id = +$individual_option.attr("rel");
+          if(isNaN(species_id)){
+            return false;
+          }
+          var data = phenoclim.options.areas[area_id].species[species_id];
+          $("option", $stages_field).remove();
+          var stages = d3.entries(data.values || {});
+          stages.sort(function(a,b){
+            return a.value.name.localeCompare(b.value.name);
+          })
+          $.each(stages, function(i, item){
+            var option = $("<option>").attr("value", item.key).text(item.value.name);
+            option.appendTo($stages_field);
+          });
+        }
+
+        // function to refresh chart
+        function refreshChart(){
+          var $individual_option = $("[data-id=individuals] :selected");
+          var individual_id = +$individual_option.attr("value");
+          var species_id = +$individual_option.attr("rel");
+          var area_id = +$individual_option.attr("data-area");
+          var stage_id = $("[data-id=stages]").val();
+          var tmp = {
+            label: '',
+            key: individual_id,
+            values: phenoclim.options.areas[area_id].species[species_id].values[stage_id].values[individual_id] || []
+          };
+          d3.select(".graph").datum([tmp]).call(phenoclim.session.chart_Obj);
+        }
+
+  </script>
+
+{% endblock %}

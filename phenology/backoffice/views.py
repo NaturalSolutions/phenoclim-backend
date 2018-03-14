@@ -14,6 +14,12 @@ from django.shortcuts import render_to_response, redirect
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
 from django.http import HttpResponse
+from django.views.generic import DeleteView
+from django.core.urlresolvers import reverse_lazy, reverse
+import os
+base_path = os.path.join(os.path.dirname(__file__))
+
+
 
 from querystring_parser import parser
 from .utils import as_workbook
@@ -618,7 +624,9 @@ def snowing_detail(request, area_id, snowing_id=-1):
 
 @login_required(login_url='login/')
 def user_detail(request):
+    # print request.user
     models.Observer.objects.get_or_create(user=request.user)
+    # print request.user.observer
     if not request.user.observer:
         request.user.observer = models.Observer()
         request.user.save()
@@ -726,6 +734,7 @@ def password_reset(request):
 @login_required(login_url='login/')
 def dashboard(request):
     areas = {a.id: get_area_data(None, a.id) for a in request.user.observer.areas.all()}
+
     if models.Observer.objects.filter(user=request.user).count > 0:
         return render_to_response("my_surveys.html",
                                   {
@@ -748,6 +757,17 @@ def all_surveys(request):
     surveys = models.Survey.objects.all()[:100]
     return render_to_response("all_surveys.html", {
         "surveys": surveys}, RequestContext(request))
+
+
+######
+# MY STUDIES
+######
+
+@login_required(login_url='login/')
+def my_studies(request):
+    form = AccountForm(instance=request.user.observer)
+    return render_to_response("my_studies.html", {
+        "form": form }, RequestContext(request))
 
 
 ####
@@ -850,3 +870,37 @@ def viz_snowings(request):
     areas = sorted(areas, key=lambda a: compare_postalcode(area_ids[a.id]))
     return render_to_response("viz_snowings.html", {"areas": areas},
                               RequestContext(request))
+
+
+#######
+# DELETE VIEWS
+#https://ultimatedjango.com/learn-django/lessons/delete-contact-full-lesson/
+# TODO permission
+#######
+class SurveyDelete(DeleteView):
+    model = models.Survey
+    template_name = base_path + '/templates/survey_confirm_delete.html'
+
+    def get_object(self, queryset=None):
+        obj = super(SurveyDelete, self).get_object()
+        currentSurvey = models.Survey.objects.get(id=obj.id)
+
+        self.survey = currentSurvey
+        return obj
+
+    def get_success_url(self):
+        return reverse_lazy('my-surveys',)
+
+#######
+# CHART SURVEYS
+#######
+@login_required(login_url='login/')
+def chart_surveys(request):
+    models.Observer.objects.get_or_create(user=request.user)
+    areas = {a.id: get_area_data(None, a.id) for a in request.user.observer.areas.all()}
+    if models.Observer.objects.filter(user=request.user).count > 0:
+        return render_to_response("chart_surveys.html",
+                                  {
+                                      "areas": areas
+                                  },
+                                  RequestContext(request))

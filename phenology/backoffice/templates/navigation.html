@@ -8,11 +8,18 @@
       <ul class="nav nav-justified">
 
         <li
-          {% if 'profile' in request.get_full_path or 'area' in request.get_full_path or 'individual' in request.get_full_path %}
+          {% if 'profile' in request.get_full_path  %}
           class="active"
           {% endif %}
           >
           <a href="{% url 'profile' %}">{% trans "My Profil" %} ({{ user.username }})</a>
+        </li>
+
+        <li
+          {% if 'mystudies' in request.get_full_path or 'area' in request.get_full_path or 'individual' in request.get_full_path %}
+          class="active"
+          {% endif %}
+          ><a href="{% url 'my-studies' %}">{% trans "My studies" %}</a>
         </li>
 
         <li
@@ -21,6 +28,7 @@
           {% endif %}
           ><a href="{% url 'my-surveys' %}">{% trans "Dashboard" %}</a>
         </li>
+
         <li
         {% if 'allsurveys' in request.get_full_path %}
         class="active"
@@ -28,11 +36,12 @@
         ><a href="{% url 'all-surveys' %}">{% trans "All my surveys" %}</a>
         </li>
 
+        <li>
+          <a class="btn btn-default navbar-btn" href="{% url 'logout' %}">{% trans "Logout" %}</a>
+        </li>
+
       </ul><!-- /.nav-justified -->
 
-      <ul class="nav navbar-nav navbar-right">
-          <a class="btn btn-default navbar-btn" href="{% url 'logout' %}">{% trans "Logout" %}</a>
-      </ul><!-- /button -->
 
     </div><!-- /.container-fluid -->
   </nav>

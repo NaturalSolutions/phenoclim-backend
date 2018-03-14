@@ -82,6 +82,10 @@ NATIONALITY_CHOICES = (
     ('france', _('france')),
     ('italie', _('italia')),
     ('suisse', _('switzerland')),
+    ('slovenie', _('slovenia')),
+    ('monaco', _('monaco')),
+    ('liechtenstein', _('liechtenstein')),
+    ('andorre', _('andorra')),
 )
 
 MILIEU_CHOICES = (
@@ -304,8 +308,18 @@ class Individual(models.Model):
         species_name = ""
         if(Species.objects.filter(id=self.species_id).first()):
             species_name = self.species.name
-            picture_url = "%s%s" % (settings.MEDIA_URL,
-                                    get_thumbnail(self.species.picture))
+            try:
+                print(self.species.picture)
+                picture_url = "%s%s" % (settings.MEDIA_URL,
+                                        get_thumbnail(self.species.picture))
+            except :
+                from traceback import print_exc
+                print_exc()
+                pass
+
+            # finally:
+            #     print('finally')
+
         return {
             "type": "Point",
             "coordinates": [self.lon, self.lat],
@@ -521,7 +535,7 @@ class Survey(models.Model):
             self.individual.save()
 
     def __str__(self):
-        return u"%s" % self.answer
+        return u"%s %s" % (self.individual, self.answer)
 
     def unicode(self):
         return ugettext(self.answer)

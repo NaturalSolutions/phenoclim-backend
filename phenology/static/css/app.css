@@ -353,10 +353,10 @@ form {
   font-size:11px;
 }
 
-.icon-bullet{
+/*.icon-bullet{
   list-style: none;
   margin-left: -17px;
-}
+}*/
 
 .required label{
     font-weight: bold;
@@ -379,12 +379,30 @@ th:first-letter {
 }
 /*****************************/
 
-.display__stage, .display__individual{
+/* .display__stage, .display__individual{
   display: none;
+} */
+
+a.display__species{
+  display:block;
+}
+.block-snowing {
+  margin-top: 20px;
+}
+.block-species {
+  text-align: left;
+  border-radius: 0px;
 }
 
 .graph-controls select{
   font-size: 0.85em;
   padding-left: 0.1em;
   padding-right: 0.1em;
+}
+
+
+/* Optimization */
+form .answer > label {
+    display: block;
+    margin-top: 5px;
 }

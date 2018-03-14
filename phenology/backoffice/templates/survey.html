@@ -37,34 +37,34 @@
           {% if form.errors.answer %}
           <span class="help-block">{{ form.errors.answer.as_text }}</span>
           {% endif %}
-        <div class="btn btn-block btn-lg btn-default radio left-block">
-          <label>
-            <input type="radio" name="{{ form.answer.html_name }}" id="{{ form.answer.id_for_label }}" value="isObserved"
-            {% if form.instance.answer == 'isObserved' %}checked{% endif %}>
-            {% trans "isObserved" %}
-          </label>
-        </div>
-        <div class="btn btn-block btn-lg btn-default radio">
-            <label>
-              <input type="radio" name="{{ form.answer.html_name }}" id="{{ form.answer.id_for_label }}" value="isLost"
-              {% if form.instance.answer == 'isLost' %}checked{% endif %}>
-              {% trans "isLost" %}
-            </label>
-        </div>
-        <div class="btn btn-block btn-lg btn-default radio">
-            <label>
-              <input type="radio" name="{{ form.answer.html_name }}" id="{{ form.answer.id_for_label }}" value="isNever"
-              {% if form.instance.answer == 'isNever' %}checked{% endif %}>
-              {% trans "isNever" %}
-            </label>
-        </div>
-        <div class="btn btn-block btn-lg btn-default radio">
-          <label>
-            <input type="radio" name="{{ form.answer.html_name }}" id="{{ form.answer.id_for_label }}" value="isPassed"
-            {% if form.instance.answer == 'isPassed' %}checked{% endif %}>
-            {% trans "isPassed" %}
-          </label>
-        </div>
+        <label>
+          <div class="btn btn-block btn-lg btn-default radio left-block">
+              <input type="radio" name="{{ form.answer.html_name }}" id="{{ form.answer.id_for_label }}" value="isObserved"
+              {% if form.instance.answer == 'isObserved' %}checked{% endif %}>
+              {% trans "isObserved" %}
+          </div>
+        </label>
+        <label>
+          <div class="btn btn-block btn-lg btn-default radio">
+                <input type="radio" name="{{ form.answer.html_name }}" id="{{ form.answer.id_for_label }}" value="isLost"
+                {% if form.instance.answer == 'isLost' %}checked{% endif %}>
+                {% trans "isLost" %}
+          </div>
+        </label>
+        <label>
+          <div class="btn btn-block btn-lg btn-default radio">
+                <input type="radio" name="{{ form.answer.html_name }}" id="{{ form.answer.id_for_label }}" value="isNever"
+                {% if form.instance.answer == 'isNever' %}checked{% endif %}>
+                {% trans "isNever" %}
+          </div>
+        </label>
+        <label>
+          <div class="btn btn-block btn-lg btn-default radio">
+              <input type="radio" name="{{ form.answer.html_name }}" id="{{ form.answer.id_for_label }}" value="isPassed"
+              {% if form.instance.answer == 'isPassed' %}checked{% endif %}>
+              {% trans "isPassed" %}
+          </div>
+        </label>
       </div>
         <br/>
 
@@ -92,18 +92,19 @@
 </div>
 
 <script type="text/javascript">
- $(".answer>.radio").on("click", function(event){
-  var $input = $("input", $(this));
-  $input.prop("checked", "checked");
-  var input_value = $input.val();
-  if(input_value=="today"){
-    console.log("today");
-  }
-  else if(input_value=="before"){
-    console.log("before");
-  }
-  return false;
- });
+ // $(".answer>.radio").on("click", function(event){
+ //   console.log(event);
+ //  var $input = $("input", $(this));
+ //  $input.prop("checked", "checked");
+ //  var input_value = $input.val();
+ //  if(input_value=="today"){
+ //    console.log("today");
+ //  }
+ //  else if(input_value=="before"){
+ //    console.log("before");
+ //  }
+ //  return false;
+ // });
 </script>
 
 <script src="{% static 'vendor/pickadate.js/lib/picker.js' %}"></script>

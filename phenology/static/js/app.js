@@ -60,7 +60,8 @@ phenoclim.map = function(options){
     // add an OpenStreetMap tile layer
     // 'http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png'
     // 'http://tile.mtbmap.cz/mtbmap_tiles/{z}/{x}/{y}.png'
-    L.tileLayer('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', {
+    var API_KEY = '851c476fad9743cca9b16af9c72ecc05';
+    L.tileLayer('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey=' + API_KEY, {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this._map);
 
@@ -99,6 +100,9 @@ phenoclim.map = function(options){
       ).addTo(self._map);
       var bounds = self.geojson.getBounds();
       self._map.fitBounds(bounds, { maxZoom: 18, padding: [10, 10] });
+      //DEFAULT AREA/Create
+      if(!options.geojson.features[0].features && options.geojson.features[0].coordinates[0] == 4 && options.geojson.features[0].coordinates[1] == 44)
+        self._map.fitBounds(bounds2, { maxZoom: 18, padding: [10, 10] });
     }
     else{
       self._map.fitBounds(bounds2);
@@ -128,10 +132,11 @@ phenoclim.map = function(options){
           var prop = event.target.feature.geometry.properties;
           if(prop.object=="individual" && prop.id){
             setTimeout(function(){ $(".display__individual[data-id=" + prop.id + "]").show();$(".display__individual[data-id=" + prop.id + "]>a").click(); }, 10);
-            };
+            }
         });
       });
       $(".display__individual>a").on("click", function(event){
+        event.preventDefault();
         var id=$(this).parent().attr("data-id");
         self.geojson.eachLayer(function(layer){
           var prop =layer.feature.geometry.properties;
@@ -164,4 +169,3 @@ $( document ).ready(function() {
     $(".map").trigger( "map_init");
   }
 });
-

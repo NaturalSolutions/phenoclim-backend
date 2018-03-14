@@ -28,92 +28,86 @@
         {% for area in user.observer.areas.all %}
           <div class="row">
             <div class="col col-xs-12 no-margin no-padding">
-              <ul class="display__accordeon">
-                <li class="display__area">
+                <h5 class="display__accordeon">
+                  {% trans 'Area: ' %}
                   <a href="{% url 'area-detail' area.id %}">
-                    {{ area }} [ {{ area.commune }} - {{ area.altitude|default:'' }} m]
+                  {{ area }} [ {{ area.commune }} - {{ area.altitude|default:'' }} m]
                   </a>
-                  <ul>
-                    {% regroup area.alive_individuals.all by species as area_species %}
-                    {% for individuals_by_species in area_species %}
-                    <li class="display__species ion-load-d icon-bullet">
-                      <a href="" rel="{% url 'species-detail' individuals_by_species.grouper.id %}">
-                        {{ individuals_by_species.grouper }}
-                      </a>
-                      <ul style="list-style-type:none">
-                        {% for individual in individuals_by_species.list %}
-                        <li class="display__individual ion-leaf icon-bullet" data-id="{{ individual.id }}">
-                          <a href="" rel="{% url 'individual-detail' individual.id %}">
-                            {{ individual }}
-                          </a>
-                          <ul>
-                            {% for stage, dates, survey in individual.get_tasks %}
-                            <li class="display__stage">
-                              <a class="
-                              {% if survey %}
-                              found
-                              {% else %}
-                              missed
-                              {% endif %}"
-                              href="
-                              {% if survey %}
-                              {% url 'survey-detail' survey.id %}
-                              {% else %}
-                              {% url 'survey-detail' %}?stage_id={{stage.id}}&ind_id={{individual.id}}
-                              {% endif %}">
-                              {{ stage }} [{{ dates.0.year}}] {% if survey %}- {{survey.date}}{% endif %}
-                              </a>
-                            </li>
-                            {% endfor %}
-                          </ul>
-                        </li>
-                      {% endfor %}
-                      </ul>
-                    </li>
-                    {% endfor %}
-                    <li class="icon ion-ios-medical icon-bullet">
-                      <a class="btn no-padding btn-link" href="{% url 'snowing-detail' area.id %}">{% trans 'Fill new snowing' %}</a>
-                      {% if area.last_snowing %}
-                        <br/>
-                        <i style="font-style:italic;font-size:0.9em">{{ area.last_snowing.date|date:"D d F Y"}}</i>
-                      {% endif %}
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </div>
-        {% endfor %}
-
-          <div class="row">
-            <div class="col-xs-12 no-padding">
-                <h5 class="text-center padding-10">{% trans 'Vizualisation' %} :</h5>
-                <div class="container-fluid">
-                  <div class="row">
-                    <div class="col-xs-9 graph no-padding">
-                    </div>
-                    <div class="col-xs-3 no-padding graph-controls">
-                      <select name="area" class="form-control" data-id="areas">
-                        {% for area in user.observer.areas.all %}
-                            <option value="{{area.id}}">{{area.name}}</option>
-                        {% endfor %}
-                      </select>
-                      <select name="individual" class="form-control" data-id="individuals">
-                        {% for area in user.observer.areas.all %}
-                          {% for a in area.alive_individuals.all %}
-                            {% if a.survey_set.count > 0 %}
-                              <option rel="{{a.species_id}}" data-area="{{area.id}}" value="{{a.id}}">{{a.name}}</option>
-                            {% endif %}
-                          {% endfor %}
-                        {% endfor %}
-                      </select>
-                      <select name="stage" class="form-control" data-id="stages">
-                      </select>
-                    </div>
+                </h5>
+                {% regroup area.alive_individuals.all by species as area_species %}
+                {% for individuals_by_species in area_species %}
+                  <div class="btn btn-default btn-lg btn-block block-species display__species">
+                    <span class="ion-load-d">
+                      {{ individuals_by_species.grouper }}
+                    </span>
                   </div>
-                </div>
+                  <div class="collapse">
+                    {% for individual in individuals_by_species.list %}
+                    <div class="panel panel-default">
+                      <div class="panel-heading display__individual ion-leaf icon-bullet" data-id="{{ individual.id }}">
+                        <a href="" rel="{% url 'individual-detail' individual.id %}">
+                          {{ individual }}
+                        </a>
+                      </div>
+                        <table class="table">
+                          <thead>
+                          </thead>
+                          <tbody>
+                            {% for stage, dates, survey in individual.get_tasks %}
+                            <tr>
+                              <td>
+                                <span class="
+                                {% if survey %}
+                                found
+                                {% else %}
+                                missed
+                                {% endif %}" >
+                                {{ stage }} [{{ dates.0.year}}] {% if survey %}- {{survey.date}}{% endif %}
+                                </span>
+                                <div class="pull-right">
+                                  {% if survey %}
+                                  <a class="btn btn-xs btn-warning update"
+                                     href="
+                                     {% url 'survey-detail' survey.id %}
+                                     ">
+                                     {% trans 'Update' %}
+                                   </a>
+                                  {% else %}
+                                  <a class="btn btn-xs btn-primary update"
+                                     href="
+                                     {% url 'survey-detail' %}?stage_id={{stage.id}}&ind_id={{individual.id}}
+                                     ">
+                                     {% trans 'Add' %}
+                                   </a>
+                                  {% endif %}
+                                {% if survey and survey.id %}
+                                  <a class="btn btn-xs btn-danger cancel"
+                                     href="{% url 'entry_delete' survey.id %}">{% trans 'Delete' %}</a>
+                                {% endif %}
+                              </div>
+                              </td>
+                            </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                    </div>
+                    {% endfor %}
+                  </div>
+                {% endfor %}
+                <div class="block-snowing">
+                  <a class="btn btn-default btn-lg btn-block" href="{% url 'snowing-detail' area.id %}">
+                    <span class=" ion-ios-medical "> {% trans 'Fill new snowing' %} </span>
+                    {% if area.last_snowing %}
+                      <i style="font-style:italic;font-size:0.9em"> ( {{ area.last_snowing.date|date:"D d F Y"}} )</i>
+                    {% endif %}
+                  </a>
+              </div>
             </div>
           </div>
+
+          <hr></hr>
+
+        {% endfor %}
 
        </div>
     </div>
@@ -129,19 +123,14 @@
         $( document ).ready(function(){
 
           // Accordion
-          $(".display__area a").on("click", function(event){
-            var li = $(this).parent("li");
-            var children = $(li).children("ul").children("li");
-            var is_hidden = children.filter(":hidden").length > 0;
-            if ($(li).children("ul").length > 0){
-              if(is_hidden === false){
-                children.slideUp(300);
-              }
-              else{
-                children.slideDown(300);
-              }
-              return false;
-            }
+          $('.display__species').on("click", function(event){
+            var currentCollapse = $(this).next('.collapse');
+            var slibCollapseIn =  $(this).siblings('.collapse.in');
+            var slibBtn = $(this).siblings('.display__species');
+            $(this).toggleClass('active');
+            currentCollapse.collapse('toggle');
+            slibCollapseIn.collapse('hide');
+            slibBtn.removeClass('active');
           });
 
           // set map height
