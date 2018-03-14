@@ -96,6 +96,13 @@ MILIEU_CHOICES = (
     ('autres', _('autres'))
 )
 
+STATUS_CHOICES = (
+    ('a_valider', _('a_valider')),
+    ('valide', _('valide')),
+    ('corrige', _('corrige')),
+    ('en_erreur', _('en_erreur'))
+)
+
 
 ######################
 # Species
@@ -522,6 +529,11 @@ class Survey(models.Model):
     date = models.DateField(verbose_name=_("survey date"), db_index=True)
     remark = models.TextField(max_length=100, verbose_name=_("remark"),
                               blank=True)
+    status = models.CharField(max_length=100,
+                            verbose_name=_("statut"),
+                            choices=STATUS_CHOICES,
+                            default=STATUS_CHOICES[0][0],
+                            blank=True)
 
     class Meta:
         verbose_name = _("Survey")
