@@ -142,7 +142,7 @@ class Species(models.Model):
         return self.name
 
     def __str__(self):
-        return self.name
+        return self.name.encode('utf8')
 
     def thumbnail(self):
         return get_thumbnail(self.picture)
@@ -418,10 +418,10 @@ class Individual(models.Model):
         return all_stages
 
     def __unicode__(self):
-        return "%s" % (self.name)
+        return "%s" % (self.name).encode('utf8')
 
     def __str__(self):
-        return "%s" % (self.name)
+        return "%s" % (self.name).encode('utf8')
 
 
 # enneigement
@@ -549,7 +549,7 @@ class Survey(models.Model):
             self.individual.save()
 
     def __str__(self):
-        return u"%s %s" % (self.individual, self.answer)
+        return self.answer.encode('utf8')
 
     def unicode(self):
-        return ugettext(self.answer)
+        return self.answer.encode('utf8')
