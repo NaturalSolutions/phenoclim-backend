@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-14 16:21+0100\n"
+"POT-Creation-Date: 2018-03-21 14:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,57 +18,65 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: admin.py:43
+#: admin.py:43 admin.py:90
 msgid "Answer"
 msgstr "Observation"
 
-#: admin.py:48
+#: admin.py:48 admin.py:95
 msgid "Individual"
 msgstr "Individu"
 
-#: admin.py:53 models.py:137 models.py:286 models.py:480
+#: admin.py:53 admin.py:100 models.py:137 models.py:286 models.py:480
 msgid "Species"
 msgstr "espèce"
 
-#: admin.py:58 models.py:175 models.py:287 models.py:429 models.py:454
+#: admin.py:58 admin.py:105 models.py:175 models.py:287 models.py:429
+#: models.py:454
 msgid "Area"
 msgstr "Zone d'observation"
 
-#: admin.py:63 models.py:475 models.py:523
+#: admin.py:63 admin.py:110 models.py:475 models.py:523
 msgid "Stage"
 msgstr "Stade de dévelopement"
 
-#: admin.py:76 admin.py:114
+#: admin.py:74
+msgid "duplicate-surveys"
+msgstr "Observations dupliquées"
+
+msgid "duplicate-survey"
+msgstr "Observation dupliquée"
+
+#: admin.py:140 admin.py:178
 msgid "Commune"
 msgstr ""
 
-#: admin.py:94 admin.py:197 models.py:257
+#: admin.py:158 admin.py:261 models.py:257
 msgid "Observers"
 msgstr "Observateurs"
 
-#: admin.py:101 models.py:138
+#: admin.py:165 models.py:138
 msgid "species"
 msgstr "Espèces"
 
-#: admin.py:146
+#: admin.py:210
 msgid "first name"
 msgstr ""
 
-#: admin.py:151
+#: admin.py:215
 #, fuzzy
 msgid "last name"
 msgstr "Nom"
 
-#: admin.py:157
+#: admin.py:221
 #, fuzzy
 msgid "username"
 msgstr "Nom"
 
-#: admin.py:189 models.py:476
+#: admin.py:253 models.py:476
 msgid "Stages"
 msgstr "Stades de dévelopement"
 
-#: admin.py:193 models.py:542
+#: admin.py:257 models.py:542
 msgid "Surveys"
 msgstr "Observations"
 

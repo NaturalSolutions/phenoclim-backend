@@ -66,6 +66,70 @@ class SurveyAdmin(ImportExportModelAdmin):
 admin.site.register(models.Survey, SurveyAdmin)
 
 
+def create_modeladmin(modeladmin, model, name = None):
+    class  Meta:
+        proxy = True
+        app_label = model._meta.app_label
+        verbose_name = _(name)
+        verbose_name_plural = _(name +'s')
+
+    attrs = {'__module__': '', 'Meta': Meta}
+
+    newmodel = type(name, (model,), attrs)
+
+    admin.site.register(newmodel, modeladmin)
+    return modeladmin
+
+class DuplicateSurveyAdmin(ImportExportModelAdmin):
+    resource_class = ressources.SurveyResource
+    list_display = ('id', 'date', 'ind_name', 'species_name',
+                    'stage_name', '_answer', 'area_name', 'status', 'comment')
+
+    def _answer(self, obj):
+        return ugettext(obj.answer)
+    _answer.short_description = _('Answer')
+    _answer.admin_order_field = 'answer'
+
+    def ind_name(self, obj):
+        return (obj.individual.name)
+    ind_name.short_description = _('Individual')
+    ind_name.admin_order_field = 'individual__name'
+
+    def species_name(self, obj):
+        return ("%s" % (obj.individual.species.name))
+    species_name.short_description = _('Species')
+    species_name.admin_order_field = 'individual__species__name'
+
+    def area_name(self, obj):
+        return ("%s" % (obj.individual.area.name))
+    area_name.short_description = _('Area')
+    area_name.admin_order_field = 'individual__area__name'
+
+    def stage_name(self, obj):
+        return ("%s" % (obj.stage.name))
+    stage_name.short_description = _('Stage')
+    stage_name.admin_order_field = 'stage__name'
+
+    def get_ordering(self, request):
+        return ['date', 'individual', 'answer']
+
+    def queryset(self, request):
+        qs = super(DuplicateSurveyAdmin, self).queryset(request)
+        qs = qs.extra(where=[
+           '''(individual_id, stage_id, answer, date,  observer_id, name_obs, firstname_obs) IN (
+                SELECT individual_id, stage_id, answer, date, observer_id, name_obs, firstname_obs FROM (
+                    SELECT individual_id, stage_id, answer, date, observer_id, name_obs, firstname_obs
+                    FROM public.backend_survey
+                    GROUP BY individual_id, stage_id, answer, date, observer_id, name_obs, firstname_obs
+                    HAVING COUNT(*) > 1
+                    ) AS duplicate_survey
+                    )'''
+        ])
+        return qs
+
+create_modeladmin(DuplicateSurveyAdmin, name='duplicate-survey', model=models.Survey)
+
+
 class IndividualAdmin(ImportExportModelAdmin):
     list_display = ('name', 'species', 'area', 'area_city')
     search_fields = ['name', 'species__name', 'area__name', 'area__commune']
