@@ -93,7 +93,7 @@
 
         phenoclim.vizsnowings.refreshYears = function(data, container){
           var snowings = data.snowings || [];
-          console.log(snowings)
+          //console.log(snowings)
           var years = d3.set(snowings.map(function(d){
             var newdate = new Date(d.date);
             if (newdate.getMonth() >= 10) {
@@ -101,7 +101,7 @@
             }
             return newdate.getFullYear();
           })).values();
-          console.log(years)
+          //console.log(years)
           years.sort().reverse();
           var $input = $('[name=year]', container);
           $("option", $input).remove();
@@ -124,21 +124,16 @@
                 phenoclim.vizsnowings.refreshYears(data, $('.area2'));
                 var year = $("[name=year]", container).val();
 
-                $(".area2 select:first").val(area_id);
-                $(".area2 [name=year]").val(year-1);
-
                 var pdata = phenoclim.vizsnowings.prepareData(data, year);
-                var pdata2 = phenoclim.vizsnowings.prepareData(data, year-1);
                 d3.select(".area1 .graph").datum(pdata).call(phenoclim.session.chartClass["area1"]);
-                d3.select(".area2 .graph").datum(pdata2).call(phenoclim.session.chartClass["area2"]);
               });
             });
             $('.area2 select:first').on("change",function(event){
               var area_id = $(this).val();
               phenoclim.vizsnowings.getData(area_id).done(function(data){
                 var year = $(".area2 [name=year]").val();
-                var pdata = phenoclim.vizsnowings.prepareData(data, year);
-                d3.select(".area2 .graph").datum(pdata2).call(phenoclim.session.chartClass["area2"]);
+                var pdataArea2 = phenoclim.vizsnowings.prepareData(data, year);
+                d3.select(".area2 .graph").datum(pdataArea2).call(phenoclim.session.chartClass["area2"]);
               });
             });
             $('.snowing-area [name=year]').on("change",function(event){
@@ -150,7 +145,12 @@
                 d3.select($container[0]).select(".graph").datum(pdata).call(phenoclim.session.chartClass[$container.attr("rel")]);
               });
             });
+
+            //Default value chamonix vs montroc
+            $('.area1 select option:contains("Chamonix 1050")').prop('selected',true);
             $('.area1 select:first').trigger("change");
+            $('.area2 select:first option:contains("Montroc")').prop('selected',true);
+            $('.area2 select:first').trigger("change");
         });
       </script>
 

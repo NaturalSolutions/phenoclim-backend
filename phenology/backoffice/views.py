@@ -199,6 +199,7 @@ def search_surveys(request):
     classified = {}
     results = {}
     species_id = request.GET.get("species_id")
+    notdead = request.GET.get("not_dead")
     individuals = models.Individual.objects.all()
     areas = models.Area.objects.all()
     if species_id and species_id.isdigit():
@@ -235,11 +236,11 @@ def search_surveys(request):
 
         timer.capture()
         survey_sql = 'SELECT ' + year_query() + ' as year, ' +\
-                     'COUNT(*), MAX(date), MIN(date), stage_id, species_id, area_id FROM backend_survey, backend_individual ' +\
-                     ' WHERE backend_survey.individual_id=backend_individual.id AND ' +\
-                     'backend_individual.species_id = %s ' % species_id +\
-                     'GROUP BY area_id, species_id, stage_id, year ' +\
-                     'ORDER BY area_id, species_id, stage_id,year;'
+                    'COUNT(*), MAX(date), MIN(date), stage_id, species_id, area_id FROM backend_survey, backend_individual ' +\
+                    ' WHERE backend_survey.individual_id=backend_individual.id AND ' +\
+                    'backend_individual.species_id = %s ' % species_id +\
+                    'GROUP BY area_id, species_id, stage_id, year ' +\
+                    'ORDER BY area_id, species_id, stage_id,year;'
         cursor.execute(survey_sql)
         keys = ['year', 'count', 'max', 'min', 'stage_id',
                 'species_id', 'area_id']
@@ -255,13 +256,23 @@ def search_surveys(request):
                 "count": survey_dict["count"],
                 "values": {}
             }
-
-        survey_sql = 'SELECT ' + year_query() + ' as year, ' + week_query() + ' as week, ' +\
-                     'COUNT(*), stage_id, species_id, area_id FROM backend_survey, backend_individual ' +\
-                     ' WHERE backend_survey.individual_id=backend_individual.id AND ' +\
-                     'backend_individual.species_id = %s ' % species_id +\
-                     'GROUP BY area_id, species_id, stage_id, year,  week ' +\
-                     'ORDER BY area_id, species_id, stage_id,year,week;'
+        if notdead :
+            print 'notdead'
+            survey_sql = "SELECT " + year_query() + " as year, " + week_query() + " as week, " +\
+                        "COUNT(*), stage_id, species_id, area_id FROM backend_survey, backend_individual" +\
+                        " WHERE backend_survey.individual_id=backend_individual.id AND " +\
+                        "backend_individual.species_id = %s " % species_id +\
+                        " AND backend_survey.answer !='isLost' " +\
+                        "GROUP BY area_id, species_id, stage_id, year,  week " +\
+                        "ORDER BY area_id, species_id, stage_id,year,week;"
+        else:
+            print 'with dead'
+            survey_sql = 'SELECT ' + year_query() + ' as year, ' + week_query() + ' as week, ' +\
+                        'COUNT(*), stage_id, species_id, area_id FROM backend_survey, backend_individual ' +\
+                        ' WHERE backend_survey.individual_id=backend_individual.id AND ' +\
+                        'backend_individual.species_id = %s ' % species_id +\
+                        'GROUP BY area_id, species_id, stage_id, year,  week ' +\
+                        'ORDER BY area_id, species_id, stage_id,year,week;'
         cursor.execute(survey_sql)
         keys = ['year', 'week', 'count', 'stage_id', 'species_id', 'area_id']
         for survey in cursor.fetchall():
