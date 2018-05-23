@@ -48,7 +48,7 @@
       phenoclim.mapviz = phenoclim.mapviz || {};
       phenoclim.mapviz.get_data = function(species_id){
         if(!cached_surveys[species_id]){
-          return $.get('/portail/search_surveys?species_id=' + species_id,function(data){
+          return $.get('/portail/search_surveys?not_dead=true&species_id=' + species_id,function(data){
               cached_surveys[species_id] = data
           });
         }
