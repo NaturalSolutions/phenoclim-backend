@@ -96,6 +96,13 @@ MILIEU_CHOICES = (
     ('autres', _('autres'))
 )
 
+STATUS_CHOICES = (
+    ('a_valider', _('a_valider')),
+    ('valide', _('valide')),
+    ('corrige', _('corrige')),
+    ('en_erreur', _('en_erreur'))
+)
+
 
 ######################
 # Species
@@ -135,7 +142,7 @@ class Species(models.Model):
         return self.name
 
     def __str__(self):
-        return self.name
+        return self.name.encode('utf8')
 
     def thumbnail(self):
         return get_thumbnail(self.picture)
@@ -411,10 +418,10 @@ class Individual(models.Model):
         return all_stages
 
     def __unicode__(self):
-        return "%s" % (self.name)
+        return "%s" % (self.name).encode('utf8')
 
     def __str__(self):
-        return "%s" % (self.name)
+        return "%s" % (self.name).encode('utf8')
 
 
 # enneigement
@@ -522,6 +529,13 @@ class Survey(models.Model):
     date = models.DateField(verbose_name=_("survey date"), db_index=True)
     remark = models.TextField(max_length=100, verbose_name=_("remark"),
                               blank=True)
+    status = models.CharField(max_length=100,
+                            verbose_name=_("statut"),
+                            choices=STATUS_CHOICES,
+                            default=STATUS_CHOICES[0][0],
+                            blank=True)
+    comment = models.TextField(max_length=240, verbose_name=_("comment"),
+                              blank=True)
 
     class Meta:
         verbose_name = _("Survey")
@@ -535,7 +549,7 @@ class Survey(models.Model):
             self.individual.save()
 
     def __str__(self):
-        return u"%s %s" % (self.individual, self.answer)
+        return self.answer.encode('utf8')
 
     def unicode(self):
-        return ugettext(self.answer)
+        return self.answer.encode('utf8')
