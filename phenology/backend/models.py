@@ -532,7 +532,6 @@ class Survey(models.Model):
     status = models.CharField(max_length=100,
                             verbose_name=_("statut"),
                             choices=STATUS_CHOICES,
-                            default=STATUS_CHOICES[0][0],
                             blank=True)
     comment = models.TextField(max_length=240, verbose_name=_("comment"),
                               blank=True)
