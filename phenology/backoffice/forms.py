@@ -150,7 +150,7 @@ class SurveyForm(forms.ModelForm):
                            input_formats=('%d/%m/%Y',))
 
     class Meta:
-        exclude = ('is_dead',)
+        exclude = ('is_dead', 'status', 'comment')
         model = models.Survey
         widgets = {
             'remark': forms.Textarea(attrs={'rows': 4}),
