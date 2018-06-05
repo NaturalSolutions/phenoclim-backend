@@ -24,6 +24,8 @@ var areaMarker = L.AwesomeMarkers.icon({
 
 phenoclim.map = function(options){
   self = this;
+  var bounds;
+  var bounds2 = [[46.38, -1.51],[42.71, 7.95]];
 
   var defaults = {
     draggable: false,
@@ -66,7 +68,14 @@ phenoclim.map = function(options){
     }).addTo(this._map);
 
     L.control.scale({ imperial : false }).addTo(self._map);
-    var bounds2 = [[46.38, -1.51],[42.71, 7.95]];
+    var search = location.search.substring(1);
+    var qstring = (search) ? parseQueryString(search) : '';
+    if(qstring["centroid"] && qstring["centroid"].length) {
+      var latlng = L.latLng(Number(qstring["centroid"][0]), Number(qstring["centroid"][1]));
+      var sizeinmeters = (qstring["sizeinmeters"] && qstring["sizeinmeters"].length) ? qstring["sizeinmeters"] : 300000;
+      bounds = latlng.toBounds(Number(sizeinmeters));
+    }
+
     if(options.geojson && options.geojson.features && options.geojson.features.length > 0){
       self.geojson = L.geoJson(options.geojson,{
           filter: function(feature){
@@ -98,7 +107,7 @@ phenoclim.map = function(options){
           onEachFeature: onEachFeature
       }
       ).addTo(self._map);
-      var bounds = self.geojson.getBounds();
+      bounds = self.geojson.getBounds();
       self._map.fitBounds(bounds, { maxZoom: 18, padding: [10, 10] });
       //DEFAULT AREA/Create
       if(!options.geojson.features[0].features && options.geojson.features[0].coordinates[0] == 4 && options.geojson.features[0].coordinates[1] == 44)
@@ -169,3 +178,17 @@ $( document ).ready(function() {
     $(".map").trigger( "map_init");
   }
 });
+
+var parseQueryString = function( queryString ) {
+  var params = {}, queries, temp, i, l;
+  // Split into key/value pairs
+  queries = queryString.split("&");
+  // Convert the array of strings into an object
+  for ( i = 0, l = queries.length; i < l; i++ ) {
+      temp = queries[i].split('=');
+      temp[1] = temp[1].split(",");
+      params[temp[0]] = temp[1];
+
+  }
+  return params;
+};
