@@ -1,0 +1,542 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-05-31 14:52+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: forms.py:18
+msgid "Already exists"
+msgstr "Ja existeix"
+
+#: forms.py:47
+msgid "User with this email doesnt exist"
+msgstr "No s’ha trobat cap usuari amb aquesta adreça electrònica"
+
+#: forms.py:167
+msgid "Change stage"
+msgstr "Canviar estadi de desenvolupament "
+
+#: forms.py:178
+#, python-format
+msgid "There is already a survey with same stage, same individual in %(year)s"
+msgstr ""
+"Ja existeix una observació amb el mateix estadi de desenvolupament, el "
+"mateix individu en %(year)s "
+
+#: forms.py:207
+msgid "This name is already found in your area"
+msgstr "Aquest nom ja ha estat atribuït a un individu de la teva zona "
+
+#: views.py:38 templates/survey.html:44
+msgid "isObserved"
+msgstr "Observat"
+
+#: views.py:38
+msgid "isDead"
+msgstr "Mort"
+
+#: views.py:39 templates/survey.html:51
+msgid "isLost"
+msgstr "Individu perdut o mort"
+
+#: views.py:39 templates/survey.html:58
+msgid "isNever"
+msgstr "Estadi absent"
+
+#: views.py:39 templates/survey.html:65
+msgid "isPassed"
+msgstr "Estadi que ja passat"
+
+#: views.py:460 views.py:501 views.py:516 views.py:556 views.py:604
+#: views.py:650 views.py:675
+msgid "Form is successifully updated"
+msgstr "Les dades s’han guardat correctament "
+
+#: views.py:508
+msgid "Your are not allowed to see this form"
+msgstr "No estàs autoritzat a veure el contingut d’aquesta pàgina "
+
+#: views.py:687
+msgid "Welcome on Phenoclim website"
+msgstr "Benvingut/da a la comunitat Phénoclim !"
+
+#: views.py:727
+msgid "New password"
+msgstr "Nova clau d’accés"
+
+#: templates/all_surveys.html:14
+msgid "Export my surveys"
+msgstr "Exportar les meves dades "
+
+#: templates/all_surveys.html:15
+msgid "Export my snowings"
+msgstr "Exportar les meves dades d’innivació"
+
+#: templates/all_surveys.html:16
+msgid "Chart surveys"
+msgstr "Gràfic de les observacions"
+
+#: templates/all_surveys.html:28
+#, fuzzy
+msgid "date"
+msgstr "Validar"
+
+#: templates/all_surveys.html:31 templates/profile_area.html:10
+msgid "Area"
+msgstr "Zona d'observació"
+
+#: templates/all_surveys.html:34 templates/profile_area.html:48
+#: templates/profile_individual.html:54
+msgid "Species"
+msgstr "Espècie"
+
+#: templates/all_surveys.html:37 templates/profile_individual.html:9
+msgid "Individual"
+msgstr "Individu"
+
+#: templates/all_surveys.html:40
+msgid "Organism"
+msgstr "Organisme"
+
+#: templates/all_surveys.html:43
+msgid "Stage"
+msgstr "Estadi de desenvolupament"
+
+#: templates/all_surveys.html:46
+msgid "Answer"
+msgstr "Resposta"
+
+#: templates/chart_surveys.html:28
+msgid "Vizualisation"
+msgstr "Data d’aparició dels estadis per any"
+
+#: templates/generic_form.html:14 templates/profile.html:22
+#: templates/profile_area.html:32 templates/profile_individual.html:32
+#: templates/snowing.html:42 templates/survey.html:86
+msgid "Validate"
+msgstr "Validar"
+
+#: templates/login_form.html:10
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"El teu identificador i clau d’accés no es corresponen. Torna-ho a intentar, "
+"si us plau"
+
+#: templates/login_form.html:21
+msgid "Connect"
+msgstr "Connectar-se"
+
+#: templates/login_form.html:25
+msgid "Register"
+msgstr "Inscriure’s"
+
+#: templates/login_form.html:26
+msgid "Missed password"
+msgstr "Clau d’accés oblidada "
+
+#: templates/map_viz.html:33
+msgid "above 1000m"
+msgstr "Per sobre de 1000m"
+
+#: templates/map_viz.html:38
+msgid "below 1000m"
+msgstr "Per sota de 1000m"
+
+#: templates/my_studies.html:6 templates/navigation.html:22
+msgid "My studies"
+msgstr "Els meus estudis"
+
+#: templates/my_studies.html:12
+msgid "My Areas"
+msgstr "Les meves zones d'observació"
+
+#: templates/my_studies.html:17 templates/profile_area.html:47
+#: templates/profile_individual.html:53
+msgid "name"
+msgstr "Nom"
+
+#: templates/my_studies.html:18
+msgid "city"
+msgstr "Municipi"
+
+#: templates/my_studies.html:34
+msgid "Add a new area"
+msgstr "Afegir una nova zona d’observació "
+
+#: templates/my_surveys.html:24
+msgid "My surveys"
+msgstr "Les meves observacions"
+
+#: templates/my_surveys.html:32
+msgid "Area: "
+msgstr "Zona : "
+
+#: templates/my_surveys.html:73
+msgid "Update"
+msgstr "Modificar"
+
+#: templates/my_surveys.html:80
+msgid "Add"
+msgstr "Afegir"
+
+#: templates/my_surveys.html:85
+msgid "Delete"
+msgstr "Suprimir"
+
+#: templates/my_surveys.html:99
+msgid "Fill new snowing"
+msgstr "Innivació"
+
+#: templates/navigation.html:15
+msgid "My Profil"
+msgstr "El meu perfil "
+
+#: templates/navigation.html:29
+msgid "Dashboard"
+msgstr "Entrar les meves observacions"
+
+#: templates/navigation.html:36
+msgid "All my surveys"
+msgstr "Totes les meves observacions"
+
+#: templates/navigation.html:40
+msgid "Logout"
+msgstr "Desconnectar"
+
+#: templates/password_change_done.html:3
+msgid "Password changed"
+msgstr "Clau d’accés canviada "
+
+#: templates/password_change_done.html:5
+msgid "Password successfully changed!"
+msgstr "Clau d’accés canviada correctament!"
+
+#: templates/password_new_done.html:9
+msgid ""
+"We have sent you an email with the new password. <br/> Please check your "
+"email."
+msgstr ""
+"La teva sol•licitud s’ha tingut en comtpe.<br/>S’han enviat nous "
+"identificadors a la teva adreça electrònica "
+
+#: templates/password_new_email.html:1 templates/registration_email.html:1
+msgid "Greetings"
+msgstr "Bon dia"
+
+#: templates/password_new_email.html:3
+#, fuzzy, python-format
+msgid ""
+"You asked to reset you password.\n"
+"\n"
+"Your username : %(username)s\n"
+"Your new password : %(password)s\n"
+"\n"
+"We invite you to navigate to your personnal space and modify your password "
+"in the \"My profil\" section.\n"
+"\n"
+"If it's not from you, please ignore this message.\n"
+"\n"
+"Phénoclim management.\n"
+"\n"
+"Centre de Recherches sur les Ecosystèmes d'Altitude (CREA Mont-Blanc) [lien "
+"http://creamontblanc.org]\n"
+"Observatoire du Mont-Blanc, 74400 Chamonix, France \n"
+"\n"
+"Pour toute question, contactez-nous :\n"
+"phenoclim@creamontblanc.org\n"
+"Tél : +33 (0)4 50 53 45 16\n"
+"\n"
+msgstr ""
+"Has demanat nous identificadors per la pàgina web http://phenoclim.org. \n"
+"\n"
+"El teu identificador : %(username)s\n"
+"La teva nova clau d’accés : %(password)s\n"
+"\n"
+"Et convidem a connectar-se a partir d’aquest moment al teu compte personal \n"
+"i a modificar la teva clau d’accés a la secció « El meu perfil».\n"
+"\n"
+"Si no ets l’autor de la sol•licitud, no tinguis en compte aquest missatge.\n"
+"\n"
+"L’equip de Phénoclim\n"
+"\n"
+"Centre de Recherches sur les Ecosystèmes d'Altitude (CREA Mont-Blanc) "
+"[http://creamontblanc.org]\n"
+"Observatoire du Mont-Blanc, 74400 Chamonix, France \n"
+"\n"
+"Per qualsevol dubte, posa’t en contacte amb nosaltres:\n"
+"phenoclim@creamontblanc.org\n"
+"Tél : +33 (0)4 50 53 45 16\n"
+"\n"
+
+#: templates/password_new_form.html:12
+msgid ""
+"Forgot your password?  Enter your email in the form below and we'll send you "
+"a new one."
+msgstr ""
+"Has oblidat la clau d’accés?  Entra la teva adreça electrònica per tal "
+"quepuguem enviar-te’n una de nova "
+
+#: templates/password_new_form.html:18
+msgid "Reset password"
+msgstr "Restaurar la clau d’accés "
+
+#: templates/profile.html:7
+msgid "My profil"
+msgstr "El meu perfil"
+
+#: templates/profile.html:9
+msgid "Change password"
+msgstr "Canviar la clau d’accés "
+
+#: templates/profile_area.html:8
+msgid "New area"
+msgstr "Nova zona d'observació"
+
+#: templates/profile_area.html:24
+msgid "Back to my studies"
+msgstr "Tornar a les meves zones d'observació"
+
+#: templates/profile_area.html:42
+msgid "Indivuals"
+msgstr "Individus"
+
+#: templates/profile_area.html:49
+msgid "Last survey"
+msgstr "Última observació"
+
+#: templates/profile_area.html:69
+msgid "Add a new individual"
+msgstr "Afegir un nou individu"
+
+#: templates/profile_individual.html:7
+msgid "New individual"
+msgstr "Nou individu"
+
+#: templates/profile_individual.html:24
+msgid "Back to the area"
+msgstr "Tornar a la zona"
+
+#: templates/profile_individual.html:48
+msgid "Last surveys"
+msgstr "Últimes observacions"
+
+#: templates/profile_individual.html:73
+msgid "Add a new survey"
+msgstr "Entrar una nova observació "
+
+#: templates/registration_done.html:9
+msgid ""
+"We have sent you an email with the password. <br/> Please check your email."
+msgstr ""
+"Benvingut/da a la comunitat Phénoclim !<br/>La teva sol•licitud d’inscripció "
+"s’ha processat.<br/>Els teus identificadors s’han enviat a la teva adreça "
+"electrònica."
+
+#: templates/registration_email.html:3
+#, fuzzy, python-format
+msgid ""
+"\n"
+"\n"
+"Thank you to have join phenoclim.\n"
+"\n"
+"You can access to your account on the website http://phenoclim.org, create "
+"your area and add individuals that you observe along the year.\n"
+"All the documentation is here: http://phenoclim.org/fr/participer-devenir-"
+"observateur.\n"
+"\n"
+"We invite you to navigate to your personnal space and modify your password "
+"in the \"My profil\" section.\n"
+"\n"
+"Your password : %(password)s\n"
+"Your username : %(username)s\n"
+"\n"
+"Welcome to the community !\n"
+"\n"
+"Phenoclim team.\n"
+"\n"
+"Centre de Recherches sur les Ecosystèmes d'Altitude (CREA Mont-Blanc) "
+"[http://creamontblanc.org]\n"
+"Observatoire du Mont-Blanc, 74400 Chamonix, France\n"
+"\n"
+"phenoclim@creamontblanc.org\n"
+"Tél : +33 (0)4 50 53 45 16\n"
+"\n"
+msgstr ""
+"\n"
+"\n"
+"Hem rebut la teva inscripció al programa de ciències participatives "
+"Phénoclim.\n"
+"\n"
+"A partir d’ara ja et pots connectar al teu comtpe personal a la pàgina web "
+"http://phenoclim.org, crear la teva zona d’estudi i descriure els individus "
+"que observaràs durant les estacions. \n"
+"Per ajudar-te, aquí pots trobar tota la documentació relacionada amb el "
+"projecte Phénoclim: http://phenoclim.org/fr/participer-devenir-observateur.\n"
+"\n"
+"El teu nom d’usuari: %(username)s\n"
+"La teva clau d’accés: %(password)s\n"
+"\n"
+"Et convidem a connectar-te a partir d’aquest moment al teu compte personal i "
+"a modificar la teva clau d’accés a la secció « El meu perfil».\n"
+"\n"
+"Benvingut/da a la comunitat!\n"
+"\n"
+"L’equip Phénoclim\n"
+"\n"
+"Centre de Recherches sur les Ecosystèmes d'Altitude (CREA Mont-Blanc) "
+"[http://creamontblanc.org]\n"
+"Observatoire du Mont-Blanc, 74400 Chamonix, France \n"
+"\n"
+"Per qualsevol dubte, posa’t en contacte amb nosaltres:\n"
+"\n"
+"phenoclim@creamontblanc.org\n"
+"Tél : +33 (0)4 50 53 45 16\n"
+"\n"
+
+#: templates/snowing.html:23 templates/survey.html:15
+msgid "Back"
+msgstr "Tornar"
+
+#: templates/survey.html:23
+msgid "before"
+msgstr "abans"
+
+#: templates/survey.html:27
+msgid "current"
+msgstr "actualment"
+
+#: templates/survey.html:31
+msgid "after"
+msgstr "després"
+
+#: templates/survey_confirm_delete.html:5
+msgid "Confirm delete?"
+msgstr "Confirmar l’eliminació"
+
+#: templates/survey_confirm_delete.html:11
+msgid "Are you sure?"
+msgstr "N’estàs segur/a?"
+
+#: templates/survey_confirm_delete.html:12
+#, python-format
+msgid ""
+"\n"
+"            <p> You're about to delete the stage for %(individual_t)s .\n"
+"            "
+msgstr ""
+"\n"
+"            <p> Estàs segur/a de voler eliminar aquest estadi per "
+"l'%(individual_t)s .\n"
+"            "
+
+#: templates/survey_confirm_delete.html:18
+msgid "Cancel"
+msgstr "Anul•lar"
+
+#: templates/survey_confirm_delete.html:20
+msgid "Confirm"
+msgstr "Confirmar"
+
+#~ msgid "Enneigement"
+#~ msgstr "Innivació"
+
+#~ msgid ""
+#~ "You are receiving this email because you (or someone pretending to be "
+#~ "you)\n"
+#~ "requested that your password be reset on http://phenoclim.org. "
+#~ msgstr ""
+#~ "Has rebut aquest e-mail perquè tu (o algú que es fa passar per tu)\n"
+#~ "ha demanat el canvi de la teva clau d’accés a http://phenoclim.org. "
+
+#~ msgid ""
+#~ "\n"
+#~ "Your new password : %(password)s\n"
+#~ "Your username, in case you've forgotten: %(username)s\n"
+#~ "\n"
+#~ "Best regards,\n"
+#~ "%(site_name)s\n"
+#~ msgstr ""
+#~ "\n"
+#~ "La teva nova clau d’accés : %(password)s\n"
+#~ "El teu identificador: %(username)s\n"
+#~ "\n"
+#~ "Cordialment,\n"
+#~ "%(site_name)s\n"
+
+#~ msgid "Thank you to have join http://phenoclim.org. "
+#~ msgstr ""
+#~ "Benvingut/da al projecte Phenoclim. La pàgina web és accessible a través "
+#~ "de vincle http://phenoclim.org."
+
+#~ msgid ""
+#~ "\n"
+#~ "Your password : %(password)s\n"
+#~ "Your username : %(username)s\n"
+#~ "\n"
+#~ "Best regards,\n"
+#~ "%(site_name)s\n"
+#~ msgstr ""
+#~ "\n"
+#~ "La teva nova clau d’accés: %(password)s\n"
+#~ "El teu identificador: %(username)s\n"
+#~ "\n"
+#~ "Cordialment,\n"
+#~ "%(site_name)s\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "\n"
+#~ "La teva clau d’accés: %(password)s\n"
+#~ "El teu identificador : %(username)s\n"
+#~ "\n"
+#~ "Cordialment,\n"
+#~ "L'equip Phenoclim\n"
+#~ msgstr ""
+#~ "\n"
+#~ "La teva nova clau d’accés: %(password)s\n"
+#~ "El teu identificador: %(username)s\n"
+#~ "\n"
+#~ "Cordialment,\n"
+#~ "%(site_name)s\n"
+
+#~ msgid "Change center position"
+#~ msgstr "Canviar el centre de la zona "
+
+#~ msgid "Individual lost ord dead"
+#~ msgstr "Individu perdut o mort"
+
+#~ msgid "Stage never happened"
+#~ msgstr "Estadi absent"
+
+#~ msgid "Stage already passed"
+#~ msgstr "Estade que ja ha passat "
+
+#~ msgid "Login"
+#~ msgstr "Connectar-se"
+
+#, fuzzy
+#~ msgid "Observer"
+#~ msgstr "Observador"
+
+#~ msgid "Observed today"
+#~ msgstr "Observat avui"
+
+#~ msgid "Back to the individual"
+#~ msgstr "Tornar a l’individu "
+
+#~ msgid "Observed another day"
+#~ msgstr "Observat un altre dia"

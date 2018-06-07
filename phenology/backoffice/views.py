@@ -257,16 +257,16 @@ def search_surveys(request):
                 "values": {}
             }
         if notdead :
-            print 'notdead'
+            """ 'isObserved' """
             survey_sql = "SELECT " + year_query() + " as year, " + week_query() + " as week, " +\
                         "COUNT(*), stage_id, species_id, area_id FROM backend_survey, backend_individual" +\
                         " WHERE backend_survey.individual_id=backend_individual.id AND " +\
                         "backend_individual.species_id = %s " % species_id +\
-                        " AND backend_survey.answer !='isLost' " +\
+                        " AND backend_survey.answer ='isObserved' " +\
                         "GROUP BY area_id, species_id, stage_id, year,  week " +\
                         "ORDER BY area_id, species_id, stage_id,year,week;"
         else:
-            print 'with dead'
+            """ 'all answer' """
             survey_sql = 'SELECT ' + year_query() + ' as year, ' + week_query() + ' as week, ' +\
                         'COUNT(*), stage_id, species_id, area_id FROM backend_survey, backend_individual ' +\
                         ' WHERE backend_survey.individual_id=backend_individual.id AND ' +\
