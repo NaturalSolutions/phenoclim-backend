@@ -24,8 +24,7 @@ var areaMarker = L.AwesomeMarkers.icon({
 
 phenoclim.map = function(options){
   self = this;
-  var bounds;
-  var bounds2 = [[46.38, -1.51],[42.71, 7.95]];
+  var bounds = [[46.38, -1.51],[42.71, 7.95]];
 
   var defaults = {
     draggable: false,
@@ -77,6 +76,7 @@ phenoclim.map = function(options){
     }
 
     if(options.geojson && options.geojson.features && options.geojson.features.length > 0){
+      console.log('map geojson exists ! ');
       self.geojson = L.geoJson(options.geojson,{
           filter: function(feature){
             if (options.filter_draggable === true) {
@@ -110,11 +110,13 @@ phenoclim.map = function(options){
       bounds = self.geojson.getBounds();
       self._map.fitBounds(bounds, { maxZoom: 18, padding: [10, 10] });
       //DEFAULT AREA/Create
-      if(!options.geojson.features[0].features && options.geojson.features[0].coordinates[0] == 4 && options.geojson.features[0].coordinates[1] == 44)
-        self._map.fitBounds(bounds2, { maxZoom: 18, padding: [10, 10] });
+      if(!options.geojson.features[0].features && options.geojson.features[0].coordinates[0] == 4 && options.geojson.features[0].coordinates[1] == 44) {
+        bounds = [[46.38, -1.51],[42.71, 7.95]];
+        self._map.fitBounds(bounds, { maxZoom: 18, padding: [10, 10] });
+      }
     }
-    else{
-      self._map.fitBounds(bounds2);
+    else {
+      self._map.fitBounds(bounds);
     }
 
      $(".change_position").on("click",function(event){
