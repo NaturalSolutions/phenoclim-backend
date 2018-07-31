@@ -180,7 +180,7 @@ TILES_SETTINGS = {
     'TILES_GLOBAL_ZOOMS': range(5, 11),  # zoom 7 to 10
     'TILES_AREA_ZOOMS': range(11, 17),  # zoom 11 to 16
     'TILES_ROOT': os.path.join(MEDIA_ROOT, 'tiles'),
-    'TILES_URL': 'http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png',  # tiles url
+    'TILES_URL': 'https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png',  # tiles url
     'GLOBAL_MAP_BBOX': [4.669189453125, 43.69965122967144, 7.9046630859375, 46.464349400461124],  # Whole Alpes
 }
 
