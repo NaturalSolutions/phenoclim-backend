@@ -35,13 +35,13 @@ ALLOWED_HOSTS = []
 MEDIA_ROOT = os.path.join(BASE_DIR, 'data/media')
 MEDIA_URL = '/media/'
 
-SESSION_COOKIE_SECURE = True
-SESSION_COOKIE_HTTPONLY = True
-SECURE_BROWSER_XSS_FILTER = True
-SECURE_CONTENT_TYPE_NOSNIFF = True
-SECURE_FRAME_DENY = True
-SECURE_HSTS_SECONDS = 3660 
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+#SESSION_COOKIE_SECURE = True
+#SESSION_COOKIE_HTTPONLY = True
+#SECURE_BROWSER_XSS_FILTER = True
+#SECURE_CONTENT_TYPE_NOSNIFF = True
+#SECURE_FRAME_DENY = True
+#SECURE_HSTS_SECONDS = 3660
+#SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
 # Application definition
 ACCOUNT_ACTIVATION_DAYS = 7
@@ -68,7 +68,7 @@ INSTALLED_APPS = (
     'easy_thumbnails',
     'import_export',
     'compressor',
-    'django-secure',
+#    'django-secure',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -81,7 +81,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    'djangosecure.middleware.SecurityMiddleware'
+#    'djangosecure.middleware.SecurityMiddleware'
 )
 
 STATICFILES_FINDERS = (
@@ -147,6 +147,7 @@ LANGUAGES = (
     ('it', _('italian')),
     ('en', _('english')),
     ('ca', _('catalan')),
+    ('es', _('spanish'))
 )
 
 # AUTH_USER_MODEL = 'backend.Observer'
