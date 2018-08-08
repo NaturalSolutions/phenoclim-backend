@@ -550,5 +550,5 @@ class Survey(models.Model):
     def __str__(self):
         return self.answer.encode('utf8')
 
-    def unicode(self):
+    def __unicode__(self):
         return self.answer.encode('utf8')
