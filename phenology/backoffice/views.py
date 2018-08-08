@@ -386,6 +386,9 @@ def export_surveys(request):
     if(request.GET.get("id")):
         observer = models.Observer.objects.get(id=int(request.GET.get("id")))
     else:
+        if not request.user.observer:
+            request.user.observer = models.Observer()
+            request.user.save()
         observer = request.user.observer
     queryset = models.Survey.objects.\
         filter(individual__area__observer=observer).all()
