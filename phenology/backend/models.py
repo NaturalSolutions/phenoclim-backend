@@ -422,10 +422,10 @@ class Individual(models.Model):
         return all_stages
 
     def __unicode__(self):
-        return "%s" % (self.name).encode('utf8')
+        return u"%s" % (self.name)
 
     def __str__(self):
-        return "%s" % (self.name).encode('utf8')
+        return u"%s" % (self.name)
 
 
 # enneigement
@@ -552,7 +552,8 @@ class Survey(models.Model):
             self.individual.save()
 
     def __str__(self):
-        return self.answer.encode('utf8')
+        return u"%s %s" % (self.individual, self.answer)
+        # return self.answer.encode('utf8')
 
     def __unicode__(self):
-        return self.answer.encode('utf8')
+        return self.answer
