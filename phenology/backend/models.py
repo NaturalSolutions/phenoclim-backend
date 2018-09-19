@@ -320,7 +320,7 @@ class Individual(models.Model):
         if(Species.objects.filter(id=self.species_id).first()):
             species_name = self.species.name
             try:
-                print(self.species.picture)
+                #print(self.species.picture)
                 picture_url = "%s%s" % (settings.MEDIA_URL,
                                         get_thumbnail(self.species.picture))
             except :
