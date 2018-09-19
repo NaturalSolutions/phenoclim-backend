@@ -49,7 +49,11 @@ def get_thumbnail(picture, options=None, alias=None):
         picture = picture.field.default
     if not options:
         options = {'size': (200, 200), 'quality': 100, 'crop': 'smart'}
-    return ".." + get_thumbnailer(picture).get_thumbnail(options).url
+    try:
+        path = ".." + get_thumbnailer(picture).get_thumbnail(options).url
+    except:
+        path = " "
+    return path # ".." + get_thumbnailer(picture).get_thumbnail(options).url
 
 ##########
 
