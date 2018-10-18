@@ -49,7 +49,11 @@ def get_thumbnail(picture, options=None, alias=None):
         picture = picture.field.default
     if not options:
         options = {'size': (200, 200), 'quality': 100, 'crop': 'smart'}
-    return ".." + get_thumbnailer(picture).get_thumbnail(options).url
+    try:
+        path = ".." + get_thumbnailer(picture).get_thumbnail(options).url
+    except:
+        path = " "
+    return path #".." + get_thumbnailer(picture).get_thumbnail(options).url
 
 ##########
 
@@ -316,7 +320,7 @@ class Individual(models.Model):
         if(Species.objects.filter(id=self.species_id).first()):
             species_name = self.species.name
             try:
-                print(self.species.picture)
+               # print(self.species.picture)
                 picture_url = "%s%s" % (settings.MEDIA_URL,
                                         get_thumbnail(self.species.picture))
             except :
@@ -418,10 +422,10 @@ class Individual(models.Model):
         return all_stages
 
     def __unicode__(self):
-        return "%s" % (self.name).encode('utf8')
+        return u"%s" % (self.name)
 
     def __str__(self):
-        return "%s" % (self.name).encode('utf8')
+        return u"%s" % (self.name)
 
 
 # enneigement
@@ -548,7 +552,7 @@ class Survey(models.Model):
             self.individual.save()
 
     def __str__(self):
-        return self.answer.encode('utf8')
+        return u"%s %s" % (self.individual, self.answer)
 
     def unicode(self):
-        return self.answer.encode('utf8')
+        return self.answer

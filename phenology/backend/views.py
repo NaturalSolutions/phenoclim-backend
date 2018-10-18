@@ -13,9 +13,14 @@ from backend import sampledb
 @api_view(['GET'])
 def user_settings(request):
     try:
+    	models.Observer.objects.get_or_create(user=request.user)
         serializer = serializers.ObserverSerializer(request.user.observer)
         return Response(serializer.data)
     except:
+	from traceback import print_exc
+	print('toto')
+        print_exc()
+        pass
         return HttpResponse('Observer Not found', status=403)
 
 
