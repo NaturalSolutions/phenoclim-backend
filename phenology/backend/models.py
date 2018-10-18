@@ -554,5 +554,5 @@ class Survey(models.Model):
     def __str__(self):
         return u"%s %s" % (self.individual, self.answer)
 
-    def unicode(self):
+    def __unicode__(self):
         return self.answer
