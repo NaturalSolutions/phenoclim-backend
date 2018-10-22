@@ -53,7 +53,7 @@ def get_thumbnail(picture, options=None, alias=None):
         path = ".." + get_thumbnailer(picture).get_thumbnail(options).url
     except:
         path = " "
-    return path # ".." + get_thumbnailer(picture).get_thumbnail(options).url
+    return path 
 
 ##########
 

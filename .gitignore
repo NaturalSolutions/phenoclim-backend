@@ -1,7 +1,8 @@
 *pyc
-/phenology/media/**/*.jpg
-/phenology/media/**/*.png
-/phenology/media/**/*.JPG
+phenology/media/**/*.jpg
+phenology/media/**/*.png
+phenology/media/**/*.JPG
+phenology/data/*
 /cache
 /venv/
 /venv-phenology/
