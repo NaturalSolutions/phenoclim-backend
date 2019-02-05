@@ -122,7 +122,6 @@ msgid "Answer"
 msgstr "Respuesta"
 
 #: templates/chart_surveys.html:28
-#, fuzzy
 msgid "Vizualisation"
 msgstr ""
 "Fecha de aparición del estado fenológico por año”Date d’apparition des "
@@ -242,7 +241,6 @@ msgid "Greetings"
 msgstr "Saludos"
 
 #: templates/password_new_email.html:3
-#, fuzzy, python-format
 msgid ""
 "You asked to reset you password.\n"
 "\n"
@@ -352,7 +350,6 @@ msgstr ""
 "un email."
 
 #: templates/registration_email.html:3
-#, fuzzy, python-format
 msgid ""
 "\n"
 "\n"
