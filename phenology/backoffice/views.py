@@ -867,9 +867,16 @@ from django.db.models import Count
 #######
 
 def viz_snowings(request):
-    query = models.Snowing.objects.filter(height__gt=0).\
-        filter(height__lt=999).values("area", "area__postalcode").\
-        annotate(count=Count('id'))
+    ref_year = request.GET.get("ref_date")
+    if ref_year is None:
+        query = models.Snowing.objects.filter(height__gt=0).\
+            filter(height__lt=999).values("area", "area__postalcode").\
+            annotate(count=Count('id'))
+    else:
+        query = models.Snowing.objects.filter(height__gt=0).\
+            filter(height__lt=999).values("area", "area__postalcode").\
+            exclude(date__lt=datetime.datetime(int(ref_year), 1, 1)).\
+            annotate(count=Count('id'))
 
     area_ids = {s["area"]: s["area__postalcode"] for s in query
                 if int(s["count"]) > 50}

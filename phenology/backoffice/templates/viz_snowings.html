@@ -101,7 +101,15 @@
             }
             return newdate.getFullYear();
           })).values();
-          //console.log(years)
+
+          // Add current year if not
+          var currentyear = new Date().getFullYear();
+          var found = years.find(function(element) {
+            return element > currentyear.toString();
+          });
+          if(!found)
+            years.push(currentyear.toString());
+
           years.sort().reverse();
           var $input = $('[name=year]', container);
           $("option", $input).remove();
