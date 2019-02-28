@@ -349,7 +349,6 @@ msgstr ""
 "votre boite mail."
 
 #: templates/registration_email.html:3
-#, fuzzy, python-format
 msgid ""
 "\n"
 "\n"
