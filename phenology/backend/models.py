@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from PIL import Image
 from cStringIO import StringIO
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.core.validators import MinValueValidator
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
 from select2 import fields as select2_fields
@@ -301,7 +302,10 @@ class Individual(models.Model):
                               verbose_name=_("milieu"),
                               choices=MILIEU_CHOICES,
                               null=True, blank=True)
-    pente = models.FloatField(verbose_name=_("pente"), null=True, blank=True)
+    pente = models.FloatField(verbose_name=_("pente"),
+                                help_text=_("In degree, decimal."),
+                                validators=[MinValueValidator(0.0)],
+                                null=True, blank=True)
     exposition = models.CharField(max_length=100,
                                   verbose_name=_("exposition"),
                                   choices=EXPOSITION_CHOICES,
