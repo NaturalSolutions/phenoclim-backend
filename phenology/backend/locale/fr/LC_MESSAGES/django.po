@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-27 12:33+0100\n"
+"POT-Creation-Date: 2019-03-28 16:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,60 +17,64 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: admin.py:43 admin.py:90
+#: admin.py:43 admin.py:95
 msgid "Answer"
 msgstr "Observation"
 
-#: admin.py:48 admin.py:95
+#: admin.py:48 admin.py:100
 msgid "Individual"
 msgstr "Individu"
 
-#: admin.py:53 admin.py:100 models.py:142 models.py:291 models.py:488
+#: admin.py:53 admin.py:105 models.py:142 models.py:291 models.py:488
 msgid "Species"
 msgstr "espèce"
 
-#: admin.py:58 admin.py:105 models.py:180 models.py:292 models.py:437
+#: admin.py:58 admin.py:110 models.py:180 models.py:292 models.py:437
 #: models.py:462
 msgid "Area"
 msgstr "Zone d'observation"
 
-#: admin.py:63 admin.py:110 models.py:483 models.py:531
+#: admin.py:63 admin.py:115 models.py:483 models.py:531
 msgid "Stage"
 msgstr "Stade de dévelopement"
 
-#: admin.py:74
+#: admin.py:69
+msgid "Entry date"
+msgstr "Date de saisie"
+
+#: admin.py:79
 msgid "s"
 msgstr ""
 
-#: admin.py:140 admin.py:178
+#: admin.py:145 admin.py:183
 msgid "Commune"
 msgstr ""
 
-#: admin.py:158 admin.py:261 models.py:262
+#: admin.py:163 admin.py:266 models.py:262
 msgid "Observers"
 msgstr "Observateurs"
 
-#: admin.py:165 models.py:143
+#: admin.py:170 models.py:143
 msgid "species"
 msgstr "Espèces"
 
-#: admin.py:210
+#: admin.py:215
 msgid "first name"
 msgstr ""
 
-#: admin.py:215
+#: admin.py:220
 msgid "last name"
 msgstr "Nom"
 
-#: admin.py:221
+#: admin.py:226
 msgid "username"
 msgstr "Nom"
 
-#: admin.py:253 models.py:484
+#: admin.py:258 models.py:484
 msgid "Stages"
 msgstr "Stades de dévelopement"
 
-#: admin.py:257 models.py:549
+#: admin.py:262 models.py:549
 msgid "Surveys"
 msgstr "Observations"
 
