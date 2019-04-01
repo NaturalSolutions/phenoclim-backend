@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-05 16:04+0200\n"
+"POT-Creation-Date: 2019-03-28 16:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,418 +18,416 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: admin.py:43 admin.py:90
+#: admin.py:43 admin.py:95
 msgid "Answer"
 msgstr "Observation"
 
-#: admin.py:48 admin.py:95
+#: admin.py:48 admin.py:100
 msgid "Individual"
 msgstr "individu"
 
-#: admin.py:53 admin.py:100 models.py:137 models.py:286 models.py:480
+#: admin.py:53 admin.py:105 models.py:142 models.py:291 models.py:488
 msgid "Species"
 msgstr "espècie"
 
-#: admin.py:58 admin.py:105 models.py:175 models.py:287 models.py:429
-#: models.py:454
+#: admin.py:58 admin.py:110 models.py:180 models.py:292 models.py:437
+#: models.py:462
 msgid "Area"
 msgstr "Zona d’observació"
 
-#: admin.py:63 admin.py:110 models.py:475 models.py:523
+#: admin.py:63 admin.py:115 models.py:483 models.py:531
 msgid "Stage"
 msgstr "Estadi de desenvolupament"
 
-#: admin.py:74
+#: admin.py:69
+msgid "Entry date"
+msgstr ""
+
+#: admin.py:79
 msgid "s"
 msgstr ""
 
-#: admin.py:140 admin.py:178
+#: admin.py:145 admin.py:183
 msgid "Commune"
 msgstr "Municipi"
 
-#: admin.py:158 admin.py:261 models.py:257
+#: admin.py:163 admin.py:266 models.py:262
 msgid "Observers"
 msgstr "Observadors"
 
-#: admin.py:165 models.py:138
+#: admin.py:170 models.py:143
 msgid "species"
 msgstr "Espècies"
 
-#: admin.py:210
+#: admin.py:215
 msgid "first name"
 msgstr "Nom"
 
-#: admin.py:215
-#, fuzzy
+#: admin.py:220
 msgid "last name"
 msgstr "Cognoms"
 
-#: admin.py:221
-#, fuzzy
+#: admin.py:226
 msgid "username"
 msgstr "Nom d’usuari"
 
-#: admin.py:253 models.py:476
+#: admin.py:258 models.py:484
 msgid "Stages"
 msgstr "Estadis de desenvolupament"
 
-#: admin.py:257 models.py:541
+#: admin.py:262 models.py:549
 msgid "Surveys"
 msgstr "Observacions"
 
-#: models.py:57
+#: models.py:62
 msgid "particulier"
 msgstr "Particular"
 
-#: models.py:58
+#: models.py:63
 msgid "etablissement_scolaire"
 msgstr "Centre escolar"
 
-#: models.py:59
+#: models.py:64
 msgid "espace_protege"
 msgstr "Espai protegit"
 
-#: models.py:60
+#: models.py:65
 msgid "association"
 msgstr "Associació"
 
-#: models.py:61
-#, fuzzy
+#: models.py:66
 msgid "professionnel"
 msgstr "Professional"
 
-#: models.py:62
+#: models.py:67
 msgid "centre_decouverte"
 msgstr "Centre d’interpretació"
 
-#: models.py:63
+#: models.py:68
 msgid "autre"
 msgstr "Altre"
 
-#: models.py:67
+#: models.py:72
 msgid "aucune"
 msgstr "Cap"
 
-#: models.py:68
+#: models.py:73
 msgid "est"
 msgstr "est"
 
-#: models.py:69
+#: models.py:74
 msgid "nord"
 msgstr "nord"
 
-#: models.py:70
+#: models.py:75
 msgid "nordest"
 msgstr "nord-est"
 
-#: models.py:71
+#: models.py:76
 msgid "nordouest"
 msgstr "nord-oest"
 
-#: models.py:72
+#: models.py:77
 msgid "sudest"
 msgstr "sud-est"
 
-#: models.py:73
+#: models.py:78
 msgid "sudouest"
 msgstr "sud-oest"
 
-#: models.py:74
+#: models.py:79
 msgid "sud"
 msgstr "sud"
 
-#: models.py:75
+#: models.py:80
 msgid "ouest"
 msgstr "oest"
 
-#: models.py:79
+#: models.py:84
 msgid "deutschland"
 msgstr "Alemanya"
 
-#: models.py:80
+#: models.py:85
 msgid "austria"
 msgstr "Àustria"
 
-#: models.py:81
+#: models.py:86
 msgid "spain"
 msgstr "Espanya"
 
-#: models.py:82
+#: models.py:87
 msgid "france"
 msgstr "França"
 
-#: models.py:83
+#: models.py:88
 msgid "italia"
 msgstr "Itàlia"
 
-#: models.py:84
+#: models.py:89
 msgid "switzerland"
 msgstr "Suïssa"
 
-#: models.py:85
+#: models.py:90
 msgid "slovenia"
 msgstr "Eslovènia"
 
-#: models.py:86
+#: models.py:91
 msgid "monaco"
 msgstr "Mònaco"
 
-#: models.py:87
+#: models.py:92
 msgid "liechtenstein"
 msgstr "Liechtenstein"
 
-#: models.py:88
+#: models.py:93
 msgid "andorra"
 msgstr "Andorra"
 
-#: models.py:92
+#: models.py:97
 msgid "champ"
 msgstr "Camp"
 
-#: models.py:93
+#: models.py:98
 msgid "foret"
 msgstr "Bosc"
 
-#: models.py:94
+#: models.py:99
 msgid "jardin"
 msgstr "Jardí"
 
-#: models.py:95
+#: models.py:100
 msgid "zoneurbaine"
 msgstr "Zona urbana"
 
-#: models.py:96
+#: models.py:101
 msgid "autres"
 msgstr "Altre"
 
-#: models.py:100
+#: models.py:105
 msgid "a_valider"
 msgstr ""
 
-#: models.py:101
+#: models.py:106
 msgid "valide"
 msgstr ""
 
-#: models.py:102
+#: models.py:107
 msgid "corrige"
 msgstr ""
 
-#: models.py:103
+#: models.py:108
 msgid "en_erreur"
 msgstr ""
 
-#: models.py:155 models.py:285 models.py:524
+#: models.py:160 models.py:290 models.py:532
 msgid "name"
 msgstr "Nom"
 
-#: models.py:159 models.py:162 models.py:290 models.py:292
+#: models.py:164 models.py:167 models.py:295 models.py:297 models.py:306
 msgid "In degree, decimal."
 msgstr "En graus decimals."
 
-#: models.py:164 models.py:305 models.py:462 models.py:530
+#: models.py:169 models.py:313 models.py:470 models.py:538
 msgid "remark"
 msgstr "Comentaris"
 
-#: models.py:166 models.py:229
+#: models.py:171 models.py:234
 msgid "city"
 msgstr "Ciutat"
 
-#: models.py:167 models.py:236
+#: models.py:172 models.py:241
 msgid "codepostal"
 msgstr "Codi postal"
 
-#: models.py:168
+#: models.py:173
 msgid "region"
 msgstr "Regió"
 
-#: models.py:171
+#: models.py:176
 msgid "departement"
 msgstr "Província"
 
-#: models.py:176 models.py:249
+#: models.py:181 models.py:254
 msgid "Areas"
 msgstr "Zones d’observació"
 
-#: models.py:230
+#: models.py:235
 msgid "fonction"
 msgstr "Funció"
 
-#: models.py:233
+#: models.py:238
 msgid "nationality"
 msgstr "Nacionalitat"
 
-#: models.py:235
+#: models.py:240
 msgid "adresse"
 msgstr "Adreça"
 
-#: models.py:237
+#: models.py:242
 msgid "organism"
 msgstr "Organisme"
 
-#: models.py:239
+#: models.py:244
 msgid "category"
 msgstr "Categoria"
 
-#: models.py:241
+#: models.py:246
 msgid "phone"
 msgstr "Telèfon"
 
-#: models.py:243
+#: models.py:248
 msgid "mobile"
 msgstr "Mòbil"
 
-#: models.py:245
+#: models.py:250
 msgid "is a crea member ?"
 msgstr "És membre de CREA ?"
 
-#: models.py:247 models.py:499
+#: models.py:252 models.py:507
 msgid "is activated?"
 msgstr "Està activat ?"
 
-#: models.py:252
+#: models.py:257
 msgid "Date joined"
 msgstr "Data d’inscripció"
 
-#: models.py:256 models.py:431 models.py:456
+#: models.py:261 models.py:439 models.py:464
 msgid "Observer"
 msgstr "Observador"
 
-#: models.py:288
+#: models.py:293
 msgid "is dead?"
 msgstr "està mort?"
 
-#: models.py:289
+#: models.py:294
 msgid "latitude"
 msgstr "Latitud"
 
-#: models.py:291
+#: models.py:296
 msgid "longitude"
 msgstr "Longitud"
 
-#: models.py:293
+#: models.py:298
 msgid "altitude"
 msgstr "altitud"
 
-#: models.py:294
+#: models.py:299
 msgid "circonference"
 msgstr "circumferència"
 
-#: models.py:297
+#: models.py:302
 msgid "milieu"
 msgstr "medi"
 
-#: models.py:300
+#: models.py:305
 msgid "pente"
 msgstr "pendent"
 
-#: models.py:302
+#: models.py:310
 msgid "exposition"
 msgstr "exposició"
 
-#: models.py:309
+#: models.py:317
 msgid "individual"
 msgstr "individu"
 
-#: models.py:310
+#: models.py:318
 msgid "individuals"
 msgstr "individus"
 
-#: models.py:436 models.py:461
+#: models.py:444 models.py:469
 msgid "date"
 msgstr "data"
 
-#: models.py:437
+#: models.py:445
 msgid "Remark"
 msgstr "comentaris"
 
-#: models.py:439
+#: models.py:447
 msgid "Height"
 msgstr "altura de la neu en cm"
 
-#: models.py:442
+#: models.py:450
 msgid "Snowing"
 msgstr "Innivació"
 
-#: models.py:443
+#: models.py:451
 msgid "Snowings"
 msgstr "Innivació"
 
-#: models.py:464
+#: models.py:472
 msgid "temperature"
 msgstr "Temperatura mesurada"
 
-#: models.py:467
-#, fuzzy
+#: models.py:475
 msgid "Temperature"
 msgstr "Temperatures mesurades"
 
-#: models.py:468
-#, fuzzy
+#: models.py:476
 msgid "Temperatures"
 msgstr "Temperatures mesurades"
 
-#: models.py:478
+#: models.py:486
 msgid "Name"
 msgstr "Nom"
 
-#: models.py:482
+#: models.py:490
 msgid "Start day"
 msgstr "Dia d’inici"
 
-#: models.py:484
+#: models.py:492
 msgid "Start month"
 msgstr "Mes d’inici"
 
-#: models.py:486
+#: models.py:494
 msgid "En day"
 msgstr "Dia de finalització"
 
-#: models.py:488
+#: models.py:496
 msgid "End month"
 msgstr "Mes de finalització"
 
-#: models.py:489
+#: models.py:497
 msgid "Order"
 msgstr "Ordre"
 
-#: models.py:492
+#: models.py:500
 msgid "Before"
 msgstr "Abans"
 
-#: models.py:495
+#: models.py:503
 msgid "Current"
 msgstr " Actualment"
 
-#: models.py:498
+#: models.py:506
 msgid "After"
 msgstr "Després"
 
-#: models.py:521
+#: models.py:529
 msgid "observer"
 msgstr "observador"
 
-#: models.py:527
-#, fuzzy
+#: models.py:535
 msgid "firstname"
 msgstr "Nom"
 
-#: models.py:528
+#: models.py:536
 msgid "reponse"
 msgstr "observació"
 
-#: models.py:529
-msgid "survey date"
-msgstr "Data del mostreig"
+#: models.py:537
+msgid "survey event"
+msgstr "Data d'observació"
 
-#: models.py:533
+#: models.py:541
 msgid "statut"
-msgstr ""
+msgstr "estatut"
 
-#: models.py:536
+#: models.py:544
 msgid "comment"
-msgstr ""
+msgstr "comentari"
 
-#: models.py:540
+#: models.py:548
 msgid "Survey"
 msgstr "Observació"
 
