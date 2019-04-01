@@ -130,7 +130,7 @@ phenoclim.viz.lineChart = function(params){
     .scale(x)
     .orient("bottom")
     .tickFormat(function(d, i){
-      var day = phenoclim.viz.getFirstDayOfWeek(d+1, today.getFullYear());
+      var day = phenoclim.viz.getFirstDayOfWeek(d, today.getFullYear());
       return day.getDate() + "/" + (day.getMonth()+1)
     });
 
@@ -270,9 +270,9 @@ phenoclim.viz.lineChart = function(params){
     function mousemove(week_value) {
       var week = +week_value.key;
       var year = +week_value.year;
-      var firstDate = phenoclim.viz.getFirstDayOfWeek(week+1, +year);
+      var firstDate = phenoclim.viz.getFirstDayOfWeek(week, +year);
       var firstDateStr = firstDate.getDate() + "/" + (firstDate.getMonth()+1);
-      var lastDate = phenoclim.viz.getLasttDayOfWeek(week+1, +year);
+      var lastDate = phenoclim.viz.getLasttDayOfWeek(week, +year);
       var lastDateStr = lastDate.getDate() + "/" + (lastDate.getMonth()+1);
       tooltip.html(function(d){ 
         return year+"<br/><b>"+week_value.value+" obs</b><br/> ("+ firstDateStr + " - " + lastDateStr +")" })

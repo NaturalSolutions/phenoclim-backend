@@ -105,7 +105,7 @@
           // Add current year if not
           var currentyear = new Date().getFullYear();
           var found = years.find(function(element) {
-            return element > currentyear.toString();
+            return element == currentyear.toString();
           });
           if(!found)
             years.push(currentyear.toString());
