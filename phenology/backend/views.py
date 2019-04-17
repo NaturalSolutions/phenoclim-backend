@@ -43,6 +43,7 @@ class UserSnowCoverList(generics.ListCreateAPIView):
         Set the object's owner, based on the incoming request.
         """
         obj.observer = self.request.user.observer
+        obj.app_name = self.request.META.get("HTTP_APP_NAME")
 
 
 class SnowCoverDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -70,6 +71,7 @@ class UserSurveyList(generics.ListCreateAPIView):
         Set the object's owner, based on the incoming request.
         """
         obj.observer = self.request.user.observer
+        obj.app_name = self.request.META.get("HTTP_APP_NAME", "")
 
 
 class SurveyDetail(generics.RetrieveUpdateDestroyAPIView):
