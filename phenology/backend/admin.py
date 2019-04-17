@@ -33,9 +33,9 @@ class StageAdmin(TabAdmin, ImportExportModelAdmin):
 
 class SurveyAdmin(ImportExportModelAdmin):
     resource_class = ressources.SurveyResource
-    list_display = ('date', 'first_date', 'ind_name', 'species_name',
+    list_display = ('date', 'created_at', 'ind_name', 'species_name',
                     'stage_name', '_answer', 'remark', 'area_name', 'status', 'comment')
-    search_fields = ['date', 'individual__name', 'individual__species__name',
+    search_fields = ['date', 'created_at', 'individual__name', 'individual__species__name',
                      'stage__name', 'answer', 'remark', 'individual__area__name', 'status', 'comment']
 
     def _answer(self, obj):
@@ -63,10 +63,6 @@ class SurveyAdmin(ImportExportModelAdmin):
     stage_name.short_description = _('Stage')
     stage_name.admin_order_field = 'stage__name'
 
-    def first_date(self, obj):
-        early = models.Survey.objects.filter(individual=obj.individual).aggregate(Min('date'))['date__min']
-        return early
-    first_date.short_description = _('Entry date')
 
 admin.site.register(models.Survey, SurveyAdmin)
 
