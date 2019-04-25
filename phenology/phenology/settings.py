@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
+
 """
 Django settings for phenology-backend project.
 
@@ -166,6 +167,13 @@ LOCALE_PATHS = (
 )
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_EXPOSE_HEADERS = ['app-name']
+
+#TODO concat default_headers with app-name
+#Currently if we import the following line, we can't add custom headers
+#from corsheaders.defaults import default_headers
+CORS_ALLOW_HEADERS = ['x-requested-with', 'content-type', 'accept', 'origin', 'authorization', 'x-csrftoken', 'app-name']
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/

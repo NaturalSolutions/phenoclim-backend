@@ -445,6 +445,7 @@ class Snowing(models.Model):
     remark = models.TextField(max_length=100, verbose_name=_("Remark"),
                               default="", blank=True)
     height = models.PositiveIntegerField(verbose_name=_("Height"))
+    app_name = models.CharField(max_length=64, verbose_name=_("app_name"), blank=True)
 
     class Meta:
         verbose_name = _("Snowing")
@@ -470,6 +471,7 @@ class Temperature(models.Model):
     remark = models.TextField(max_length=100, verbose_name=_("remark"),
                               default="", blank=True)
     temperature = models.FloatField(verbose_name=_("temperature"))
+    app_name = models.CharField(max_length=64, verbose_name=_("app_name"), blank=True)
 
     class Meta:
         verbose_name = _("Temperature")
@@ -535,6 +537,7 @@ class Survey(models.Model):
                                      verbose_name=_("firstname"), blank=True)
     answer = models.CharField(max_length=300, verbose_name=_("reponse"))
     date = models.DateField(verbose_name=_("survey event"), db_index=True)
+    created_at = models.DateTimeField(verbose_name=_("Entry date"), db_index=True, default=datetime.datetime.now, blank=True)
     remark = models.TextField(max_length=100, verbose_name=_("remark"),
                               blank=True)
     status = models.CharField(max_length=100,
@@ -543,6 +546,7 @@ class Survey(models.Model):
                             blank=True)
     comment = models.TextField(max_length=240, verbose_name=_("comment"),
                               blank=True)
+    app_name = models.CharField(max_length=64, verbose_name=_("app_name"), blank=True)
 
     class Meta:
         verbose_name = _("Survey")
