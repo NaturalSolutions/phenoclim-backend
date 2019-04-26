@@ -537,7 +537,7 @@ class Survey(models.Model):
                                      verbose_name=_("firstname"), blank=True)
     answer = models.CharField(max_length=300, verbose_name=_("reponse"))
     date = models.DateField(verbose_name=_("survey event"), db_index=True)
-    created_at = models.DateTimeField(verbose_name=_("Entry date"), db_index=True, default=datetime.datetime.now, blank=True)
+    created_at = models.DateTimeField(verbose_name=_("Entry date"), auto_now_add=True, blank=True, null=True)
     remark = models.TextField(max_length=100, verbose_name=_("remark"),
                               blank=True)
     status = models.CharField(max_length=100,
