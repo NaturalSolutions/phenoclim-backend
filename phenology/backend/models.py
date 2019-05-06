@@ -18,6 +18,12 @@ from easy_thumbnails.fields import ThumbnailerImageField
 from django.db.models import Q
 from phenology.settings import DEFAULT_POSITION
 
+from django.core.exceptions import ValidationError
+
+from rest_framework.exceptions import APIException
+from django.utils.encoding import force_text
+from rest_framework import status
+
 #########
 #
 #  TOOLS
@@ -55,6 +61,17 @@ def get_thumbnail(picture, options=None, alias=None):
     except:
         path = " "
     return path 
+
+class CustomValidation(APIException):
+    status_code = status.HTTP_409_CONFLICT
+    default_detail = 'Duplicate survey.'
+
+    def __init__(self, detail, field, status_code):
+        if status_code is not None:
+            self.status_code = status_code
+        if detail is not None:
+            self.detail = {field: force_text(detail)}
+        else: self.detail = {'detail': force_text(self.default_detail)}
 
 ##########
 
@@ -537,7 +554,7 @@ class Survey(models.Model):
                                      verbose_name=_("firstname"), blank=True)
     answer = models.CharField(max_length=300, verbose_name=_("reponse"))
     date = models.DateField(verbose_name=_("survey event"), db_index=True)
-    created_at = models.DateTimeField(verbose_name=_("Entry date"), db_index=True, default=datetime.datetime.now, blank=True)
+    created_at = models.DateTimeField(verbose_name=_("Entry date"), auto_now_add=True, blank=True, null=True)
     remark = models.TextField(max_length=100, verbose_name=_("remark"),
                               blank=True)
     status = models.CharField(max_length=100,
@@ -565,3 +582,15 @@ class Survey(models.Model):
 
     def __unicode__(self):
         return self.answer
+
+    def validate_unique(self, exclude=None):
+        qs = Survey.objects.filter(answer=self.answer, date=self.date, individual__id=self.individual.id, stage__id=self.stage.id)
+        # FIXME: CustomValidation error 500 on form
+        if qs :
+            if not str(self.app_name):
+                raise ValidationError({
+                    'survey': [ValidationError(_('Duplicate survey.'), code='invalid')]
+                }, code='invalid')
+            else:
+                raise CustomValidation('Duplicate survey','survey', status_code=status.HTTP_409_CONFLICT)
+

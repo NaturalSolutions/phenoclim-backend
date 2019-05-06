@@ -560,7 +560,9 @@ def survey_detail(request, survey_id=-1):
             form.save()
             return redirect('survey-detail', survey_id=form.instance.id)
         else:
-            print form.errors
+            messages.add_message(request,
+                                 messages.ERROR,
+                                form.errors)
     else:
         form = SurveyForm(instance=survey)
     return render_to_response("survey.html", {
