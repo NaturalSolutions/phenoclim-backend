@@ -44,8 +44,8 @@
                   <div class="collapse">
                     {% for individual in individuals_by_species.list %}
                     <div class="panel panel-default">
-                      <div class="panel-heading display__individual ion-leaf icon-bullet" data-id="{{ individual.id }}">
-                        <a href="" rel="{% url 'individual-detail' individual.id %}">
+                      <div class="panel-heading display__individual ion-leaf icon-bullet" data-id="{{ individual.id }}" >
+                        <a href="" rel="{% url 'individual-detail' individual.id %}" id="{{ individual.id }}" name="{{ individual.id }}">
                           {{ individual }}
                         </a>
                       </div>
@@ -121,7 +121,6 @@
   <script type="text/javascript">
 
         $( document ).ready(function(){
-
           // Accordion
           $('.display__species').on("click", function(event){
             var currentCollapse = $(this).next('.collapse');
@@ -132,6 +131,15 @@
             slibCollapseIn.collapse('hide');
             slibBtn.removeClass('active');
           });
+
+          // select indiv
+          var selected_indiv = getAnchor();
+          if (selected_indiv) {
+            var currentCollapse = $("#"+selected_indiv).parents('.collapse');
+            var cuurentSpecies = currentCollapse.prev('.display__species')
+            currentCollapse.collapse('toggle');
+            cuurentSpecies.toggleClass('active');
+          }
 
           // set map height
           $("#map").height($("#map").parent().height() - 100);
@@ -205,6 +213,15 @@
             values: phenoclim.options.areas[area_id].species[species_id].values[stage_id].values[individual_id] || []
           };
           d3.select(".graph").datum([tmp]).call(phenoclim.session.chart_Obj);
+        }
+
+        function getAnchor() {
+          var indId;
+          var pageUrl = window.location.toString();
+          var indexOfFirst = pageUrl.indexOf('#')
+          if (indexOfFirst >= 0 )
+            indId = pageUrl.substring(indexOfFirst+1)
+          return indId;
         }
 
   </script>

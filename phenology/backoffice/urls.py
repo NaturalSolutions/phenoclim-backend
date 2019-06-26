@@ -60,7 +60,7 @@ urls = patterns(
         name='survey-detail'),
 
     # mysurveys
-    url(r'^mysurveys$', views.dashboard, name='my-surveys'),
+    url(r'^mysurveys', views.dashboard, name='my-surveys'),
     url(r'^get_species_list$', views.get_species_list, name='species-list'),
     url(r'^chart_surveys', views.chart_surveys, name="chart-surveys"),
 
