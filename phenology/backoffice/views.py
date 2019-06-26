@@ -557,7 +557,8 @@ def survey_detail(request, survey_id=-1):
         if form.is_valid():
             messages.add_message(request,
                                  messages.SUCCESS,
-                                 _('Form is successifully updated'))
+                                 _('Form is successifully updated'),
+                                 'success like-a-toast')
             form.save()
             return redirect(reverse('my-surveys', kwargs={}) + '#' + ind_id )
         else:
