@@ -119,7 +119,6 @@
   </div>
 
   <script type="text/javascript">
-
         $( document ).ready(function(){
           // Accordion
           $('.display__species').on("click", function(event){
@@ -132,15 +131,30 @@
             slibBtn.removeClass('active');
           });
 
-          // select indiv
+          // if selected indiv
           var selected_indiv = getAnchor();
           if (selected_indiv) {
             var currentCollapse = $("#"+selected_indiv).parents('.collapse');
-            var cuurentSpecies = currentCollapse.prev('.display__species')
+            var currentSpecies = currentCollapse.prev('.display__species')
             currentCollapse.collapse('toggle');
-            cuurentSpecies.toggleClass('active');
-          }
+            currentSpecies.toggleClass('active');
 
+            positionScroll = currentSpecies.offset().top;
+
+            // Move alert
+            $('.alert').css({'top': positionScroll})
+
+            // send scroll position to page
+            window.iFrameResizer = {
+              readyCallback: function(){
+                if('parentIFrame' in window){
+                  setTimeout(function() {
+                    parentIFrame.sendMessage( { "positionScroll": positionScroll } );
+                  }, 0);
+                }
+              }
+            }
+          }
           // set map height
           $("#map").height($("#map").parent().height() - 100);
 
@@ -223,7 +237,6 @@
             indId = pageUrl.substring(indexOfFirst+1)
           return indId;
         }
-
   </script>
 
 {% endblock %}

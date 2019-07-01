@@ -5,7 +5,6 @@
 {% load thumbnail %}
 
 {% block title %}{{ form.instance.name }}{% endblock %}
-
 {% block content %}
   <div class="row  table-row">
     <div class="col-md-12  table-col">
@@ -91,22 +90,6 @@
     </div>
 </div>
 
-<script type="text/javascript">
- // $(".answer>.radio").on("click", function(event){
- //   console.log(event);
- //  var $input = $("input", $(this));
- //  $input.prop("checked", "checked");
- //  var input_value = $input.val();
- //  if(input_value=="today"){
- //    console.log("today");
- //  }
- //  else if(input_value=="before"){
- //    console.log("before");
- //  }
- //  return false;
- // });
-</script>
-
 <script src="{% static 'vendor/pickadate.js/lib/picker.js' %}"></script>
 <script src="{% static 'vendor/pickadate.js/lib/picker.date.js' %}"></script>
 <script src="{% static 'vendor/pickadate.js/lib/picker.time.js' %}"></script>
@@ -120,6 +103,16 @@
 <script type="text/javascript">
 $( document ).ready(function() {
   $('#id_date').pickadate({format: 'dddd d mmmm yyyy', formatSubmit: 'dd/mm/yyyy', max: true, hiddenName: true})
+
+  window.iFrameResizer = {
+    readyCallback: function(){
+      if('parentIFrame' in window){
+          setTimeout(function() {
+            parentIFrame.sendMessage( { "positionScroll": 0 } );
+          }, 0);
+        }
+      }
+  }
 });
 </script>
 {% endblock %}
