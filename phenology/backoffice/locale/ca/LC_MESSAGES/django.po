@@ -55,7 +55,7 @@ msgstr "Individu perdut o mort"
 
 #: views.py:39 templates/survey.html:58
 msgid "isNever"
-msgstr "Estadi absent"
+msgstr "Estat absent aquest any"
 
 #: views.py:39 templates/survey.html:65
 msgid "isPassed"
