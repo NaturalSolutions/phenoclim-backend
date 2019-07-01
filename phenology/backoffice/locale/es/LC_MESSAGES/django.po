@@ -92,7 +92,6 @@ msgid "Chart surveys"
 msgstr "Gráficos de las observaciones"
 
 #: templates/all_surveys.html:28
-#, fuzzy
 msgid "date"
 msgstr "Validar"
 
