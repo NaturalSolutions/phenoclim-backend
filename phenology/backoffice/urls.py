@@ -54,7 +54,7 @@ urls = patterns(
 
     # survey
     url(r'^survey/create$', views.survey_detail, name='survey-detail'),
-    url(r'^survey/(?P<pk>[\w-]+)/delete/$',
+    url(r'^survey/(?P<pk>[\w-]+)/delete/',
     views.SurveyDelete.as_view(), name='entry_delete'),
     url(r'^survey/(?P<survey_id>\d+)', views.survey_detail,
         name='survey-detail'),
