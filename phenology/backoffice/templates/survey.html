@@ -72,7 +72,7 @@
 
         <div class="form-group required {% if form.errors.date %} has-error {% endif %}">
           {{ form.date.label_tag }}
-          <input class="form-control" id="id_date" name="date" required="required" type="text" data-value="{{ form.instance.date|date:'d/m/Y' }}" value="{{ form.instance.date }}"></input>
+          <input class="form-control" id="id_date" name="date" required="required" type="date" data-value="{{ form.instance.date|date:'d/m/Y' }}" value="{{ form.instance.date }}"></input>
           {% if form.errors.date %}
           <span class="help-block">{{ form.errors.date.as_text }}</span>
           {% endif %}
