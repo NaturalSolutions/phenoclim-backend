@@ -82,7 +82,7 @@
                                   {% endif %}
                                 {% if survey and survey.id %}
                                   <a class="btn btn-xs btn-danger cancel"
-                                     href="{% url 'entry_delete' survey.id %}">{% trans 'Delete' %}</a>
+                                     href="{% url 'entry_delete' survey.id %}#{{individual.id}}">{% trans 'Delete' %}</a>
                                 {% endif %}
                               </div>
                               </td>

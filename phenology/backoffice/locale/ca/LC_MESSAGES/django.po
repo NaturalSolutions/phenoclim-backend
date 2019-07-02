@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-31 14:52+0200\n"
+"POT-Creation-Date: 2019-07-01 18:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,7 +41,7 @@ msgstr ""
 msgid "This name is already found in your area"
 msgstr "Aquest nom ja ha estat atribuït a un individu de la teva zona "
 
-#: views.py:38 templates/survey.html:44
+#: views.py:38 templates/survey.html:43
 msgid "isObserved"
 msgstr "Observat"
 
@@ -49,34 +49,38 @@ msgstr "Observat"
 msgid "isDead"
 msgstr "Mort"
 
-#: views.py:39 templates/survey.html:51
+#: views.py:39 templates/survey.html:50
 msgid "isLost"
 msgstr "Individu perdut o mort"
 
-#: views.py:39 templates/survey.html:58
+#: views.py:39 templates/survey.html:57
 msgid "isNever"
 msgstr "Estat absent aquest any"
 
-#: views.py:39 templates/survey.html:65
+#: views.py:39 templates/survey.html:64
 msgid "isPassed"
 msgstr "Estadi que ja passat"
 
-#: views.py:460 views.py:501 views.py:516 views.py:556 views.py:604
-#: views.py:650 views.py:675
+#: views.py:463 views.py:504 views.py:519 views.py:560 views.py:610
+#: views.py:656 views.py:681
 msgid "Form is successifully updated"
 msgstr "Les dades s’han guardat correctament "
 
-#: views.py:508
+#: views.py:511
 msgid "Your are not allowed to see this form"
 msgstr "No estàs autoritzat a veure el contingut d’aquesta pàgina "
 
-#: views.py:687
+#: views.py:693
 msgid "Welcome on Phenoclim website"
 msgstr "Benvingut/da a la comunitat Phénoclim !"
 
-#: views.py:727
+#: views.py:733
 msgid "New password"
 msgstr "Nova clau d’accés"
+
+#: views.py:907
+msgid "Survey was deleted successfully."
+msgstr "S'ha suprimit l'observació."
 
 #: templates/all_surveys.html:14
 msgid "Export my surveys"
@@ -125,7 +129,7 @@ msgstr "Data d’aparició dels estadis per any"
 
 #: templates/generic_form.html:14 templates/profile.html:22
 #: templates/profile_area.html:32 templates/profile_individual.html:32
-#: templates/snowing.html:42 templates/survey.html:86
+#: templates/snowing.html:42 templates/survey.html:85
 msgid "Validate"
 msgstr "Validar"
 
@@ -237,6 +241,7 @@ msgid "Greetings"
 msgstr "Bon dia"
 
 #: templates/password_new_email.html:3
+#, python-format
 msgid ""
 "You asked to reset you password.\n"
 "\n"
@@ -345,6 +350,7 @@ msgstr ""
 "electrònica."
 
 #: templates/registration_email.html:3
+#, python-format
 msgid ""
 "\n"
 "\n"
@@ -404,19 +410,19 @@ msgstr ""
 "Tél : +33 (0)4 50 53 45 16\n"
 "\n"
 
-#: templates/snowing.html:23 templates/survey.html:15
+#: templates/snowing.html:23 templates/survey.html:14
 msgid "Back"
 msgstr "Tornar"
 
-#: templates/survey.html:23
+#: templates/survey.html:22
 msgid "before"
 msgstr "abans"
 
-#: templates/survey.html:27
+#: templates/survey.html:26
 msgid "current"
 msgstr "actualment"
 
-#: templates/survey.html:31
+#: templates/survey.html:30
 msgid "after"
 msgstr "després"
 

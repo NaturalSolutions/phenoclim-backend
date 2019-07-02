@@ -904,6 +904,7 @@ def viz_snowings(request):
 class SurveyDelete(DeleteView):
     model = models.Survey
     template_name = base_path + '/templates/survey_confirm_delete.html'
+    success_message = _("Survey was deleted successfully.")
 
     def get_object(self, queryset=None):
         obj = super(SurveyDelete, self).get_object()
@@ -914,6 +915,10 @@ class SurveyDelete(DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('my-surveys',)
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(SurveyDelete, self).delete(request, *args, **kwargs)
 
 #######
 # CHART SURVEYS
