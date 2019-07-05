@@ -422,3 +422,12 @@ form .answer > label {
     display: block;
     margin-top: 5px;
 }
+
+
+/*****************/
+/* FIX : pickdate modal display appears at the bottom */
+@media (min-height: 33.875em) {
+  .picker--opened .picker__frame {
+    top: 33% !important;
+  }
+}

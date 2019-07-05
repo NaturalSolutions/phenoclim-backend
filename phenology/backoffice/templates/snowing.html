@@ -87,6 +87,17 @@
 {% endwith %}
 <script type="text/javascript">
 $( document ).ready(function() {
+
+  window.iFrameResizer = {
+    readyCallback: function(){
+      if('parentIFrame' in window){
+          setTimeout(function() {
+            parentIFrame.sendMessage( { "positionScroll": 0 } );
+          }, 0);
+        }
+      }
+  }
+
   $.each(phenoclim.options.snowings, function(i, d){
     d.timestamp = +moment(d.date);
   });
