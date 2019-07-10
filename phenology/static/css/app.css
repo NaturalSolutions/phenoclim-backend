@@ -376,6 +376,22 @@ th:first-letter {
 
 .alert{
   margin-bottom: 0;
+  margin-top: 40px;
+}
+.alert {
+  position: absolute;
+  right: 5px;
+  z-index : 10000;
+  box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,.6);
+  border: 1px solid rgba(0,0,0,.1);
+}
+.alert.alert-success {
+  color: #d6e9c6;
+  background-color: #127c14;
+}
+.alert.alert-danger {
+  background-color: #a94442;
+  color: #f2dede;
 }
 /*****************************/
 
@@ -405,4 +421,13 @@ a.display__species{
 form .answer > label {
     display: block;
     margin-top: 5px;
+}
+
+
+/*****************/
+/* FIX : pickdate modal display appears at the bottom */
+@media (min-height: 33.875em) {
+  .picker--opened .picker__frame {
+    top: 10% !important;
+  }
 }

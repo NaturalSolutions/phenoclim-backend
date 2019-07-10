@@ -585,7 +585,7 @@ class Survey(models.Model):
 
     def validate_unique(self, exclude=None):
         qs = Survey.objects.filter(answer=self.answer, date=self.date, individual__id=self.individual.id, stage__id=self.stage.id)
-        # FIXME: CustomValidation error 500 on form
+        # FIXME: CustomValidation error 500 on form, app_name not defined (cf view pre_save )
         if qs :
             if not str(self.app_name):
                 raise ValidationError({

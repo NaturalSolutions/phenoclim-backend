@@ -44,8 +44,8 @@
                   <div class="collapse">
                     {% for individual in individuals_by_species.list %}
                     <div class="panel panel-default">
-                      <div class="panel-heading display__individual ion-leaf icon-bullet" data-id="{{ individual.id }}">
-                        <a href="" rel="{% url 'individual-detail' individual.id %}">
+                      <div class="panel-heading display__individual ion-leaf icon-bullet" data-id="{{ individual.id }}" >
+                        <a href="" rel="{% url 'individual-detail' individual.id %}" id="{{ individual.id }}" name="{{ individual.id }}">
                           {{ individual }}
                         </a>
                       </div>
@@ -82,7 +82,7 @@
                                   {% endif %}
                                 {% if survey and survey.id %}
                                   <a class="btn btn-xs btn-danger cancel"
-                                     href="{% url 'entry_delete' survey.id %}">{% trans 'Delete' %}</a>
+                                     href="{% url 'entry_delete' survey.id %}#{{individual.id}}">{% trans 'Delete' %}</a>
                                 {% endif %}
                               </div>
                               </td>
@@ -119,9 +119,7 @@
   </div>
 
   <script type="text/javascript">
-
         $( document ).ready(function(){
-
           // Accordion
           $('.display__species').on("click", function(event){
             var currentCollapse = $(this).next('.collapse');
@@ -133,6 +131,30 @@
             slibBtn.removeClass('active');
           });
 
+          // if selected indiv
+          var selected_indiv = getAnchor();
+          if (selected_indiv) {
+            var currentCollapse = $("#"+selected_indiv).parents('.collapse');
+            var currentSpecies = currentCollapse.prev('.display__species')
+            currentCollapse.collapse('toggle');
+            currentSpecies.toggleClass('active');
+
+            positionScroll = currentSpecies.offset().top;
+
+            // Move alert
+            $('.alert').css({'top': positionScroll})
+
+            // send scroll position to page
+            window.iFrameResizer = {
+              readyCallback: function(){
+                if('parentIFrame' in window){
+                  setTimeout(function() {
+                    parentIFrame.sendMessage( { "positionScroll": positionScroll } );
+                  }, 0);
+                }
+              }
+            }
+          }
           // set map height
           $("#map").height($("#map").parent().height() - 100);
 
@@ -207,6 +229,14 @@
           d3.select(".graph").datum([tmp]).call(phenoclim.session.chart_Obj);
         }
 
+        function getAnchor() {
+          var indId;
+          var pageUrl = window.location.toString();
+          var indexOfFirst = pageUrl.indexOf('#')
+          if (indexOfFirst >= 0 )
+            indId = pageUrl.substring(indexOfFirst+1)
+          return indId;
+        }
   </script>
 
 {% endblock %}

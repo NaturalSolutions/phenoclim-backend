@@ -1,22 +1,32 @@
-# pickadate v3.5.5 [![pickadate build status](https://travis-ci.org/amsul/pickadate.js.svg?branch=master)](https://travis-ci.org/amsul/pickadate.js) [![pickadate dev dependencies status](https://david-dm.org/amsul/pickadate.js/dev-status.svg)](https://david-dm.org/amsul/pickadate.js#info=devDependencies)
+# pickadate [![Build status: master](https://travis-ci.org/amsul/pickadate.js.svg?branch=master)](https://travis-ci.org/amsul/pickadate.js) [![jsDelivr Hits](https://data.jsdelivr.com/v1/package/npm/pickadate/badge?style=rounded)](https://www.jsdelivr.com/package/npm/pickadate)
 
 The mobile-friendly, responsive, and lightweight jQuery date & time input picker.
 
+[![Join the community on Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/pickadate)
 
 
 #### To get started, check out the:
 
-[Homepage](http://amsul.github.io/pickadate.js) - [Date picker](http://amsul.github.io/pickadate.js/date.htm) - [Time picker](http://amsul.github.io/pickadate.js/time.htm) - [API](http://amsul.github.io/pickadate.js/api.htm)
+[Homepage](http://amsul.ca/pickadate.js) - [Date picker](http://amsul.ca/pickadate.js/date) - [Time picker](http://amsul.ca/pickadate.js/time) - [API](http://amsul.ca/pickadate.js/api)
 
 
 #### To get it:
 
-[Download v3.5.5](https://github.com/amsul/pickadate.js/archive/3.5.5.zip) or `git clone git://github.com/amsul/pickadate.js.git` or `bower install pickadate`
+[Download the latest stable build](https://github.com/amsul/pickadate.js/archive/master.zip)
+
+*or*
+
+`git clone git://github.com/amsul/pickadate.js.git`
+
+*or*
+
+`bower install pickadate`
 
 
 
 
 <br>
+
 ## Library files
 
 The `lib` folder includes the library files with a `compressed` folder containing the minified counter-parts. These files are minified using [Grunt](#building-with-grunt).
@@ -51,12 +61,13 @@ __**__ For languages with text flowing from right-to-left, also include the `rtl
 
 ### Translations
 
-The translations live in the `lib/translations` folder. There are currently [40 language translations](https://github.com/amsul/pickadate.js/blob/3.5.5/lib/translations) included.
+The translations live in the `lib/translations` folder. There are currently [43 language translations](https://github.com/amsul/pickadate.js/tree/master/lib/translations) included.
 
 
 
 
 <br>
+
 ## Building with Grunt
 
 [Grunt](http://gruntjs.com/) `~0.4.5` is used to build the project files. To get started, clone the project and then run:
@@ -68,15 +79,14 @@ The translations live in the `lib/translations` folder. There are currently [40 
 Type out `grunt --help` to see a list of all the tasks available. The generally used tasks are:
 
 - `grunt develop` compiles the LESS files and watches for any source changes.
-- `grunt document` compiles the demo site and watches for any source changes.
-- `grunt package` minifies the compiled source files.
+- `grunt package` compiles and then minifies the source files.
 - `grunt test` tests the entire package.
-- `grunt build` compiles, minifies, and tests the package.
 
 
 
 
 <br>
+
 <a name="less-styling"></a>
 ## Styling with LESS
 
@@ -92,48 +102,35 @@ Make sure to run the `grunt develop` task before making any changes to compile i
 
 
 
-<br>
-## Versioning
-
-To maintain consistency in the sort of changes to expect with version bumps, [Semantic Versioning guidelines](http://semver.org/) is followed as closely as possible:
-
-`<major>.<minor>.<patch>`
-
-Constructed as such:
-
-- `major`: breaks backward compatibility (resets the `minor` and `patch`)
-- `minor`: new additions with backward compatibility (resets the `patch`)
-- `patch`: bug fixes and misc changes
-
-If a version bump is due, make sure to update the version with a project-wide search and replace.
-
-
-
 
 
 <br>
+
 ## Bugs
 
-Before opening a new issue, please search the existing [Issues](https://github.com/amsul/pickadate.js/issues) for anything similar – there might already be an answer to your problem. You might also wanna check out the [Contributing](https://github.com/amsul/pickadate.js/blob/gh-pages/CONTRIBUTING.md) guide.
+Before opening a new issue, please search the existing [Issues](https://github.com/amsul/pickadate.js/issues) for anything similar – there might already be an answer to your problem. You might also wanna check out the [Contributing](https://github.com/amsul/pickadate.js/blob/master/CONTRIBUTING.md) guide.
 
 
 
 
 
 <br>
+
 ## Contributing
 
-Before contributing any code to the project, please take a look at the [Contributing](https://github.com/amsul/pickadate.js/blob/gh-pages/CONTRIBUTING.md) guide.
+Before contributing any code to the project, please take a look at the [Contributing](https://github.com/amsul/pickadate.js/blob/master/CONTRIBUTING.md) guide.
 
-If there’s anything you’d like to discuss, we like to hang out on Gitter.
+If there’s anything you’d like to discuss, we like to hang out on Spectrum.
 
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/amsul/pickadate.js)
+
+[![Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/pickadate)
 
 
 
 
 
 <br>
+
 ## Support
 
 If you find this library useful and would like to see further development, consider [supporting it](http://selz.co/1g80kCZ).
