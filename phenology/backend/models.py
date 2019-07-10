@@ -589,7 +589,7 @@ class Survey(models.Model):
         if qs :
             if not str(self.app_name):
                 raise ValidationError({
-                    'survey': [ValidationError(_('Duplicate survey.'), code='invalid')]
+                    'survey_duplicate': [ValidationError(_('Duplicate survey.'), code='invalid')]
                 }, code='invalid')
             else:
                 raise CustomValidation('Duplicate survey','survey', status_code=status.HTTP_409_CONFLICT)
