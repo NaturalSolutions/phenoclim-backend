@@ -263,18 +263,20 @@ def search_surveys(request):
             species = area['values'].setdefault(survey_dict["species_id"], {})
             stage = species.setdefault(survey_dict["stage_id"], {})
             stage[survey_dict["year"]] = {
+                "avgDate": survey_dict["avg_date"],
                 "minDate": survey_dict["min"],
                 "maxDate": survey_dict["max"],
                 "count": survey_dict["count"],
                 "values": {}
             }
-        if notdead :
-            """ 'isObserved' """
+        if notdead == 'true' :
+            """ 'isObserved' and not with 'en_erreur' status """
             survey_sql = "SELECT " + year_query() + " as year, " + week_query() + " as week, " +\
                         "COUNT(*), stage_id, species_id, area_id FROM backend_survey, backend_individual" +\
                         " WHERE backend_survey.individual_id=backend_individual.id AND " +\
                         "backend_individual.species_id = %s " % species_id +\
                         " AND backend_survey.answer ='isObserved' " +\
+                        " AND backend_survey.status !='en_erreur' " +\
                         "GROUP BY area_id, species_id, stage_id, year,  week " +\
                         "ORDER BY area_id, species_id, stage_id,year,week;"
         else:
