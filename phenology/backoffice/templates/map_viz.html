@@ -210,7 +210,7 @@
 
       $( document ).ready(function(){
         phenoclim.session.chart1_Obj = phenoclim.viz.averageChart({margin : {top: 30, right: 20, bottom: 30, left: 70}});
-        phenoclim.session.chart2_Obj = phenoclim.viz.averageChart({margin : {top: 20, right: 20, bottom: 20, left: 40}});
+        phenoclim.session.chart2_Obj = phenoclim.viz.averageChart({margin : {top: 20, right: 20, bottom: 30, left: 50}});
 
         $(".map").on( "map_init", function(){
             $.get("/portail/get_species_list", function(data){
