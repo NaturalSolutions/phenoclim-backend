@@ -35,7 +35,6 @@ phenoclim.viz.chart = function chart(params) {
         var width = chart._width();
         var height = chart._height();
         chart.options.yScale.range([height, 0]);
-        console.log(height);
         chart._xScale();
         var svg = d3.select(this).selectAll("svg").data([data]);
         var gEnter = svg.enter().append("svg").append("g")
@@ -156,14 +155,12 @@ phenoclim.viz.chart = function chart(params) {
     chart.draw = function(selection){
       selection.each(function(data) {
         data = data || [];
-        console.log("chart-data", data);
         chart.options.colors.domain(data.map(function(d){
           return d.key;
         }))
         var dates = [];
         var years = [];
         $.each(data, function(i, item){
-          console.log("chart-item", item, i);
           var values = item.values || [];
           var tmp = values.map(function(d){
             var date1 = new Date(d.date);
@@ -400,14 +397,12 @@ phenoclim.viz.averageChart = function(params) {
   chart.draw = function(selection){
     selection.each(function(data) {
       data = data || [];
-      console.log("chart-data", data);
       chart.options.colors.domain(data.map(function(d){
         return d.key;
       }))
       var dates = [];
       var years = [];
       $.each(data, function(i, item){
-        console.log("chart-item", item, i);
         var values = item.values || [];
         var tmp = values.map(function(d){
           var date1 = new Date(d.date);
