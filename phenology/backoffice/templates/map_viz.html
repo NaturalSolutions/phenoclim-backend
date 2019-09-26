@@ -127,22 +127,14 @@
           var values = d3.values(tmp)
           var vizData = [
             { key: "averageDate", label: "avg", values: values.map(function(d){
-                                      return {date: d.avgDate, year: d.year}})}/*,
-            { key: "minDate", label: "min", values: values.map(function(d){
-                                      return {date: d.minDate, year: d.year}})},
-            { key: "maxDate", label: "max", values: values.map(function(d){
-            return {date: d.maxDate, year: d.year}})}*/]
+                                      return {date: d.avgDate, year: d.year}})}]
           d3.select(".graph-below").datum(vizData).call(phenoclim.session.chart1_Obj);
 
           var tmp = phenoclim.mapviz.prepare_data_for_viz(data, above1000);
           var values = d3.values(tmp)
           var vizData = [
             { key: "averageDate", label: "avg", values: values.map(function(d){
-                                      return {date: d.avgDate, year: d.year}})}/*,
-            { key: "minDate", label: "min", values: values.map(function(d){
-                                      return {date: d.minDate, year: d.year}})},
-            { key: "maxDate", label: "max", values: values.map(function(d){
-            return {date: d.maxDate, year: d.year}})}*/]
+                                      return {date: d.avgDate, year: d.year}})}]
           d3.select(".graph-above").datum(vizData).call(phenoclim.session.chart1_Obj);
         })
       }
@@ -152,7 +144,6 @@
         var boundingbox = phenoclim.session.map._map.getBounds();
         var northEast = boundingbox.getNorthEast();
         var southWest = boundingbox.getSouthWest();
-        var currentYear = moment().year()
         var species_id = $("select[data-id=species]").val();
         var stage_id = $("select[data-id=stages]").val();
         $.each(data ,function(id, area_data){
@@ -163,11 +154,12 @@
                   $.each(area_data.values[species_id][stage_id], function(year, year_data){
                     var tmpMin = new Date(year_data.minDate)
                     var tmpMax = new Date(year_data.maxDate)
-                    var tmpAvg = new Date(year_data.avgDate)
+
                     // add avg date
+                    var tmpAvg = new Date(year_data.avgDate)
+
                     var tmpMaxTimestamp = moment(tmpMax).unix();
                     var tmpMinTimestamp = moment(tmpMin).unix();
-
 
                     if(!results[year]){
                       results[year] = {
