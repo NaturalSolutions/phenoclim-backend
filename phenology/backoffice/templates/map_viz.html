@@ -48,6 +48,7 @@
       phenoclim.mapviz = phenoclim.mapviz || {};
       phenoclim.mapviz.get_data = function(species_id){
         if(!cached_surveys[species_id]){
+          // notdead param = answer 'isObserved' and status not 'en_erreur'
           return $.get('/portail/search_surveys?not_dead=true&species_id=' + species_id,function(data){
               cached_surveys[species_id] = data
           });
@@ -125,19 +126,15 @@
           var tmp = phenoclim.mapviz.prepare_data_for_viz(data, below1000);
           var values = d3.values(tmp)
           var vizData = [
-            { key: "minDate", label: "min", values: values.map(function(d){
-                                      return {date: d.minDate, year: d.year}})},
-            { key: "maxDate", label: "max", values: values.map(function(d){
-                                      return {date: d.maxDate, year: d.year}})}]
+            { key: "averageDate", label: "avg", values: values.map(function(d){
+                                      return {date: d.avgDate, year: d.year}})}]
           d3.select(".graph-below").datum(vizData).call(phenoclim.session.chart1_Obj);
 
           var tmp = phenoclim.mapviz.prepare_data_for_viz(data, above1000);
           var values = d3.values(tmp)
           var vizData = [
-            { key: "minDate", label:"min", values: values.map(function(d){
-                                      return {date: d.minDate, year: d.year}})},
-            { key: "maxDate", label:"max", values: values.map(function(d){
-                                      return {date: d.maxDate, year: d.year}})}]
+            { key: "averageDate", label: "avg", values: values.map(function(d){
+                                      return {date: d.avgDate, year: d.year}})}]
           d3.select(".graph-above").datum(vizData).call(phenoclim.session.chart1_Obj);
         })
       }
@@ -147,7 +144,6 @@
         var boundingbox = phenoclim.session.map._map.getBounds();
         var northEast = boundingbox.getNorthEast();
         var southWest = boundingbox.getSouthWest();
-        var currentYear = moment().year()
         var species_id = $("select[data-id=species]").val();
         var stage_id = $("select[data-id=stages]").val();
         $.each(data ,function(id, area_data){
@@ -157,13 +153,19 @@
               if(area_data.values[species_id] && area_data.values[species_id][stage_id]){
                   $.each(area_data.values[species_id][stage_id], function(year, year_data){
                     var tmpMin = new Date(year_data.minDate)
-                    tmpMin.setFullYear(currentYear);
                     var tmpMax = new Date(year_data.maxDate)
-                    tmpMax.setFullYear(currentYear);
+
+                    // add avg date
+                    var tmpAvg = new Date(year_data.avgDate)
+
+                    var tmpMaxTimestamp = moment(tmpMax).unix();
+                    var tmpMinTimestamp = moment(tmpMin).unix();
+
                     if(!results[year]){
                       results[year] = {
                         year: year,
                         dates: [],
+                        avgDate: tmpAvg,
                         minDate: tmpMin,
                         maxDate: tmpMax
                       };
@@ -175,13 +177,16 @@
                         if(tmpMax > results[year].maxDate){
                           results[year].maxDate = tmpMax;
                         }
+                        if(results[year].avgDate){
+                          var currentAvgTs = (moment(tmpAvg).unix() + moment(results[year].avgDate).unix()) / 2
+                          results[year].avgDate =  moment.unix(currentAvgTs).format("YYYY-MM-DD");
+                        }
                     }
                   })
               };
             };
           }
         });
-
         return results;
       }
       phenoclim.mapviz.refreshStages = function(){
@@ -209,8 +214,8 @@
       }
 
       $( document ).ready(function(){
-        phenoclim.session.chart1_Obj = phenoclim.viz.minMaxChart();
-        phenoclim.session.chart2_Obj = phenoclim.viz.areaChart({margin : {top: 20, right: 20, bottom: 20, left: 40}});
+        phenoclim.session.chart1_Obj = phenoclim.viz.averageChart({margin : {top: 30, right: 20, bottom: 30, left: 70}});
+        phenoclim.session.chart2_Obj = phenoclim.viz.averageChart({margin : {top: 20, right: 20, bottom: 30, left: 50}});
 
         $(".map").on( "map_init", function(){
             $.get("/portail/get_species_list", function(data){
