@@ -135,22 +135,25 @@
           var selected_indiv = getAnchor();
           if (selected_indiv) {
             var currentCollapse = $("#"+selected_indiv).parents('.collapse');
-            var currentSpecies = currentCollapse.prev('.display__species')
-            currentCollapse.collapse('toggle');
-            currentSpecies.toggleClass('active');
+            // FIX indiv isDead
+            if( currentCollapse.length ) {
+              var currentSpecies = currentCollapse.prev('.display__species')
+              currentCollapse.collapse('toggle');
+              currentSpecies.toggleClass('active');
 
-            positionScroll = currentSpecies.offset().top;
+              positionScroll = currentSpecies.offset().top;
 
-            // Move alert
-            $('.alert').css({'top': positionScroll})
+              // Move alert
+              $('.alert').css({'top': positionScroll})
 
-            // send scroll position to page
-            window.iFrameResizer = {
-              readyCallback: function(){
-                if('parentIFrame' in window){
-                  setTimeout(function() {
-                    parentIFrame.sendMessage( { "positionScroll": positionScroll } );
-                  }, 0);
+              // send scroll position to page
+              window.iFrameResizer = {
+                readyCallback: function(){
+                  if('parentIFrame' in window){
+                    setTimeout(function() {
+                      parentIFrame.sendMessage( { "positionScroll": positionScroll } );
+                    }, 0);
+                  }
                 }
               }
             }
