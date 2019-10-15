@@ -235,14 +235,26 @@ def search_surveys(request):
             tmp['nb_individuals'] += 1
 
         timer.capture()
-        survey_sql = 'SELECT ' + year_query() + ' as year, ' +\
-                    'COUNT(*), MAX(date), MIN(date), stage_id, species_id, area_id FROM backend_survey, backend_individual ' +\
-                    ' WHERE backend_survey.individual_id=backend_individual.id AND ' +\
-                    'backend_individual.species_id = %s ' % species_id +\
-                    'GROUP BY area_id, species_id, stage_id, year ' +\
-                    'ORDER BY area_id, species_id, stage_id,year;'
+        if notdead == 'true' :
+            """ 'isObserved' and not with 'en_erreur' status """
+            survey_sql = 'SELECT ' + year_query() + ' as year, ' +\
+                        ' timestamp without time zone \'1970-01-01\' + cast( avg(EXTRACT(EPOCH FROM date::timestamp))::text as interval) as avg_date, ' +\
+                        'COUNT(*), MAX(date), MIN(date), stage_id, species_id, area_id FROM backend_survey, backend_individual ' +\
+                        ' WHERE backend_survey.individual_id=backend_individual.id AND ' +\
+                        'backend_individual.species_id = %s ' % species_id +\
+                        " AND backend_survey.answer ='isObserved' " +\
+                        " AND backend_survey.status !='en_erreur' " +\
+                        'GROUP BY area_id, species_id, stage_id, year ' +\
+                        'ORDER BY area_id, species_id, stage_id,year;'
+        else:
+            survey_sql = 'SELECT ' + year_query() + ' as year, ' +\
+                                'COUNT(*), MAX(date), MIN(date), stage_id, species_id, area_id FROM backend_survey, backend_individual ' +\
+                                ' WHERE backend_survey.individual_id=backend_individual.id AND ' +\
+                                'backend_individual.species_id = %s ' % species_id +\
+                                'GROUP BY area_id, species_id, stage_id, year ' +\
+                                'ORDER BY area_id, species_id, stage_id,year;'
         cursor.execute(survey_sql)
-        keys = ['year', 'count', 'max', 'min', 'stage_id',
+        keys = ['year', 'avg_date', 'count', 'max', 'min', 'stage_id',
                 'species_id', 'area_id']
         for survey in cursor.fetchall():
             survey_dict = dict(zip(keys, survey))
@@ -251,18 +263,20 @@ def search_surveys(request):
             species = area['values'].setdefault(survey_dict["species_id"], {})
             stage = species.setdefault(survey_dict["stage_id"], {})
             stage[survey_dict["year"]] = {
+                "avgDate": survey_dict["avg_date"],
                 "minDate": survey_dict["min"],
                 "maxDate": survey_dict["max"],
                 "count": survey_dict["count"],
                 "values": {}
             }
-        if notdead :
-            """ 'isObserved' """
+        if notdead == 'true' :
+            """ 'isObserved' and not with 'en_erreur' status """
             survey_sql = "SELECT " + year_query() + " as year, " + week_query() + " as week, " +\
                         "COUNT(*), stage_id, species_id, area_id FROM backend_survey, backend_individual" +\
                         " WHERE backend_survey.individual_id=backend_individual.id AND " +\
                         "backend_individual.species_id = %s " % species_id +\
                         " AND backend_survey.answer ='isObserved' " +\
+                        " AND backend_survey.status !='en_erreur' " +\
                         "GROUP BY area_id, species_id, stage_id, year,  week " +\
                         "ORDER BY area_id, species_id, stage_id,year,week;"
         else:
