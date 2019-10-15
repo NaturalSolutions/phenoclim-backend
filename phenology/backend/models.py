@@ -584,7 +584,7 @@ class Survey(models.Model):
         return self.answer
 
     def validate_unique(self, exclude=None):
-        qs = Survey.objects.filter(answer=self.answer, date=self.date, individual__id=self.individual.id, stage__id=self.stage.id)
+        qs = Survey.objects.filter(answer=self.answer, date=self.date, individual__id=self.individual.id, stage__id=self.stage.id, status=self.status)
         # FIXME: CustomValidation error 500 on form, app_name not defined (cf view pre_save )
         if qs :
             if not str(self.app_name):
