@@ -720,7 +720,7 @@ def register_user(request):
         instance.user = User()
         form = AccountForm(instance=instance)
 
-    return render_to_response("generic_form.html", {
+    return render_to_response("account_form.html", {
         "form": form,
     }, RequestContext(request))
 

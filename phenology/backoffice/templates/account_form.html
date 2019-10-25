@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% load bootstrap3 %}
+{% load i18n %}
+
+
+{% block title %}
+  {% trans 'Register' %}
+{% endblock %}
+
+
+{% block content %}
+<div class="row table-row">
+  <div class="col-md-12 table-col">
+    <div class="row">
+      <div class="col-xs-12">
+        <form method="post" class="form-horizontal" role="form">
+          {% csrf_token %}
+
+          {% bootstrap_field form.username %}
+          {% bootstrap_field form.email %}
+          {% bootstrap_field form.organism %}
+          {% bootstrap_field form.fonction %}
+          {% bootstrap_field form.category %}
+          {% bootstrap_field form.nationality %}
+          {% bootstrap_field form.codepostal %}
+
+          {% bootstrap_field form.accept_policy %}
+
+
+
+          <div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="{{ form.accept_policy.html_name }}" id="{{ form.accept_policy.id_for_label }}"
+                {% if form.instance.accept_policy %}checked{% endif %}>
+                {% trans "accept_policy" %}
+              </label>
+            </div>
+              <div class="checkbox required {% if form.errors.accept_email %} has-error {% endif %}">
+                <label>
+                  <input type="checkbox" name="{{ form.accept_email.html_name }}" id="{{ form.accept_email.id_for_label }}"
+                  {% if form.instance.accept_email %}checked{% endif %}>
+                  {% trans "accept_security_policy" %}
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="{{ form.accept_newsletter.html_name }}" id="{{ form.accept_newsletter.id_for_label }}"
+                  {% if form.instance.accept_newsletter %}checked{% endif %}>
+                  {% trans "accept_newsletter" %}
+                </label>
+              </div>
+          </div>
+
+
+          <br/>
+          {% if form.errors %}
+          <span class="help-block">{{ form.errors.as_text }}</span>
+          {% endif %}
+
+
+          {% buttons %}
+            <button type="submit" class="btn btn-primary btn-lg btn-block">
+              {% bootstrap_icon "tree-deciduous" %} {% trans 'Validate' %}
+            </button>
+          {% endbuttons %}
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
