@@ -8,7 +8,7 @@ from django.utils.translation import ugettext
 class CreateUserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email',)
+        fields = ('username', 'email')
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -18,11 +18,10 @@ class CreateUserForm(forms.ModelForm):
             raise forms.ValidationError(ugettext('Already exists'))
         return email
 
-
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email',)
+        fields = ('username', 'email',)
 
 
 class SnowingForm(forms.ModelForm):
@@ -70,8 +69,6 @@ class AccountForm(forms.ModelForm):
             self.uf.fields['email'].required = True
         else:
             self.uf = UserForm(*args, **user_kwargs)
-        self.uf.fields['last_name'].required = True
-        self.uf.fields['first_name'].required = True
 
         # magic end
 
@@ -79,12 +76,11 @@ class AccountForm(forms.ModelForm):
         self.fields.update(self.uf.fields)
         self.initial.update(self.uf.initial)
         self.fields.keyOrder = key_order +\
-            ['last_name',
-             'first_name',
-             'organism', 'email',
-             'fonction', 'nationality', 'adresse',
-             'codepostal', 'city', 'phone', 'mobile',
-             'category', ]
+            ['organism', 'email',
+             'fonction', 'nationality',
+             'codepostal',
+             'category',
+             'accept_policy', 'accept_email', 'accept_newsletter']
 
     def is_valid(self):
         # save both forms
@@ -103,9 +99,9 @@ class AccountForm(forms.ModelForm):
     class Meta:
         model = models.Observer
         exclude = ('user', 'is_crea', 'is_active', 'areas', 'date_inscription')
-        widgets = {
-            'adresse': forms.Textarea(attrs={'rows': 2}),
-        }
+        # widgets = {
+        #    'adresse': forms.Textarea(attrs={'rows': 2}),
+        # }
 
 
 class AreaAdminForm(forms.ModelForm):

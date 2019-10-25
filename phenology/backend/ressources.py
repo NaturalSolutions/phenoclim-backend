@@ -60,23 +60,19 @@ class ObserverResource(resources.ModelResource):
         model = models.Observer
         fields = (
             "id",
-            "user",
             "user__username",
-            'user__first_name',
-            'user__last_name',
             'user__email',
-            "city",
             "fonction",
-            "adresse",
             "codepostal",
             "nationality",
             "organism",
             "category",
-            "phone",
-            "mobile",
             "is_crea",
             "is_active",
             "areas",
             "date_inscription",
+            "accept_policy",
+            "accept_email",
+            "accept_newsletter",
         )
         export_order = fields
