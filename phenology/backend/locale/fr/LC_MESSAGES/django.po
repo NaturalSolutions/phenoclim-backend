@@ -82,7 +82,7 @@ msgstr ""
 
 #: models.py:82
 msgid "centre_decouverte"
-msgstr "Centre de découverte ouCPIE"
+msgstr "Organisme d'éducation à l'environnement"
 
 #: models.py:83
 msgid "autre"

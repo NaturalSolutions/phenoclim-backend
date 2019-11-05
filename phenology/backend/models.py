@@ -267,7 +267,7 @@ class Observer(models.Model):
                                         default=datetime.datetime.now)
     accept_policy = models.BooleanField(verbose_name=_("accept_security_policy"),
                                 blank=False)
-    accept_email = models.BooleanField(verbose_name=_("accept_contact_email."),
+    accept_email = models.BooleanField(verbose_name=_("accept_contact_email"),
                                 blank=False)
     accept_newsletter = models.BooleanField(verbose_name=_("accept_newsletter"),
                                 default=False, blank=True)

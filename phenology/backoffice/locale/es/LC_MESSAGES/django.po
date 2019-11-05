@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-01 18:19+0200\n"
+"POT-Creation-Date: 2019-11-05 16:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,23 +22,23 @@ msgstr ""
 msgid "Already exists"
 msgstr "Ya utilizado"
 
-#: forms.py:47
+#: forms.py:46
 msgid "User with this email doesnt exist"
 msgstr ""
 "No se ha encontrado ningún nombre de usuario con este correo electrónico."
 
-#: forms.py:167
+#: forms.py:163
 msgid "Change stage"
 msgstr " Cambiar estado de desarrollo "
 
-#: forms.py:178
+#: forms.py:174
 #, python-format
 msgid "There is already a survey with same stage, same individual in %(year)s"
 msgstr ""
 " Ya existe una observación para este estado de desarrollo o este individuoen "
 "%(year)s."
 
-#: forms.py:207
+#: forms.py:203
 msgid "This name is already found in your area"
 msgstr "Este nombre ya se ha atribuido a otro individuo de su zona"
 
@@ -62,26 +62,49 @@ msgstr "Fase ausente este año"
 msgid "isPassed"
 msgstr "Estado ya pasado"
 
-#: views.py:463 views.py:504 views.py:519 views.py:560 views.py:610
-#: views.py:656 views.py:681
+#: views.py:477 views.py:518 views.py:533 views.py:574 views.py:624
+#: views.py:670 views.py:695
 msgid "Form is successifully updated"
 msgstr "El registro se ha realizado correctamente"
 
-#: views.py:511
+#: views.py:525
 msgid "Your are not allowed to see this form"
 msgstr "No está autorizado a ver resta página"
 
-#: views.py:693
+#: views.py:707
 msgid "Welcome on Phenoclim website"
 msgstr "Bienvenidos a la comunidad Phénoclim!"
 
-#: views.py:733
+#: views.py:747
 msgid "New password"
 msgstr "Clave de acceso olvidada"
 
-#: views.py:907
+#: views.py:921
 msgid "Survey was deleted successfully."
 msgstr "La observación ha sido suprimida."
+
+#: templates/account_form.html:8 templates/login_form.html:25
+msgid "Register"
+msgstr "Incribirse"
+
+#: templates/account_form.html:37
+msgid "accept_security_policy"
+msgstr "Acepto la política de confidencialidad de datos"
+
+#: templates/account_form.html:44
+msgid "accept_contact_email"
+msgstr "Acepto que el CREA Mont-Blanc contacte conmigo (puntualmente) por mail para validar una observación"
+
+#: templates/account_form.html:51
+msgid "accept_newsletter"
+msgstr "Acepto recibir la carta de información Phénoclim (una vez por mes). Les recomendamos que se abonen para poder seguir las actualidades del programa y sus evoluciones/modificaciones"
+
+#: templates/account_form.html:65 templates/generic_form.html:14
+#: templates/profile.html:22 templates/profile_area.html:32
+#: templates/profile_individual.html:32 templates/snowing.html:42
+#: templates/survey.html:85
+msgid "Validate"
+msgstr "Validar"
 
 #: templates/all_surveys.html:14
 msgid "Export my surveys"
@@ -130,12 +153,6 @@ msgstr ""
 "Fecha de aparición del estado fenológico por año”Date d’apparition des "
 "stades par année"
 
-#: templates/generic_form.html:14 templates/profile.html:22
-#: templates/profile_area.html:32 templates/profile_individual.html:32
-#: templates/snowing.html:42 templates/survey.html:85
-msgid "Validate"
-msgstr "Validar"
-
 #: templates/login_form.html:10
 msgid "Your username and password didn't match. Please try again."
 msgstr ""
@@ -145,10 +162,6 @@ msgstr ""
 #: templates/login_form.html:21
 msgid "Connect"
 msgstr "Conectarse"
-
-#: templates/login_form.html:25
-msgid "Register"
-msgstr "Incribirse"
 
 #: templates/login_form.html:26
 msgid "Missed password"

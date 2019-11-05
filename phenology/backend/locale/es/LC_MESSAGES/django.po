@@ -76,11 +76,13 @@ msgstr "Centro escolar"
 
 #: models.py:81
 msgid "professionnel"
-msgstr "Profesional"
+msgstr ""
+"Profesionales de la naturaleza (espacios protegidos, asociaciones ambientales, "
+"forestales, botànicos...)"
 
 #: models.py:82
 msgid "centre_decouverte"
-msgstr "Centro de interpretación"
+msgstr "Centro de educacion relacionado con el medio ambiente"
 
 #: models.py:83
 msgid "autre"

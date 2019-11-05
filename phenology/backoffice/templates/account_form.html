@@ -34,14 +34,14 @@
               <label>
                 <input type="checkbox" name="{{ form.accept_policy.html_name }}" id="{{ form.accept_policy.id_for_label }}"
                 {% if form.instance.accept_policy %}checked{% endif %}>
-                {% trans "accept_policy" %}
+                {% trans "accept_security_policy" %}
               </label>
             </div>
               <div class="checkbox required {% if form.errors.accept_email %} has-error {% endif %}">
                 <label>
                   <input type="checkbox" name="{{ form.accept_email.html_name }}" id="{{ form.accept_email.id_for_label }}"
                   {% if form.instance.accept_email %}checked{% endif %}>
-                  {% trans "accept_security_policy" %}
+                  {% trans "accept_contact_email" %}
                 </label>
               </div>
               <div class="checkbox">
