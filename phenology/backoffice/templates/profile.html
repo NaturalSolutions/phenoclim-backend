@@ -16,7 +16,49 @@
   <div class="col-xs-12  table-col">
     <form method="post" class="form-horizontal" role="form">
       {% csrf_token %}
-      {% bootstrap_form form layout='horizontal' %}
+
+          <div class="form-group">
+            <label for="{{ form.username.id_for_label }}">{% trans "username" %}</label>
+              <input class="form-control" type="text" readonly name="{{ form.username.html_name }}" id="{{ form.username.id_for_label }}" value="{{ form.username.value }}">
+          </div>
+
+          {% bootstrap_field form.email %}
+          {% bootstrap_field form.organism %}
+          {% bootstrap_field form.fonction %}
+          {% bootstrap_field form.category %}
+          {% bootstrap_field form.nationality %}
+          {% bootstrap_field form.codepostal %}
+
+
+          <div>
+            <div class="checkbox required {% if form.errors.accept_policy %} has-error {% endif %}">
+              <label>
+                <input type="checkbox" required name="{{ form.accept_policy.html_name }}" id="{{ form.accept_policy.id_for_label }}"
+                {% if form.instance.accept_policy %}checked{% endif %}>
+                {% trans "accept_security_policy" %}
+              </label>
+            </div>
+              <div class="checkbox required {% if form.errors.accept_email %} has-error {% endif %}">
+                <label>
+                  <input type="checkbox" required name="{{ form.accept_email.html_name }}" id="{{ form.accept_email.id_for_label }}"
+                  {% if form.instance.accept_email %}checked{% endif %}>
+                  {% trans "accept_contact_email" %}
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="{{ form.accept_newsletter.html_name }}" id="{{ form.accept_newsletter.id_for_label }}"
+                  {% if form.instance.accept_newsletter %}checked{% endif %}>
+                  {% trans "accept_newsletter" %}
+                </label>
+              </div>
+          </div>
+
+
+          <br/>
+
+          {{ form.errors }}
+
       {% buttons %}
         <button type="submit" class="btn btn-primary btn-lg btn-block">
           {% trans 'Validate' %}
