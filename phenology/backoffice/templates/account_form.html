@@ -14,7 +14,7 @@
   <div class="col-md-12 table-col">
     <div class="row">
       <div class="col-xs-12">
-        <form method="post" class="form-horizontal" role="form">
+        <form id="register_form" method="post" class="form-horizontal" role="form">
           {% csrf_token %}
 
           {% bootstrap_field form.username %}
@@ -25,21 +25,18 @@
           {% bootstrap_field form.nationality %}
           {% bootstrap_field form.codepostal %}
 
-          {% bootstrap_field form.accept_policy %}
-
-
 
           <div>
-            <div class="checkbox">
+            <div class="checkbox required {% if form.errors.accept_policy %} has-error {% endif %}">
               <label>
-                <input type="checkbox" name="{{ form.accept_policy.html_name }}" id="{{ form.accept_policy.id_for_label }}"
+                <input type="checkbox" required name="{{ form.accept_policy.html_name }}" id="{{ form.accept_policy.id_for_label }}"
                 {% if form.instance.accept_policy %}checked{% endif %}>
                 {% trans "accept_security_policy" %}
               </label>
             </div>
               <div class="checkbox required {% if form.errors.accept_email %} has-error {% endif %}">
                 <label>
-                  <input type="checkbox" name="{{ form.accept_email.html_name }}" id="{{ form.accept_email.id_for_label }}"
+                  <input type="checkbox" required name="{{ form.accept_email.html_name }}" id="{{ form.accept_email.id_for_label }}"
                   {% if form.instance.accept_email %}checked{% endif %}>
                   {% trans "accept_contact_email" %}
                 </label>
@@ -55,13 +52,10 @@
 
 
           <br/>
-          {% if form.errors %}
-          <span class="help-block">{{ form.errors.as_text }}</span>
-          {% endif %}
 
 
           {% buttons %}
-            <button type="submit" class="btn btn-primary btn-lg btn-block">
+            <button type="submit" class="btn btn-primary btn-lg btn-block {% if form.errors %} disabled {% endif %}" >
               {% bootstrap_icon "tree-deciduous" %} {% trans 'Validate' %}
             </button>
           {% endbuttons %}
@@ -69,4 +63,35 @@
       </div>
     </div>
   </div>
+
+  <script type="text/javascript">
+
+    /*$( document ).ready(function(){
+      checkFormStatus();
+
+      $('form :input').change(
+      function(){
+        checkFormStatus();
+      });
+
+      function form_is_invalid() {
+        var formInValid = false;
+        if ( ! $('input[name=accept_policy]').is(':checked') || ! $('input[name=accept_email]').is(':checked')) {
+          formInValid = true;
+        }
+        return formInValid;
+      }
+
+      function checkFormStatus() {
+        var form_invalid = form_is_invalid();
+        if (form_invalid) {
+          $(':submit').addClass('disabled');
+        } else {
+          $(':submit').removeClass('disabled');
+        }
+      }
+
+    })*/
+
+  </script>
 {% endblock %}
