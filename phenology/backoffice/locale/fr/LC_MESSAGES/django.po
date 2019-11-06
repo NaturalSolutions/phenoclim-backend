@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-05 16:57+0100\n"
+"POT-Creation-Date: 2019-11-06 14:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,18 +26,22 @@ msgstr "Déjà utilisé"
 msgid "User with this email doesnt exist"
 msgstr "Aucun utilisateur n'a été trouvé avec cette adresse email."
 
-#: forms.py:163
+#: forms.py:89 forms.py:96
+msgid "Field required"
+msgstr "Ce champ est requis"
+
+#: forms.py:177
 msgid "Change stage"
 msgstr "changer stade de développement"
 
-#: forms.py:174
+#: forms.py:188
 #, python-format
 msgid "There is already a survey with same stage, same individual in %(year)s"
 msgstr ""
 "Il existe déjà une observation pour ce stade de developpement, cet individu "
 "en %(year)s."
 
-#: forms.py:203
+#: forms.py:217
 msgid "This name is already found in your area"
 msgstr "Ce nom est déjà attribué à un individu de votre zone"
 
@@ -74,11 +78,15 @@ msgstr "Vous n'êtes pas autorisé à voir cette page"
 msgid "Welcome on Phenoclim website"
 msgstr "Bienvenue dans la communauté Phénoclim !"
 
-#: views.py:747
+#: views.py:720
+msgid "form_errors"
+msgstr "Veuillez compléter les informations manquantes et corriger celles des champs en rouge."
+
+#: views.py:750
 msgid "New password"
 msgstr "Mot de passe oublié"
 
-#: views.py:921
+#: views.py:924
 msgid "Survey was deleted successfully."
 msgstr "L'observation a été supprimée avec succès."
 
@@ -86,19 +94,24 @@ msgstr "L'observation a été supprimée avec succès."
 msgid "Register"
 msgstr "S'inscrire"
 
-#: templates/account_form.html:37
+#: templates/account_form.html:34
 msgid "accept_security_policy"
 msgstr "J'accepte la politique de confidentialité des données."
 
-#: templates/account_form.html:44
+#: templates/account_form.html:41
 msgid "accept_contact_email"
-msgstr "J'accepte d'être contacté (très ponctuellement) par mail pour valider une observation."
+msgstr ""
+"J'accepte d'être contacté (très ponctuellement) par mail pour valider une "
+"observation."
 
-#: templates/account_form.html:51
+#: templates/account_form.html:48
 msgid "accept_newsletter"
-msgstr "J'accepte de recevoir la lettre d'information Phénoclim (1 fois par mois). Nous vous le recommandons fortement pour connaître les actualités du programme et ses évolutions/modifications."
+msgstr ""
+"J'accepte de recevoir la lettre d'information Phénoclim (1 fois par mois). "
+"Nous vous le recommandons fortement pour connaître les actualités du "
+"programme et ses évolutions/modifications."
 
-#: templates/account_form.html:65 templates/generic_form.html:14
+#: templates/account_form.html:59 templates/generic_form.html:14
 #: templates/profile.html:22 templates/profile_area.html:32
 #: templates/profile_individual.html:32 templates/snowing.html:42
 #: templates/survey.html:85

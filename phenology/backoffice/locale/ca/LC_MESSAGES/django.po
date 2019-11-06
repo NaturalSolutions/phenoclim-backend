@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-05 17:00+0100\n"
+"POT-Creation-Date: 2019-11-06 14:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,18 +26,22 @@ msgstr "Ja existeix"
 msgid "User with this email doesnt exist"
 msgstr "No s’ha trobat cap usuari amb aquesta adreça electrònica"
 
-#: forms.py:163
+#: forms.py:89 forms.py:96
+msgid "Field required"
+msgstr ""
+
+#: forms.py:177
 msgid "Change stage"
 msgstr "Canviar estadi de desenvolupament "
 
-#: forms.py:174
+#: forms.py:188
 #, python-format
 msgid "There is already a survey with same stage, same individual in %(year)s"
 msgstr ""
 "Ja existeix una observació amb el mateix estadi de desenvolupament, el "
 "mateix individu en %(year)s "
 
-#: forms.py:203
+#: forms.py:217
 msgid "This name is already found in your area"
 msgstr "Aquest nom ja ha estat atribuït a un individu de la teva zona "
 
@@ -74,11 +78,15 @@ msgstr "No estàs autoritzat a veure el contingut d’aquesta pàgina "
 msgid "Welcome on Phenoclim website"
 msgstr "Benvingut/da a la comunitat Phénoclim !"
 
-#: views.py:747
+#: views.py:720
+msgid "form_errors"
+msgstr "Please add the missing information and correct the information in the fields marked in red."
+
+#: views.py:750
 msgid "New password"
 msgstr "Nova clau d’accés"
 
-#: views.py:921
+#: views.py:924
 msgid "Survey was deleted successfully."
 msgstr "S'ha suprimit l'observació."
 
@@ -86,19 +94,24 @@ msgstr "S'ha suprimit l'observació."
 msgid "Register"
 msgstr "Inscriure’s"
 
-#: templates/account_form.html:37
+#: templates/account_form.html:34
 msgid "accept_security_policy"
 msgstr "Accepto la política de confidencialitat de les dades."
 
-#: templates/account_form.html:44
+#: templates/account_form.html:41
 msgid "accept_contact_email"
-msgstr "Accepto que el CREA Mont-Blanc contacti amb mi (puntualment) per mail per validar una observació."
+msgstr ""
+"Accepto que el CREA Mont-Blanc contacti amb mi (puntualment) per mail per "
+"validar una observació."
 
-#: templates/account_form.html:51
+#: templates/account_form.html:48
 msgid "accept_newsletter"
-msgstr "Accepto rebre una carta d'informació (una vegada al mes). Els recomanem que s'abonin per poder seguir les novetats del programa i les seves evolucions/ modificacions."
+msgstr ""
+"Accepto rebre una carta d'informació (una vegada al mes). Els recomanem que "
+"s'abonin per poder seguir les novetats del programa i les seves evolucions/ "
+"modificacions."
 
-#: templates/account_form.html:65 templates/generic_form.html:14
+#: templates/account_form.html:59 templates/generic_form.html:14
 #: templates/profile.html:22 templates/profile_area.html:32
 #: templates/profile_individual.html:32 templates/snowing.html:42
 #: templates/survey.html:85
