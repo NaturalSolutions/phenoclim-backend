@@ -76,11 +76,25 @@ class AccountForm(forms.ModelForm):
         self.fields.update(self.uf.fields)
         self.initial.update(self.uf.initial)
         self.fields.keyOrder = key_order +\
-            ['organism', 'email',
+            ['username', 'organism', 'email',
              'fonction', 'nationality',
              'codepostal',
              'category',
              'accept_policy', 'accept_email', 'accept_newsletter']
+
+    # check if checkbox accept_policy is True
+    def clean_accept_policy(self):
+        accept_policy = self.cleaned_data.get('accept_policy')
+        if not accept_policy:
+            raise forms.ValidationError(_('Field required'))
+        return accept_policy
+
+    # check if checkbox accept_email is True
+    def clean_accept_email(self):
+        accept_email = self.cleaned_data.get('accept_email')
+        if not accept_email:
+            raise forms.ValidationError(_('Field required'))
+        return accept_email
 
     def is_valid(self):
         # save both forms
