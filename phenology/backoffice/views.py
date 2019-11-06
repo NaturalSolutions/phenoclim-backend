@@ -671,6 +671,9 @@ def user_detail(request):
             form.save()
         else:
             print form.errors
+            messages.add_message(request,
+                                 messages.ERROR,
+                                 _('form_errors'))
     else:
         form = AccountForm(instance=request.user.observer)
 
@@ -715,6 +718,9 @@ def register_user(request):
             }, RequestContext(request))
         else:
             print form.errors
+            messages.add_message(request,
+                                 messages.ERROR,
+                                 _('form_errors'))
     else:
         instance = models.Observer()
         instance.user = User()
