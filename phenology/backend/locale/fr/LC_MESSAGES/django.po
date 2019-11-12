@@ -262,15 +262,20 @@ msgstr "Date d'inscription"
 
 #: models.py:268
 msgid "accept_security_policy"
-msgstr "Accepte politique de confidentialité des données"
+msgstr "<a href='https://phenoclim.org/sites/default/files/atoms/files/confidentialitephenoclim_1.pdf' type='pdf' title='Consulter la page politique de confidentialité'>J'accepte la politique de confidentialité des données.</a>"
 
 #: models.py:270
 msgid "accept_contact_email"
-msgstr "Accepte contact email"
+msgstr ""
+"J'accepte d'être contacté (très ponctuellement) par mail pour valider une "
+"observation."
 
 #: models.py:272
 msgid "accept_newsletter"
-msgstr "Accepte newsletter"
+msgstr ""
+"J'accepte de recevoir la lettre d'information Phénoclim (1 fois par mois). "
+"Nous vous le recommandons fortement pour connaître les actualités du "
+"programme et ses évolutions/modifications."
 
 #: models.py:276 models.py:454 models.py:480
 msgid "Observer"

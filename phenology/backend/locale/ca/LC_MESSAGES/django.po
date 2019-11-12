@@ -262,15 +262,20 @@ msgstr "Data d’inscripció"
 
 #: models.py:268
 msgid "accept_security_policy"
-msgstr ""
+msgstr "<a href='https://phenoclim.org/sites/default/files/atoms/files/confidentialitephenoclim_1.pdf' type='pdf'>Accepto la política de confidencialitat de les dades.</a>"
 
 #: models.py:270
 msgid "accept_contact_email"
 msgstr ""
+"Accepto que el CREA Mont-Blanc contacti amb mi (puntualment) per mail per "
+"validar una observació."
 
 #: models.py:272
 msgid "accept_newsletter"
 msgstr ""
+"Accepto rebre una carta d'informació (una vegada al mes). Els recomanem que "
+"s'abonin per poder seguir les novetats del programa i les seves evolucions/ "
+"modificacions."
 
 #: models.py:276 models.py:454 models.py:480
 msgid "Observer"
