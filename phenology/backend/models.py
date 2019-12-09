@@ -78,8 +78,6 @@ class CustomValidation(APIException):
 CATEGORY_CHOICES = (
     ('particulier', _('particulier')),
     ('etablissement_scolaire', _('etablissement_scolaire')),
-    ('espace_protege', _('espace_protege')),
-    ('association', _('association')),
     ('professionnelle', _('professionnel')),
     ('centre_decouverte', _('centre_decouverte')),
     ('autre', _('autre')),
@@ -248,22 +246,16 @@ class Area(models.Model):
 # observateur
 class Observer(models.Model):
     user = models.OneToOneField(User)
-    city = models.CharField(max_length=100, verbose_name=_("city"))
     fonction = models.CharField(max_length=70, verbose_name=_("fonction"),
                                 blank=True, default="")
     nationality = models.CharField(max_length=100,
                                    verbose_name=_("nationality"),
                                    choices=NATIONALITY_CHOICES)
-    adresse = models.TextField(max_length=80, verbose_name=_("adresse"))
     codepostal = models.CharField(max_length=20, verbose_name=_("codepostal"))
     organism = models.CharField(max_length=150, verbose_name=_("organism"),
                                 blank=True)
     category = models.CharField(max_length=80, verbose_name=_("category"),
                                 choices=CATEGORY_CHOICES)
-    phone = models.CharField(max_length=20, verbose_name=_("phone"),
-                             default="", blank=True)
-    mobile = models.CharField(max_length=20, verbose_name=_("mobile"),
-                              default="", blank=True)
     is_crea = models.BooleanField(verbose_name=_("is a crea member ?"),
                                   default=False)
     is_active = models.BooleanField(verbose_name=_("is activated?"),
@@ -273,6 +265,12 @@ class Observer(models.Model):
     date_inscription = models.DateField(blank=True, null=True,
                                         verbose_name=_("Date joined"),
                                         default=datetime.datetime.now)
+    accept_policy = models.BooleanField(verbose_name=_("accept_security_policy"),
+                                blank=False)
+    accept_email = models.BooleanField(verbose_name=_("accept_contact_email"),
+                                blank=False)
+    accept_newsletter = models.BooleanField(verbose_name=_("accept_newsletter"),
+                                default=False, blank=True)
 
     class Meta:
         verbose_name = _("Observer")

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-01 18:19+0200\n"
+"POT-Creation-Date: 2019-11-06 14:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,22 +22,26 @@ msgstr ""
 msgid "Already exists"
 msgstr "Ja existeix"
 
-#: forms.py:47
+#: forms.py:46
 msgid "User with this email doesnt exist"
 msgstr "No s’ha trobat cap usuari amb aquesta adreça electrònica"
 
-#: forms.py:167
+#: forms.py:89 forms.py:96
+msgid "Field required"
+msgstr ""
+
+#: forms.py:177
 msgid "Change stage"
 msgstr "Canviar estadi de desenvolupament "
 
-#: forms.py:178
+#: forms.py:188
 #, python-format
 msgid "There is already a survey with same stage, same individual in %(year)s"
 msgstr ""
 "Ja existeix una observació amb el mateix estadi de desenvolupament, el "
 "mateix individu en %(year)s "
 
-#: forms.py:207
+#: forms.py:217
 msgid "This name is already found in your area"
 msgstr "Aquest nom ja ha estat atribuït a un individu de la teva zona "
 
@@ -61,26 +65,58 @@ msgstr "Estat absent aquest any"
 msgid "isPassed"
 msgstr "Estadi que ja passat"
 
-#: views.py:463 views.py:504 views.py:519 views.py:560 views.py:610
-#: views.py:656 views.py:681
+#: views.py:477 views.py:518 views.py:533 views.py:574 views.py:624
+#: views.py:670 views.py:695
 msgid "Form is successifully updated"
 msgstr "Les dades s’han guardat correctament "
 
-#: views.py:511
+#: views.py:525
 msgid "Your are not allowed to see this form"
 msgstr "No estàs autoritzat a veure el contingut d’aquesta pàgina "
 
-#: views.py:693
+#: views.py:707
 msgid "Welcome on Phenoclim website"
 msgstr "Benvingut/da a la comunitat Phénoclim !"
 
-#: views.py:733
+#: views.py:720
+msgid "form_errors"
+msgstr "Please add the missing information and correct the information in the fields marked in red."
+
+#: views.py:750
 msgid "New password"
 msgstr "Nova clau d’accés"
 
-#: views.py:907
+#: views.py:924
 msgid "Survey was deleted successfully."
 msgstr "S'ha suprimit l'observació."
+
+#: templates/account_form.html:8 templates/login_form.html:25
+msgid "Register"
+msgstr "Inscriure’s"
+
+#: templates/account_form.html:34
+msgid "accept_security_policy"
+msgstr "Accepto la política de confidencialitat de les dades."
+
+#: templates/account_form.html:41
+msgid "accept_contact_email"
+msgstr ""
+"Accepto que el CREA Mont-Blanc contacti amb mi (puntualment) per mail per "
+"validar una observació."
+
+#: templates/account_form.html:48
+msgid "accept_newsletter"
+msgstr ""
+"Accepto rebre una carta d'informació (una vegada al mes). Els recomanem que "
+"s'abonin per poder seguir les novetats del programa i les seves evolucions/ "
+"modificacions."
+
+#: templates/account_form.html:59 templates/generic_form.html:14
+#: templates/profile.html:22 templates/profile_area.html:32
+#: templates/profile_individual.html:32 templates/snowing.html:42
+#: templates/survey.html:85
+msgid "Validate"
+msgstr "Validar"
 
 #: templates/all_surveys.html:14
 msgid "Export my surveys"
@@ -127,12 +163,6 @@ msgstr "Resposta"
 msgid "Vizualisation"
 msgstr "Data d’aparició dels estadis per any"
 
-#: templates/generic_form.html:14 templates/profile.html:22
-#: templates/profile_area.html:32 templates/profile_individual.html:32
-#: templates/snowing.html:42 templates/survey.html:85
-msgid "Validate"
-msgstr "Validar"
-
 #: templates/login_form.html:10
 msgid "Your username and password didn't match. Please try again."
 msgstr ""
@@ -142,10 +172,6 @@ msgstr ""
 #: templates/login_form.html:21
 msgid "Connect"
 msgstr "Connectar-se"
-
-#: templates/login_form.html:25
-msgid "Register"
-msgstr "Inscriure’s"
 
 #: templates/login_form.html:26
 msgid "Missed password"
