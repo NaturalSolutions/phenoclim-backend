@@ -47,3 +47,23 @@ Run Server
 
     $ cd phenology
     $ ./manage.py runserver 127.0.0.1:8000
+
+
+Deployment of new features
+--------------------------
+::
+    $ git status
+
+Stash instance configuration
+::
+    $ git stash
+
+Add updates
+::
+    $ git pull origin master
+
+If model changes
+::
+    $ ./manage.py migrate backend (--delete-ghost-migrations if scripts are deleted manually)
+
+

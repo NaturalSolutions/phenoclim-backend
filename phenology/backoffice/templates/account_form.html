@@ -1,27 +1,23 @@
 {% extends "base.html" %}
-{% load i18n %}
 
 {% load bootstrap3 %}
+{% load i18n %}
+
 
 {% block title %}
-  {% trans 'My profil' %}
-  <a href="password_change" class="btn btn-info btn-sm">
-    {% trans 'Change password' %}
-  </a>
+  {% trans 'Register' %}
 {% endblock %}
 
+
 {% block content %}
-<div class="row  table-row">
+<div class="row table-row">
+  <div class="col-md-12 table-col">
+    <div class="row">
+      <div class="col-xs-12">
+        <form id="register_form" method="post" class="form-horizontal" role="form">
+          {% csrf_token %}
 
-  <div class="col-xs-12  table-col">
-    <form method="post" class="form-horizontal" role="form">
-      {% csrf_token %}
-
-          <div class="form-group">
-            <label for="{{ form.username.id_for_label }}">{% trans "username" %}</label>
-              <input class="form-control" type="text" readonly name="{{ form.username.html_name }}" id="{{ form.username.id_for_label }}" value="{{ form.username.value }}">
-          </div>
-
+          {% bootstrap_field form.username %}
           {% bootstrap_field form.email %}
           {% bootstrap_field form.organism %}
           {% bootstrap_field form.fonction %}
@@ -57,17 +53,45 @@
 
           <br/>
 
-          {{ form.errors }}
 
-      {% buttons %}
-        <button type="submit" class="btn btn-primary btn-lg btn-block">
-          {% trans 'Validate' %}
-        </button>
-      {% endbuttons %}
-    </form>
-
+          {% buttons %}
+            <button type="submit" class="btn btn-primary btn-lg btn-block {% if form.errors %} disabled {% endif %}" >
+              {% bootstrap_icon "tree-deciduous" %} {% trans 'Validate' %}
+            </button>
+          {% endbuttons %}
+        </form>
+      </div>
+    </div>
   </div>
 
- </div>
+  <script type="text/javascript">
 
+    /*$( document ).ready(function(){
+      checkFormStatus();
+
+      $('form :input').change(
+      function(){
+        checkFormStatus();
+      });
+
+      function form_is_invalid() {
+        var formInValid = false;
+        if ( ! $('input[name=accept_policy]').is(':checked') || ! $('input[name=accept_email]').is(':checked')) {
+          formInValid = true;
+        }
+        return formInValid;
+      }
+
+      function checkFormStatus() {
+        var form_invalid = form_is_invalid();
+        if (form_invalid) {
+          $(':submit').addClass('disabled');
+        } else {
+          $(':submit').removeClass('disabled');
+        }
+      }
+
+    })*/
+
+  </script>
 {% endblock %}
