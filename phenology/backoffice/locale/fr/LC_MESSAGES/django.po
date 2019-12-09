@@ -84,7 +84,7 @@ msgstr "Veuillez compléter les informations manquantes et corriger celles des c
 
 #: views.py:750
 msgid "New password"
-msgstr "Mot de passe oublié"
+msgstr "Nouveau mot de passe"
 
 #: views.py:924
 msgid "Survey was deleted successfully."
