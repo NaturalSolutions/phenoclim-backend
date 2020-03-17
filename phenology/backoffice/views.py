@@ -13,7 +13,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
-from django.http import HttpResponse, HttpResponseRedirect 
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import DeleteView
 from django.core.urlresolvers import reverse_lazy, reverse
 import os
@@ -671,7 +671,7 @@ def user_detail(request):
                                  messages.SUCCESS,
                                  _('Form is successifully updated'))
             form.save()
-            if form['accept_newsletter'].value() :
+            if form['accept_newsletter'].value() and settings.MAILCHIMP_URL and settings.MAILCHIMP_API_KEY and settings.MAILCHIMP_ID_LIST :
                 try:
                     mailchimp_url = settings.MAILCHIMP_URL;
                     mailchimp_api = settings.MAILCHIMP_API_KEY;
@@ -688,8 +688,6 @@ def user_detail(request):
                     rep = urllib2.urlopen(req)
                 except urllib2.URLError as e:
                     print ('error mailchimp',e.reason)
-
-                
 
         else:
             print form.errors
