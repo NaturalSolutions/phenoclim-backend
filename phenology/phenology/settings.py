@@ -270,6 +270,9 @@ EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 25
 EMAIL_USE_TLS = False
 
+MAILCHIMP_API_KEY = ''
+MAILCHIMP_ID_LIST = ''
+MAILCHIMP_URL= ''
 try:
     from .settings_local import *
 except ImportError:
