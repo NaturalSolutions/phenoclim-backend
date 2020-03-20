@@ -17,14 +17,12 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import DeleteView
 from django.core.urlresolvers import reverse_lazy, reverse
 import os
-import urllib2
-import urllib
 base_path = os.path.join(os.path.dirname(__file__))
 
 
 
 from querystring_parser import parser
-from .utils import as_workbook
+from .utils import as_workbook, add_subscriber_mailchimp
 from backend import models
 from backoffice.forms import AccountForm, AreaForm, IndividualForm,\
     CreateIndividualForm, SurveyForm, SnowingForm, ResetPasswordForm
@@ -667,27 +665,14 @@ def user_detail(request):
         form = AccountForm(request.POST,
                            instance=request.user.observer)
         if form.is_valid():
+            # Mailchimp
+            if form['accept_newsletter'].value() and settings.MAILCHIMP_URL and settings.MAILCHIMP_API_KEY and settings.MAILCHIMP_ID_LIST :
+                add_subscriber_mailchimp(form['email'].value())
+
             messages.add_message(request,
                                  messages.SUCCESS,
                                  _('Form is successifully updated'))
             form.save()
-            if form['accept_newsletter'].value() and settings.MAILCHIMP_URL and settings.MAILCHIMP_API_KEY and settings.MAILCHIMP_ID_LIST :
-                try:
-                    mailchimp_url = settings.MAILCHIMP_URL;
-                    mailchimp_api = settings.MAILCHIMP_API_KEY;
-                    mailchimp_idlist = settings.MAILCHIMP_ID_LIST;
-
-                    headers = {'Authorization': 'apikey ' + mailchimp_api}
-                    data = {
-	                            "email_address": form['email'].value(),
-	                            "status" : "subscribed"
-                            }
-                    data_dump = json.dumps(data)
-                    req = urllib2.Request(mailchimp_url + 'lists/' + mailchimp_idlist + '/members',data_dump,headers)
-                    req.add_header('Content-Type', 'application/json')
-                    rep = urllib2.urlopen(req)
-                except urllib2.URLError as e:
-                    print ('error mailchimp',e.reason)
 
         else:
             print form.errors
@@ -713,6 +698,10 @@ def register_user(request):
     if request.POST:
         form = AccountForm(request.POST)
         if form.is_valid():
+            # Mailchimp newsletter
+            if form['accept_newsletter'].value() and settings.MAILCHIMP_URL and settings.MAILCHIMP_API_KEY and settings.MAILCHIMP_ID_LIST :
+                add_subscriber_mailchimp(form['email'].value())
+
             messages.add_message(request,
                                  messages.SUCCESS,
                                  _('Form is successifully updated'))

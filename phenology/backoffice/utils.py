@@ -1,10 +1,15 @@
 import xlwt
 import datetime
 import time
+import urllib2
+import urllib
+import simplejson as json
+
 from django.forms.forms import pretty_name
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import ugettext as _
 from django.db import connection
+from django.conf import settings
 
 HEADER_STYLE = xlwt.easyxf('font: bold on')
 DEFAULT_STYLE = xlwt.easyxf()
@@ -128,3 +133,28 @@ def year_query():
         return 'CAST(STRFTIME("%Y", date) AS INTEGER)'
     else:
         return 'CAST(extract(year from date) AS INTEGER)'
+
+
+######
+# Mailchimp
+######
+
+def add_subscriber_mailchimp(email_address):
+    try:
+        mailchimp_url = settings.MAILCHIMP_URL
+        mailchimp_api = settings.MAILCHIMP_API_KEY
+        mailchimp_idlist = settings.MAILCHIMP_ID_LIST
+
+        headers = {'Authorization': 'apikey ' + mailchimp_api}
+        data = {
+                    "email_address": email_address,
+                    "status" : "subscribed"
+                }
+        data_dump = json.dumps(data)
+        req = urllib2.Request(mailchimp_url + 'lists/' + mailchimp_idlist + '/members',data_dump,headers)
+        req.add_header('Content-Type', 'application/json')
+        rep = urllib2.urlopen(req)
+
+    except urllib2.URLError as e:
+        print ('error mailchimp',e.reason)
+        pass
