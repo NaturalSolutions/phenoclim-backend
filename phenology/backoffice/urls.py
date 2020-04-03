@@ -74,6 +74,7 @@ urls = patterns(
     # map
     url(r'^map_all_surveys$', views.map_all_surveys, name='map-surveys'),
     url(r'^search_surveys', views.search_surveys, name="search-surveys"),
+    url(r'^map_obs', views.map_obs, name="map_obs"),
 
     # viz
     url(r'^viz_all_surveys$', views.viz_all_surveys, name='viz-surveys'),
