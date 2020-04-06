@@ -174,6 +174,23 @@ def get_species_list(request):
                         content_type="application/json")
 
 
+
+def get_all_categories(request):
+    results= []
+    cursor = connection.cursor()
+    sql = "SELECT Distinct(category) " +\
+        "From backend_observer "  +\
+        "WHERE category IS NOT NULL AND category != '' "  +\
+        "ORDER BY category ;"
+    cursor.execute(sql)
+    for category in cursor.fetchall():
+        results.append(category[0])
+    print ('result', results)
+    return HttpResponse(json.dumps(results, default=json_serial),
+                        content_type="application/json")
+
+
+
 def get_min_max_surveys(stage_id):
     cursor = connection.cursor()
     cursor.execute('SELECT ' + year_query() + ' as year,' +
@@ -205,39 +222,46 @@ def search_surveys(request):
     notdead = request.GET.get("not_dead")
     individuals = models.Individual.objects.all()
     areas = models.Area.objects.all()
-
     if species_id and species_id.isdigit():
         individuals = individuals.filter(species__id=species_id)
         areas = areas.filter(individual__species__id=species_id)
         observers = observers.filter(areas__individual__species__id=species_id)
 
     area_organism = {}
+    area_cat = {}
+
     wheresql_area = " WHERE boa.observer_id=bo.id "
+
+    # TODO CLEAN ??
     # Particulier
     # wheresql_area += " AND bo.organism = '' or bo.organism is NULL "
    
-    area_org_sql = "SELECT area_id, observer_id, bo.organism " +\
+    area_org_sql = "SELECT area_id, observer_id, bo.organism, bo.category " +\
                     "FROM backend_observer_areas as boa, backend_observer as bo " +\
                     wheresql_area +\
                     ";"
 
     cursor.execute(area_org_sql)
-    for area_id, observer_id, organism in cursor.fetchall():
+    for area_id, observer_id, organism, category  in cursor.fetchall():
         area = area_organism.setdefault(area_id, [])
+        cat = area_cat.setdefault(area_id, [])
         if not organism :
             organism = "Particulier"
         area.append(organism)
-    
+        cat.append(category)
+
+    #for a in areas:
+    #   print("areas item: ", a.__dict__)
+
     classified = {a.id: {'lon': a.lon, 'lat': a.lat, 'city': a.commune,
                             'altitude': a.altitude, 'name': a.name,
                             'id': a.id,
                             'nb_individuals': 0,
                             "organisms": ",".join(area_organism.get(a.id, [])),
+                            "category": ",".join(area_cat.get(a.id, [])),
                             'values': {}, 'postalcode': a.postalcode}
                     for a in areas}
-    #for a in areas:
-    #    print(a.__dict__)
-        
+
     
     for ind in individuals:
         tmp = classified[ind.area_id]
@@ -252,7 +276,7 @@ def search_surveys(request):
     
     # SQL REQUEST WHERE
     wheresql = ' WHERE backend_survey.individual_id=backend_individual.id '
-    if species_id:
+    if species_id and species_id.isdigit():
         wheresql += 'AND backend_individual.species_id = %s ' % species_id
     # 'isObserved' and not with 'en_erreur' status
     if notdead == 'true':
