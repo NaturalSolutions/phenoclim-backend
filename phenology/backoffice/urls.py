@@ -64,6 +64,7 @@ urls = patterns(
     url(r'^get_species_list$', views.get_species_list, name='species-list'),
     url(r'^chart_surveys', views.chart_surveys, name="chart-surveys"),
     url(r'^get_all_categories$', views.get_all_categories, name='get_all_categories'),
+    url(r'^get_new_area_obs$', views.get_new_area_obs, name='get_new_area_obs'),
 
     # mystudies
     url(r'^mystudies$', views.my_studies, name='my-studies'),

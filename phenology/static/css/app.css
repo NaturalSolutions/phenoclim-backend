@@ -431,3 +431,13 @@ form .answer > label {
     top: 10% !important;
   }
 }
+
+.key-figures {
+  padding: 16px 0;
+  font-size: 16px;
+}
+
+.key-figures span {
+  font-weight: 600;
+}
+
