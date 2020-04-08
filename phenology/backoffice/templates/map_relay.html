@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+{% load json_filters %}
+
+{% block navigation %} {% endblock %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+
+<script type="text/javascript">
+  phenoclim.options = {
+    geojson: {},
+  }
+</script>
+<div class="row  table-row">
+  <div class=" col-xs-8 col-md-8  table-col">
+    <div id="map" class="map relays"></div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  phenoclim = phenoclim || {}
+  phenoclim.session = phenoclim.session || {};
+  phenoclim.mapviz = phenoclim.mapviz || {};
+
+  // INIT UI
+  phenoclim.mapviz.load_layers = function () {
+
+    {% autoescape off %}
+    var relays_list = {{ relays }};
+    {% endautoescape %}
+
+    console.log('relays_list', relays_list);
+    relays_list.forEach(function (item) {
+      console.log('item', item);
+      if (item.lat && item.lon) {
+        var marker = L.circleMarker([item.lat, item.lon], {
+          radius: 10,
+          weight: 1,
+          opacity: 1,
+          fillOpacity: 0.2,
+          color: "blue"
+        }).addTo(phenoclim.session.map_layers);
+        marker.bindPopup(
+          "<div class='text-center'>" + item.organism +
+          "<br/><br/> Adresse:" +
+          item.adresse +
+          "<br/>" + item.codepostal +
+          "<br/><br/> Contact:" +
+          "<br/>" + item.email +
+          "<br/>" + item.phone +
+          "<br/><br/> Site web:" +
+          "<br/>" + item.web_site +
+          "</div>"
+        );
+      }
+    });
+  }
+
+
+
+
+  $(document).ready(function () {
+
+    $(".map").on("map_init", function () {
+      phenoclim.session.map_layers = L.featureGroup().addTo(phenoclim.session.map._map);
+      phenoclim.mapviz.load_layers()
+
+    });
+  });
+</script>
+
+{% endblock %}

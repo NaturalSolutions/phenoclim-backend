@@ -57,6 +57,27 @@ def map_obs(request):
     return render_to_response("map_obs.html", {},
                                 RequestContext(request))
 
+def map_relay(request):
+    relays = models.Observer.objects. \
+        filter(is_relay=True).all()
+ 
+    relays_dict1 = [row.__dict__ for row in relays]
+    print('relays_dict1',relays_dict1)
+    relays_dict = [{
+                "codepostal":relay.codepostal,
+                "organism":relay.organism,
+                "adresse":relay.adresse,
+                "email": relay.relay_email,
+                "logo": relay.logo.url,
+                "phone": relay.phone,
+                "lon": relay.lon,
+                "lat": relay.lat
+                }
+                for relay in relays]
+    print ('relays', relays_dict)
+    return render_to_response("map_relay.html", {'relays': json.dumps(relays_dict)},
+                                RequestContext(request))
+
 def map_viz(request):
     return render_to_response("map_viz.html", {},
                               RequestContext(request))

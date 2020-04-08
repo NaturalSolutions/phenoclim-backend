@@ -74,5 +74,13 @@ class ObserverResource(resources.ModelResource):
             "accept_policy",
             "accept_email",
             "accept_newsletter",
+            "relay_email",
+            "web_site",
+            "lat",
+            "lon",
+            "is_relay",
+            "phone",
+            "adresse",
+            "logo",
         )
         export_order = fields
