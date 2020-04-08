@@ -61,7 +61,6 @@
     phenoclim.session.map_layers.clearLayers();
     var species_id = $("[data-id=species]").val();
     var species_name = $("[data-id=species] :selected").text();
-
     var years_selected = $("[data-id=years] :selected").val();
     var cat_organism_selected = $("[data-id=cat_organism] :selected").val();
 
@@ -70,73 +69,95 @@
       var nb_obs_total = 0;
       var nb_areas = 0;
       var nb_individuals_total = 0;
+      //area
       $.each(data, function (i, item) {
-        var values = (item.values) ? item.values || [] : [];
-        var current_species_name=[];
-        $.each(values, function (i, species) {
-          var nbobs = 0;
-          var years = [];
-          var current_species = Object.keys(species);
-          $.each(species, function (s, year) {
-            var tmp = d3.sum(d3.entries(year)
-              .filter(function (d) {
-                var exists = years_selected.indexOf(d.key) > -1
-                if (exists || (!exists && !years_selected)) {
-                  years.push(d.key);
-                  exists = true;
-                }
-                return exists;
-              })
-              .map(function (d) {
-                return d3.sum(d3.values(d.value));
-              }))
-            if (tmp) {
-              nbobs += tmp;
-            }
+        var species = (item.values) ? item.values || [] : [];
+        var current_species_name = [];
+        var current_species = [];
+        var nbobs = 0;
+        var years = [];
+
+        // Get ID species
+        current_species = Object.keys(species);
+
+        // Each species
+        $.each(species, function (s, stades) {
+          // Each stades
+          $.each(stades, function (t, allyear) {
+            phenoclim.mapviz.getparticipation(Object.keys(allyear));
+            $.each(allyear, function (y, year) {
+              var exists = years_selected.indexOf(y) > -1
+              if (exists || (!exists && !years_selected)) {
+                years.push(y);
+                nbobs += year['count'];
+              }
+            });
           });
-          if (
+        });
+
+        if (
+          nbobs && (
             (years.indexOf(years_selected) > -1 && item.category == cat_organism_selected) ||
             (!years_selected && !cat_organism_selected) ||
             (!years_selected && item.category == cat_organism_selected) ||
             (years.indexOf(years_selected) > -1 && !cat_organism_selected)
-          ) {
-            var isNewArea = phenoclim.mapviz.new_area_year.filter(function(ay) {
-              return ay.area_id == item.id;
-            })
-            var color = (isNewArea && isNewArea.length > 0) ? "orange" : "blue";
-            phenoclim.session.species_list.map(function(el) { 
-              var spec = current_species.indexOf(el.id.toString()) > -1 ;
-              if (spec)
-                current_species_name.push(el.label);
-            });
-            names_of_species = current_species_name.join(',');
-            console.log("names_of_species: ", names_of_species + " / " + item.organisms + " / " + item.id );
-            nb_areas++;
-            nb_obs_total += nbobs;
-            nb_individuals_total += item.nb_individuals;
-            var marker = L.circleMarker([item.lat, item.lon], {
-              radius: 5 + (nbobs / 3),
-              weight: 1,
-              opacity: 1,
-              fillOpacity: 0.2,
-              color: color
-            }).addTo(phenoclim.session.map_layers);
-            marker.bindPopup("<div class='text-center'>" + item.organisms + "</br>" + item.city + " - " +
-              item.postalcode + 
-              " <br/> Espèces suivies : " + names_of_species  +
-              "<br/> Nb année participation : " +
-              "<br/> Nb totale d'observations : " + nbobs + " </div>")
-            marker.on("click", function (event) {
-              // phenoclim.session.linechart.refresh({ 'data': item.values});
-            });
-          }
-        });
+          )
+        ) {
+          // is new area
+          var isNewArea = phenoclim.mapviz.new_area_year.filter(function (ay) {
+            return ay.area_id == item.id;
+          })
+          var color = (isNewArea && isNewArea.length > 0) ? "orange" : "blue";
+
+          // species list
+          phenoclim.session.species_list.map(function (el) {
+            var spec = current_species.indexOf(el.id.toString()) > -1;
+            if (spec)
+              current_species_name.push(el.label);
+          });
+          names_of_species = current_species_name.join(',');
+
+          // Nb global areas
+          nb_areas++;
+          // Nb global obs
+          nb_obs_total += nbobs;
+          // Nb global individuals
+          nb_individuals_total += item.nb_individuals;
+
+          // Add marker
+          var marker = L.circleMarker([item.lat, item.lon], {
+            radius: 5 + (nbobs / 5),
+            weight: 1,
+            opacity: 1,
+            fillOpacity: 0.2,
+            color: color
+          }).addTo(phenoclim.session.map_layers);
+          marker.bindPopup(
+            "<div class='text-center'>" + item.organisms + "</br>" + item.city + " - " +
+            item.postalcode +
+            " <br/> Espèces suivies : " + names_of_species +
+            "<br/> Nb année participation : " + phenoclim.mapviz.getparticipation(years).length +
+            "<br/> Nb totale d'observations : " + nbobs + " </div>"
+          );
+        }
       });
       $("span[data-id=species_observed]").text(nb_individuals_total);
       $("span[data-id=all_observations]").text(nb_obs_total);
       $("span[data-id=area_obs]").text(nb_areas);
     });
   }
+
+  // Get Nb participation year
+  phenoclim.mapviz.getparticipation = function (years) {
+    nbParticipation = []
+    years.forEach(year => {
+      if (nbParticipation.indexOf(year) === -1) {
+        nbParticipation.push(year);
+      }
+    });
+    return nbParticipation;
+  }
+
   //REFRESH WIDGET: select, map
   phenoclim.mapviz.refreshWidgets = function () {
     var species_id = $("select[data-id=species]").val();
@@ -152,7 +173,6 @@
     var boundingbox = phenoclim.session.map._map.getBounds();
     var northEast = boundingbox.getNorthEast();
     var southWest = boundingbox.getSouthWest();
-    //console.log(boundingbox);
     //loop areas
     $.each(data, function (id, area_data) {
       //loop species
@@ -176,7 +196,6 @@
                 };
 
               }
-              //console.log(year_data);
               //loop week
               $.each(year_data.values, function (week, nbobs) {
                 if (!results[species_id][stage_id][year].weeks[week]) {

@@ -169,7 +169,7 @@ def get_species_list(request):
                            species.stage_set.all().order_by("order")]}
                for species in models.Species.objects.all().order_by("name")]
     timer.capture()
-    print timer.output()
+    #print timer.output()
     return HttpResponse(json.dumps(species, default=json_serial),
                         content_type="application/json")
 
@@ -350,7 +350,7 @@ def search_surveys(request):
         year["values"][survey_dict["week"]] = survey_dict["count"]
 
     timer.capture()
-    print timer.output()
+    #print timer.output()
 
     return HttpResponse(json.dumps(classified, default=json_serial),
                         content_type="application/json")
@@ -386,7 +386,7 @@ def get_area_snowings(request):
                           "snowings": snowings
                           }
             timer.capture()
-            print timer.output()
+            #print timer.output()
 
     return HttpResponse(json.dumps(classified, use_decimal=True,
                                    default=json_serial),
@@ -437,7 +437,7 @@ def search_snowings(request):
         area['values'][snowing_dict["year"]] = snowing_dict["height"]
 
     timer.capture()
-    print timer.output()
+    #print timer.output()
 
     return HttpResponse(json.dumps(classified,
                                    use_decimal=True,
@@ -689,7 +689,7 @@ def snowing_detail(request, area_id, snowing_id=-1):
                  "height": s.height}
                 for s in query]
     timer.capture()
-    print timer.output()
+    #print timer.output()
 
     lasts_inputs = models.Snowing.objects.filter(observer=request.user.observer)[:10]
 
