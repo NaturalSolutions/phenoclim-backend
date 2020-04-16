@@ -10,7 +10,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding field 'Observer.logo'
         db.add_column(u'backend_observer', 'logo',
-                      self.gf('django.db.models.fields.files.ImageField')(default='default_logo.png', max_length=100),
+                      self.gf('django.db.models.fields.files.ImageField')(default='picture/logos/default_logo.png', max_length=100),
                       keep_default=False)
 
 
