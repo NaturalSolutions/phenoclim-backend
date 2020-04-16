@@ -436,8 +436,27 @@ form .answer > label {
   padding: 16px 0;
   font-size: 16px;
 }
+.new_area_obs {
+  color: orange
+}
+.area_obs{
+  color: blue
+}
 
 .key-figures span {
   font-weight: 600;
 }
 
+.popup-list{
+  font-weight: 600;
+  padding-top: 8px;
+  margin: 0 !important;
+}
+.popup-text{
+  margin: 0 !important;
+}
+.popup-logo{
+  width: 60px;
+  height: 60px;
+  padding-bottom: 6px;
+}

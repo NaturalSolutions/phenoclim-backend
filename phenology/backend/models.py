@@ -282,8 +282,8 @@ class Observer(models.Model):
     lon = models.FloatField(verbose_name="longitude",
                             null=True, blank=True,
                             help_text=_("In degree, decimal."))
-    logo = ThumbnailerImageField(upload_to='/picture/logos',
-                                           default='default_logo.png',
+    logo = ThumbnailerImageField(upload_to='picture/logos',
+                                           default='picture/logos/default_logo.png',
                                            verbose_name=_('logo'))
     web_site = models.CharField(max_length=150, verbose_name=_("web_site"),
                               null=True, blank=True)

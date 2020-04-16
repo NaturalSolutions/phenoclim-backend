@@ -33,10 +33,11 @@
     var relays_list = {{ relays }};
     {% endautoescape %}
 
-    console.log('relays_list', relays_list);
     relays_list.forEach(function (item) {
-      console.log('item', item);
+      console.log('item',item);
+      
       if (item.lat && item.lon) {
+
         var marker = L.circleMarker([item.lat, item.lon], {
           radius: 10,
           weight: 1,
@@ -45,15 +46,17 @@
           color: "blue"
         }).addTo(phenoclim.session.map_layers);
         marker.bindPopup(
-          "<div class='text-center'>" + item.organism +
-          "<br/><br/> Adresse:" +
-          item.adresse +
-          "<br/>" + item.codepostal +
-          "<br/><br/> Contact:" +
-          "<br/>" + item.email +
-          "<br/>" + item.phone +
-          "<br/><br/> Site web:" +
-          "<br/>" + item.web_site +
+          "<div>" +
+          "<div class='text-center'><img class='popup-logo' src='" + item.logo + "' alt='logo'>"+
+          "<p class='popup-text'> Organisme " + item.organism + "</p></div>"+
+          "<p class='popup-list'>Adresse:</p>" +
+          "<p class='popup-text'>" + (item.adresse ? item.adresse : "")  + "</p>"+
+          "<p class='popup-text'>" + (item.codepostal ? item.codepostal : "") + "</p>"+
+          "<p class='popup-list'>Contact:</p>"+
+          "<p class='popup-text'>" + (item.email ? item.email : "") + "</p>"+
+          "<p class='popup-text'>" + (item.phone ? item.phone : "") + "</p>"+
+          "<p class='popup-list'>Site web:</p>"+
+          "<p class='popup-text'>" + (item.web_site ? item.web_site : "") + "</p>"+
           "</div>"
         );
       }

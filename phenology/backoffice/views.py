@@ -62,7 +62,6 @@ def map_relay(request):
         filter(is_relay=True).all()
  
     relays_dict1 = [row.__dict__ for row in relays]
-    print('relays_dict1',relays_dict1)
     relays_dict = [{
                 "codepostal":relay.codepostal,
                 "organism":relay.organism,
@@ -70,11 +69,11 @@ def map_relay(request):
                 "email": relay.relay_email,
                 "logo": relay.logo.url,
                 "phone": relay.phone,
+                "web_site": relay.web_site,
                 "lon": relay.lon,
                 "lat": relay.lat
                 }
                 for relay in relays]
-    print ('relays', relays_dict)
     return render_to_response("map_relay.html", {'relays': json.dumps(relays_dict)},
                                 RequestContext(request))
 

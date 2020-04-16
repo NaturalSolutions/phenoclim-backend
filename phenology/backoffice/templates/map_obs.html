@@ -107,6 +107,7 @@
           var isNewArea = phenoclim.mapviz.new_area_year.filter(function (ay) {
             return ay.area_id == item.id;
           })
+         
           var color = (isNewArea && isNewArea.length > 0) ? "orange" : "blue";
 
           // species list
@@ -259,6 +260,7 @@
     $.get("/portail/get_new_area_obs?selected_year=" + new_area_year, function (area) {
       phenoclim.mapviz.new_area_year = area;
       $("span[data-id=new_area_obs]").text(area.length);
+      phenoclim.mapviz.refreshWidgets();
     })
   }
 
@@ -289,8 +291,7 @@
         })
         // ON chnage years refresh other widget
         $("select[data-id=years]").on("change", function (event) {
-          phenoclim.mapviz.refreshWidgets();
-          phenoclim.mapviz.refreshNewAreaObs()
+          phenoclim.mapviz.refreshNewAreaObs();
         })
         // ON chnage cat_organism refresh other widget
         $("select[data-id=cat_organism]").on("change", function (event) {
