@@ -211,10 +211,14 @@ def get_all_categories(request):
 
 def get_new_area_obs(request):
     selected_year = request.GET.get("selected_year")
+    selected_specie = request.GET.get("selected_specie")
     results= []
     having_year=''
     if selected_year and selected_year.isdigit():
         having_year = " HAVING MIN(extract(year from date))=" + selected_year
+    if selected_specie:
+        where_specie = "ok"
+        print('where_specie', where_specie)
     cursor = connection.cursor()
     sql =   "select distinct boa.area_id, (select MIN(extract(year from date))) as myyear "  +\
             "FROM backend_observer_areas as boa "  +\

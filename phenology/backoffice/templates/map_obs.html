@@ -69,6 +69,10 @@
       var nb_obs_total = 0;
       var nb_areas = 0;
       var nb_individuals_total = 0;
+      var boundingbox = phenoclim.session.map._map.getBounds();
+      var northEast = boundingbox.getNorthEast();
+      var southWest = boundingbox.getSouthWest();
+
       //area
       $.each(data, function (i, item) {
         var species = (item.values) ? item.values || [] : [];
@@ -77,77 +81,84 @@
         var nbobs = 0;
         var years = [];
 
-        // Get ID species
-        current_species = Object.keys(species);
+        if ((item.lat <= northEast.lat && item.lat >= southWest.lat) &&
+          (item.lon >= southWest.lng && item.lon <= northEast.lng)) {
+          //loop areas
 
-        // Each species
-        $.each(species, function (s, stades) {
-          // Each stades
-          $.each(stades, function (t, allyear) {
-            phenoclim.mapviz.getparticipation(Object.keys(allyear));
-            $.each(allyear, function (y, year) {
-              var exists = years_selected.indexOf(y) > -1
-              if (exists || (!exists && !years_selected)) {
-                years.push(y);
-                nbobs += year['count'];
-              }
+          //loop species
+          // Get ID species
+          current_species = Object.keys(species);
+
+          // Each species
+          $.each(species, function (s, stades) {
+            // Each stades
+            $.each(stades, function (t, allyear) {
+              phenoclim.mapviz.getparticipation(Object.keys(allyear));
+              $.each(allyear, function (y, year) {
+                var exists = years_selected.indexOf(y) > -1
+                if (exists || (!exists && !years_selected)) {
+                  years.push(y);
+                  nbobs += year['count'];
+                }
+              });
             });
           });
-        });
 
-        if (
-          nbobs && (
-            (years.indexOf(years_selected) > -1 && item.category == cat_organism_selected) ||
-            (!years_selected && !cat_organism_selected) ||
-            (!years_selected && item.category == cat_organism_selected) ||
-            (years.indexOf(years_selected) > -1 && !cat_organism_selected)
-          )
-        ) {
-          // is new area
-          var isNewArea = phenoclim.mapviz.new_area_year.filter(function (ay) {
-            return ay.area_id == item.id;
-          })
-         
-          var color = (isNewArea && isNewArea.length > 0) ? "orange" : "blue";
+          if (
+            nbobs && (
+              (years.indexOf(years_selected) > -1 && item.category == cat_organism_selected) ||
+              (!years_selected && !cat_organism_selected) ||
+              (!years_selected && item.category == cat_organism_selected) ||
+              (years.indexOf(years_selected) > -1 && !cat_organism_selected)
+            )
+          ) {
+            // is new area
+            var isNewArea = phenoclim.mapviz.new_area_year.filter(function (ay) {
+              return ay.area_id == item.id;
+            })
 
-          // species list
-          phenoclim.session.species_list.map(function (el) {
-            var spec = current_species.indexOf(el.id.toString()) > -1;
-            if (spec)
-              current_species_name.push(el.label);
-          });
-          names_of_species = current_species_name.join(',');
+            var color = (isNewArea && isNewArea.length > 0) ? "red" : "blue";
 
-          // Nb global areas
-          nb_areas++;
-          // Nb global obs
-          nb_obs_total += nbobs;
-          // Nb global individuals
-          nb_individuals_total += item.nb_individuals;
+            // species list
+            phenoclim.session.species_list.map(function (el) {
+              var spec = current_species.indexOf(el.id.toString()) > -1;
+              if (spec)
+                current_species_name.push(el.label);
+            });
+            names_of_species = current_species_name.join(',');
 
-          // Add marker
-          var marker = L.circleMarker([item.lat, item.lon], {
-            radius: 5 + (nbobs / 5),
-            weight: 1,
-            opacity: 1,
-            fillOpacity: 0.2,
-            color: color
-          }).addTo(phenoclim.session.map_layers);
-          marker.bindPopup(
-            "<div class='text-center'>" + item.organisms + "</br>" + item.city + " - " +
-            item.postalcode +
-            " <br/> Espèces suivies : " + names_of_species +
-            "<br/> Nb années participation : " + phenoclim.mapviz.getparticipation(years).length +
-            "<br/> Nb total d'observations : " + nbobs + " </div>"
-          );
+            // Nb global areas
+            nb_areas++;
+            // Nb global obs
+            nb_obs_total += nbobs;
+            // Nb global individuals
+            nb_individuals_total += item.nb_individuals;
+
+            // Add marker
+            var marker = L.circleMarker([item.lat, item.lon], {
+              radius: 8 + (nbobs / 16),
+              weight: 1,
+              opacity: 1,
+              fillOpacity: 0.2,
+              color: color
+            }).addTo(phenoclim.session.map_layers);
+            marker.bindPopup(
+              "<div class='text-center'>" + item.organisms + "</br>" + item.city + " - " +
+              item.postalcode +
+              " <br/> Espèces suivies : " + names_of_species +
+              "<br/> Nb années participation : " + phenoclim.mapviz.getparticipation(years).length +
+              "<br/> Nb total d'observations : " + nbobs + " </div>"
+            );
+          }
         }
       });
+
       $("span[data-id=species_observed]").text(nb_individuals_total);
       $("span[data-id=all_observations]").text(nb_obs_total);
       $("span[data-id=area_obs]").text(nb_areas);
     });
-  }
 
+  }
   // Get Nb participation year
   phenoclim.mapviz.getparticipation = function (years) {
     nbParticipation = []
@@ -164,53 +175,11 @@
     var species_id = $("select[data-id=species]").val();
     phenoclim.mapviz.get_data(species_id).done(function (data) {
       phenoclim.mapviz.load_layers();
-      var vizdata = phenoclim.mapviz.prepare_data_for_viz(data);
     });
   }
 
   // PREPARE DATA update map, chiffres clé with new data
-  phenoclim.mapviz.prepare_data_for_viz = function (data) {
-    var results = {};
-    var boundingbox = phenoclim.session.map._map.getBounds();
-    var northEast = boundingbox.getNorthEast();
-    var southWest = boundingbox.getSouthWest();
-    //loop areas
-    $.each(data, function (id, area_data) {
-      //loop species
-      if ((area_data.lat <= northEast.lat && area_data.lat >= southWest.lat) &&
-        (area_data.lon >= southWest.lng && area_data.lon <= northEast.lng)) {
-        $.each(area_data.values, function (species_id, species_data) {
-          if (!results[species_id]) {
-            results[species_id] = {};
-          }
-          $.each(species_data, function (stage_id, stage_data) {
-            if (!results[species_id][stage_id]) {
-              results[species_id][stage_id] = {};
-            }
-            //loop years
-            $.each(stage_data, function (year, year_data) {
-              if (!results[species_id][stage_id][year]) {
-                results[species_id][stage_id][year] = {
-                  min: year_data.minDate,
-                  max: year_data.maxDate,
-                  weeks: {}
-                };
-
-              }
-              //loop week
-              $.each(year_data.values, function (week, nbobs) {
-                if (!results[species_id][stage_id][year].weeks[week]) {
-                  results[species_id][stage_id][year].weeks[week] = 0;
-                }
-                results[species_id][stage_id][year].weeks[week] += nbobs;
-              })
-            })
-          });
-        });
-      }
-    });
-    return results;
-  }
+  // PREPARE DATA update map, chiffres clé with new data
 
   phenoclim.mapviz.refreshYears = function () {
     var all_years = [];
@@ -268,6 +237,9 @@
   $(document).ready(function () {
 
     $(".map").on("map_init", function () {
+      console.log('tt', phenoclim.session.map._map.getBounds());
+
+
       // GET SPECIES LIST 
       $.get("/portail/get_species_list", function (data) {
         phenoclim.session.species_list = data;
@@ -300,16 +272,14 @@
         // ON ZOOMEND refresh other widget
         phenoclim.session.map._map.on("zoomend", function (event, toto) {
           var species_id = $("select[data-id=species]").val();
-          phenoclim.mapviz.get_data(species_id).done(function (data) {
-            var vizdata = phenoclim.mapviz.prepare_data_for_viz(data);
-          });
+          phenoclim.mapviz.load_layers();
+
         })
         // ON DRAG refresh other widget
         phenoclim.session.map._map.on("drag", function (event, toto) {
           var species_id = $("select[data-id=species]").val();
-          phenoclim.mapviz.get_data(species_id).done(function (data) {
-            var vizdata = phenoclim.mapviz.prepare_data_for_viz(data);
-          });
+          phenoclim.mapviz.load_layers();
+
         })
       })
       // get gategories
