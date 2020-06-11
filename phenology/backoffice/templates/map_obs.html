@@ -63,7 +63,7 @@
     var species_name = $("[data-id=species] :selected").text();
     var years_selected = $("[data-id=years] :selected").val();
     var cat_organism_selected = $("[data-id=cat_organism] :selected").val();
-
+    var categories = cat_organism_selected.split(',');
     // TODO: species-id filter, year filter, observer filter
     phenoclim.mapviz.get_data(species_id /*, year, observer */ ).done(function (data) {
       var nb_obs_total = 0;
@@ -106,9 +106,9 @@
 
           if (
             nbobs && (
-              (years.indexOf(years_selected) > -1 && item.category == cat_organism_selected) ||
+              (years.indexOf(years_selected) > -1 && categories.includes(item.category)) ||
               (!years_selected && !cat_organism_selected) ||
-              (!years_selected && item.category == cat_organism_selected) ||
+              (!years_selected && categories.includes(item.category)) ||
               (years.indexOf(years_selected) > -1 && !cat_organism_selected)
             )
           ) {
@@ -235,11 +235,7 @@
 
 
   $(document).ready(function () {
-
     $(".map").on("map_init", function () {
-      console.log('tt', phenoclim.session.map._map.getBounds());
-
-
       // GET SPECIES LIST 
       $.get("/portail/get_species_list", function (data) {
         phenoclim.session.species_list = data;
@@ -283,6 +279,41 @@
         })
       })
       // get gategories
+      var categories = [{
+          id: 0,
+          name: 'Particulier',
+          items: ['particulier']
+        },
+        {
+          id: 0,
+          name: 'Etablissements scolaires',
+          items: ['etablissement_scolaire']
+        },
+        {
+          id: 0,
+          name: 'Professionnels de la nature',
+          items: ['professionnelle', 'espace_protege']
+        },
+        {
+          id: 0,
+          name: "Organisme d'éducation à l'environnement",
+          items: ['centre_decouverte']
+        },
+        {
+          id: 0,
+          name: 'Autre',
+          items: ['autre', 'association']
+        }
+      ];
+      var organism_field = $("select[data-id=cat_organism]");
+      var default_option = $("<option>").attr("value", '').text("tous les organismes");
+      default_option.appendTo(organism_field);
+      $.each(categories, function (i, item) {
+        var option = $("<option>").attr("value", item.items).text(item.name);
+        option.appendTo(organism_field);
+      });
+
+      /** get gategories form dataBase
       $.get("/portail/get_all_categories", function (categories) {
         var organism_field = $("select[data-id=cat_organism]");
         var default_option = $("<option>").attr("value", '').text("tous les organismes");
@@ -291,7 +322,7 @@
           var option = $("<option>").attr("value", item).text(item);
           option.appendTo(organism_field);
         });
-      })
+      })**/
     });
   });
 </script>
