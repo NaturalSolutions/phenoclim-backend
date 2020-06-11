@@ -224,7 +224,6 @@ def get_new_area_obs(request):
             "FROM backend_observer_areas as boa "  +\
             "join backend_individual as bi on bi.area_id = boa.area_id "  +\
             "join backend_survey as bs on bs.individual_id=bi.id "  +\
-            "where bs.answer ='isObserved' AND bs.status !='en_erreur' "  +\
             "group by boa.area_id, boa.observer_id "  +\
             having_year   +\
             "order by boa.area_id;"
