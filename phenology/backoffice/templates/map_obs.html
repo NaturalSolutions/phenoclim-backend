@@ -29,10 +29,11 @@
       </select>
     </div>
     <div class="key-figures">
-      <div><span data-id="area_obs" class="area_obs"></span> Zones d'observations</div>
-      <div><span data-id="new_area_obs" class="new_area_obs"></span> nouvelles zones d'observations cette année</div>
-      <div><span data-id="species_observed" class="species_observed"></span> plantes observés</div>
-      <div><span data-id="all_observations" class="all_observations"></span> Observations</div>
+      <div><span data-id="area_obs" class="area_obs"></span> zones d'observations</div>
+      <div> dont <span data-id="new_area_obs" class="new_area_obs"></span> nouvelles zones d'observations cette année
+      </div>
+      <div><span data-id="species_observed" class="species_observed"></span> plantes observées</div>
+      <div><span data-id="all_observations" class="all_observations"></span> observations</div>
     </div>
   </div>
 </div>
@@ -82,7 +83,7 @@
       $.each(data, function (i, item) {
         var arry_val = Object.values(item.values);
         var new_area_year;
-        var all_obs_years =[];
+        var all_obs_years = [];
         arry_val.forEach(element => {
           var tmp = Object.values(element)
           tmp.forEach(el => {
@@ -123,11 +124,20 @@
             });
           });
 
-          if (
+          var has_cat = false;
+          if (cat_organism_selected) {
+            var item_categories = item.category.split(',');
+            item_categories.forEach(element => {
+              if (categories.includes(element)) {
+                has_cat = true;
+              }
+            });
+          }
 
-            (years.indexOf(years_selected) > -1 && categories.includes(item.category)) ||
+          if (
+            (years.indexOf(years_selected) > -1 && has_cat) ||
             (!years_selected && !cat_organism_selected) ||
-            (!years_selected && categories.includes(item.category)) ||
+            (!years_selected && has_cat) ||
             (years.indexOf(years_selected) > -1 && !cat_organism_selected)
 
           ) {
@@ -160,21 +170,23 @@
             nb_individuals_total += item.nb_individuals;
 
             // Add marker
-            if (nbobs >0)
-            {var marker = L.circleMarker([item.lat, item.lon], {
-              radius: 5 + (nbobs * 0.04),
-              weight: 1,
-              opacity: 1,
-              fillOpacity: 0.2,
-              color: color
-            }).addTo(phenoclim.session.map_layers);
-            marker.bindPopup(
-              "<div class='text-center'>" + item.organisms + "</br>" + item.city + " - " +
-              item.postalcode +
-              " <br/> Espèces suivies : " + names_of_species +
-              "<br/> Nombre d'années participation : " + phenoclim.mapviz.getparticipation(all_obs_years).length +
-              "<br/> Nombre total d'observations : " + nbobs + " </div>"
-            );}
+            if (nbobs > 0) {
+              var marker = L.circleMarker([item.lat, item.lon], {
+                radius: 5 + (nbobs * 0.04),
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 0.2,
+                color: color
+              }).addTo(phenoclim.session.map_layers);
+              marker.bindPopup(
+                "<div class='text-center'>" + item.organisms + "</br>" + item.city + " - " +
+                item.postalcode +
+                " <br/> Espèces suivies : " + names_of_species +
+                "<br/> Nombre d'années de participation : " + phenoclim.mapviz.getparticipation(
+                  all_obs_years).length +
+                "<br/> Nombre total d'observations : " + nbobs + " </div>"
+              );
+            }
           }
         }
       });
