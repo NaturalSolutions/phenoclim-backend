@@ -175,10 +175,8 @@ class Area(models.Model):
     name = models.CharField(max_length=100, verbose_name=_("name"),
                             db_index=True, unique=True)
     lat = models.FloatField(verbose_name="latitude",
-                            default=DEFAULT_POSITION["lat"],
                             help_text=_("In degree, decimal."))
     lon = models.FloatField(verbose_name="longitude",
-                            default=DEFAULT_POSITION["lon"],
                             help_text=_("In degree, decimal."))
     altitude = models.FloatField(verbose_name="altitude", null=True, blank=True)
     remark = models.TextField(max_length=100, verbose_name=_("remark"),
