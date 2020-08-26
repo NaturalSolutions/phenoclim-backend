@@ -53,6 +53,29 @@ def map_all_surveys(request):
     return render_to_response("map_all_surveys.html", {},
                               RequestContext(request))
 
+def map_obs(request):
+    return render_to_response("map_obs.html", {},
+                                RequestContext(request))
+
+def map_relay(request):
+    relays = models.Observer.objects. \
+        filter(is_relay=True).all()
+ 
+    relays_dict1 = [row.__dict__ for row in relays]
+    relays_dict = [{
+                "codepostal":relay.codepostal,
+                "organism":relay.organism,
+                "adresse":relay.adresse,
+                "email": relay.relay_email,
+                "logo": relay.logo.url,
+                "phone": relay.phone,
+                "web_site": relay.web_site,
+                "lon": relay.lon,
+                "lat": relay.lat
+                }
+                for relay in relays]
+    return render_to_response("map_relay.html", {'relays': json.dumps(relays_dict)},
+                                RequestContext(request))
 
 def map_viz(request):
     return render_to_response("map_viz.html", {},
@@ -166,9 +189,53 @@ def get_species_list(request):
                            species.stage_set.all().order_by("order")]}
                for species in models.Species.objects.all().order_by("name")]
     timer.capture()
-    print timer.output()
+    #print timer.output()
     return HttpResponse(json.dumps(species, default=json_serial),
                         content_type="application/json")
+
+
+
+def get_all_categories(request):
+    results= []
+    cursor = connection.cursor()
+    sql = "SELECT Distinct(category) " +\
+        "From backend_observer "  +\
+        "WHERE category IS NOT NULL AND category != '' "  +\
+        "ORDER BY category ;"
+    cursor.execute(sql)
+    for category in cursor.fetchall():
+        results.append(category[0])
+    return HttpResponse(json.dumps(results, default=json_serial),
+                        content_type="application/json")
+
+
+def get_new_area_obs(request):
+    selected_year = request.GET.get("selected_year")
+    selected_specie = request.GET.get("selected_specie")
+    results= []
+    having_year=''
+    if selected_year and selected_year.isdigit():
+        having_year = " HAVING MIN(extract(year from date))=" + selected_year
+    if selected_specie:
+        where_specie = "ok"
+        print('where_specie', where_specie)
+    cursor = connection.cursor()
+    sql =   "select distinct boa.area_id, (select MIN(extract(year from date))) as myyear "  +\
+            "FROM backend_observer_areas as boa "  +\
+            "join backend_individual as bi on bi.area_id = boa.area_id "  +\
+            "join backend_survey as bs on bs.individual_id=bi.id "  +\
+            "group by boa.area_id, boa.observer_id "  +\
+            having_year   +\
+            "order by boa.area_id;"
+    cursor.execute(sql)
+    for area in cursor.fetchall():
+        results.append({
+            "area_id" : area[0],
+            "min_year" : area[1]
+        })
+    return HttpResponse(json.dumps(results, default=json_serial),
+                        content_type="application/json")
+
 
 
 def get_min_max_surveys(stage_id):
@@ -207,98 +274,106 @@ def search_surveys(request):
         areas = areas.filter(individual__species__id=species_id)
         observers = observers.filter(areas__individual__species__id=species_id)
 
-        area_organism = {}
-        area_org_sql = "SELECT area_id, observer_id, bo.organism " +\
-                       "FROM backend_observer_areas as boa, backend_observer as bo " +\
-                       "WHERE boa.observer_id=bo.id"
-        cursor.execute(area_org_sql)
-        for area_id, observer_id, organism in cursor.fetchall():
-            area = area_organism.setdefault(area_id, [])
-            if not organism:
-                organism = "Particulier"
-            area.append(organism)
+    area_organism = {}
+    area_cat = {}
 
-        classified = {a.id: {'lon': a.lon, 'lat': a.lat, 'city': a.commune,
-                             'altitude': a.altitude, 'name': a.name,
-                             'id': a.id,
-                             'nb_individuals': 0,
-                             "organisms": ",".join(area_organism.get(a.id, [])),
-                             'values': {}, 'postalcode': a.postalcode}
-                      for a in areas}
+    wheresql_area = " WHERE boa.observer_id=bo.id "
 
-        for ind in individuals:
-            tmp = classified[ind.area_id]
-            if (tmp['lat'] == 1 or tmp['lat'] == -1) and\
-               (ind.lat != 1 and ind.lat != -1):
-                tmp['lat'] = ind.lat
-                tmp['lon'] = ind.lon
-            tmp['nb_individuals'] += 1
+    # TODO CLEAN ??
+    # Particulier
+    # wheresql_area += " AND bo.organism = '' or bo.organism is NULL "
+   
+    area_org_sql = "SELECT area_id, observer_id, bo.organism, bo.category " +\
+                    "FROM backend_observer_areas as boa, backend_observer as bo " +\
+                    wheresql_area +\
+                    ";"
 
-        timer.capture()
-        if notdead == 'true' :
-            """ 'isObserved' and not with 'en_erreur' status """
-            survey_sql = 'SELECT ' + year_query() + ' as year, ' +\
-                        ' timestamp without time zone \'1970-01-01\' + cast( avg(EXTRACT(EPOCH FROM date::timestamp))::text as interval) as avg_date, ' +\
-                        'COUNT(*), MAX(date), MIN(date), stage_id, species_id, area_id FROM backend_survey, backend_individual ' +\
-                        ' WHERE backend_survey.individual_id=backend_individual.id AND ' +\
-                        'backend_individual.species_id = %s ' % species_id +\
-                        " AND backend_survey.answer ='isObserved' " +\
-                        " AND backend_survey.status !='en_erreur' " +\
-                        'GROUP BY area_id, species_id, stage_id, year ' +\
-                        'ORDER BY area_id, species_id, stage_id,year;'
-        else:
-            survey_sql = 'SELECT ' + year_query() + ' as year, ' +\
-                                'COUNT(*), MAX(date), MIN(date), stage_id, species_id, area_id FROM backend_survey, backend_individual ' +\
-                                ' WHERE backend_survey.individual_id=backend_individual.id AND ' +\
-                                'backend_individual.species_id = %s ' % species_id +\
-                                'GROUP BY area_id, species_id, stage_id, year ' +\
-                                'ORDER BY area_id, species_id, stage_id,year;'
-        cursor.execute(survey_sql)
-        keys = ['year', 'avg_date', 'count', 'max', 'min', 'stage_id',
-                'species_id', 'area_id']
-        for survey in cursor.fetchall():
-            survey_dict = dict(zip(keys, survey))
-            area = results.setdefault(survey_dict["area_id"],
-                                      classified.get(survey_dict["area_id"]))
-            species = area['values'].setdefault(survey_dict["species_id"], {})
-            stage = species.setdefault(survey_dict["stage_id"], {})
-            stage[survey_dict["year"]] = {
-                "avgDate": survey_dict["avg_date"],
-                "minDate": survey_dict["min"],
-                "maxDate": survey_dict["max"],
-                "count": survey_dict["count"],
-                "values": {}
-            }
-        if notdead == 'true' :
-            """ 'isObserved' and not with 'en_erreur' status """
-            survey_sql = "SELECT " + year_query() + " as year, " + week_query() + " as week, " +\
-                        "COUNT(*), stage_id, species_id, area_id FROM backend_survey, backend_individual" +\
-                        " WHERE backend_survey.individual_id=backend_individual.id AND " +\
-                        "backend_individual.species_id = %s " % species_id +\
-                        " AND backend_survey.answer ='isObserved' " +\
-                        " AND backend_survey.status !='en_erreur' " +\
-                        "GROUP BY area_id, species_id, stage_id, year,  week " +\
-                        "ORDER BY area_id, species_id, stage_id,year,week;"
-        else:
-            """ 'all answer' """
-            survey_sql = 'SELECT ' + year_query() + ' as year, ' + week_query() + ' as week, ' +\
-                        'COUNT(*), stage_id, species_id, area_id FROM backend_survey, backend_individual ' +\
-                        ' WHERE backend_survey.individual_id=backend_individual.id AND ' +\
-                        'backend_individual.species_id = %s ' % species_id +\
-                        'GROUP BY area_id, species_id, stage_id, year,  week ' +\
-                        'ORDER BY area_id, species_id, stage_id,year,week;'
-        cursor.execute(survey_sql)
-        keys = ['year', 'week', 'count', 'stage_id', 'species_id', 'area_id']
-        for survey in cursor.fetchall():
-            survey_dict = dict(zip(keys, survey))
-            area = classified.get(survey_dict["area_id"])
-            species = area['values'].setdefault(survey_dict["species_id"], {})
-            stage = species.setdefault(survey_dict["stage_id"], {})
-            year = stage.setdefault(survey_dict["year"], {})
-            year["values"][survey_dict["week"]] = survey_dict["count"]
+    cursor.execute(area_org_sql)
+    for area_id, observer_id, organism, category  in cursor.fetchall():
+        area = area_organism.setdefault(area_id, [])
+        cat = area_cat.setdefault(area_id, [])
+        if not organism :
+            organism = "Particulier"
+        area.append(organism)
+        cat.append(category)
 
-        timer.capture()
-        print timer.output()
+    #for a in areas:
+    #   print("areas item: ", a.__dict__)
+
+    classified = {a.id: {'lon': a.lon, 'lat': a.lat, 'city': a.commune,
+                            'altitude': a.altitude, 'name': a.name,
+                            'id': a.id,
+                            'nb_individuals': 0,
+                            "organisms": ",".join(area_organism.get(a.id, [])),
+                            "category": ",".join(area_cat.get(a.id, [])),
+                            'values': {}, 'postalcode': a.postalcode}
+                    for a in areas}
+
+    
+    for ind in individuals:
+        tmp = classified[ind.area_id]
+        if (tmp['lat'] == 1 or tmp['lat'] == -1) and\
+            (ind.lat != 1 and ind.lat != -1):
+            tmp['lat'] = ind.lat
+            tmp['lon'] = ind.lon
+        tmp['nb_individuals'] += 1
+    
+
+    timer.capture()
+    
+    # SQL REQUEST WHERE
+    wheresql = ' WHERE backend_survey.individual_id=backend_individual.id '
+    if species_id and species_id.isdigit():
+        wheresql += 'AND backend_individual.species_id = %s ' % species_id
+    # 'isObserved' and not with 'en_erreur' status
+    if notdead == 'true':
+        wheresql += " AND backend_survey.answer ='isObserved' AND backend_survey.status !='en_erreur' "
+
+    # FIRST request
+    survey_sql = 'SELECT ' + year_query() + ' as year, ' +\
+                    ' timestamp without time zone \'1970-01-01\' + cast( avg(EXTRACT(EPOCH FROM date::timestamp))::text as interval) as avg_date, ' +\
+                    'COUNT(*), MAX(date), MIN(date), stage_id, species_id, area_id ' +\
+                'FROM backend_survey, backend_individual ' +\
+                wheresql +\
+                'GROUP BY area_id, species_id, stage_id, year ' +\
+                'ORDER BY area_id, species_id, stage_id,year;'
+    
+    cursor.execute(survey_sql)
+    keys = ['year', 'avg_date', 'count', 'max', 'min', 'stage_id',
+            'species_id', 'area_id']
+    for survey in cursor.fetchall():
+        survey_dict = dict(zip(keys, survey))
+        area = results.setdefault(survey_dict["area_id"],
+                                    classified.get(survey_dict["area_id"]))
+        species = area['values'].setdefault(survey_dict["species_id"], {})
+        stage = species.setdefault(survey_dict["stage_id"], {})
+        stage[survey_dict["year"]] = {
+            "avgDate": survey_dict["avg_date"],
+            "minDate": survey_dict["min"],
+            "maxDate": survey_dict["max"],
+            "count": survey_dict["count"],
+            "values": {}
+        }
+
+    # SECOND request ?
+    survey_sql = "SELECT " + year_query() + " as year, " + week_query() + " as week, " +\
+                    "COUNT(*), stage_id, species_id, area_id FROM backend_survey, backend_individual" +\
+                    wheresql +\
+                "GROUP BY area_id, species_id, stage_id, year,  week " +\
+                "ORDER BY area_id, species_id, stage_id,year,week;"
+    
+    cursor.execute(survey_sql)
+    keys = ['year', 'week', 'count', 'stage_id', 'species_id', 'area_id']
+    for survey in cursor.fetchall():
+        survey_dict = dict(zip(keys, survey))
+        area = classified.get(survey_dict["area_id"])
+        species = area['values'].setdefault(survey_dict["species_id"], {})
+        stage = species.setdefault(survey_dict["stage_id"], {})
+        year = stage.setdefault(survey_dict["year"], {})
+        year["values"][survey_dict["week"]] = survey_dict["count"]
+
+    timer.capture()
+    #print timer.output()
 
     return HttpResponse(json.dumps(classified, default=json_serial),
                         content_type="application/json")
@@ -334,7 +409,7 @@ def get_area_snowings(request):
                           "snowings": snowings
                           }
             timer.capture()
-            print timer.output()
+            #print timer.output()
 
     return HttpResponse(json.dumps(classified, use_decimal=True,
                                    default=json_serial),
@@ -385,7 +460,7 @@ def search_snowings(request):
         area['values'][snowing_dict["year"]] = snowing_dict["height"]
 
     timer.capture()
-    print timer.output()
+    #print timer.output()
 
     return HttpResponse(json.dumps(classified,
                                    use_decimal=True,
@@ -457,15 +532,6 @@ def area_detail(request, area_id=-1):
     area = models.Area.objects.filter(id=area_id).first()
     if not area:
         area = models.Area()
-        existed = request.user.observer.areas.first()
-        if(existed):
-            area.lat = existed.lat
-            area.lon = existed.lon
-            area.region = existed.region
-            area.departement = existed.departement
-            area.commune = existed.commune
-            area.altitude = existed.altitude
-            area.postalcode = existed.postalcode
         area.observer = request.user.observer
 
     if area_id == -1 or request.user.observer in area.observer_set.all():
@@ -637,7 +703,7 @@ def snowing_detail(request, area_id, snowing_id=-1):
                  "height": s.height}
                 for s in query]
     timer.capture()
-    print timer.output()
+    #print timer.output()
 
     lasts_inputs = models.Snowing.objects.filter(observer=request.user.observer)[:10]
 

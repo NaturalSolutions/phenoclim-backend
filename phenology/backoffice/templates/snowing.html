@@ -43,20 +43,6 @@
           </button>
         {% endbuttons %}
       </form>
-        <div class="row">
-            <div class="col-xs-12 text-center">
-                <h3>Saisies précédentes</h3>
-                <ul style="list-style-type: none;">
-                    {% for entry in last_five %}
-                        <li>
-                            <a href="{% url 'snowing-detail' entry.area.pk entry.pk %}">{{ entry }} -
-                                {{ entry.date|date:"D d M Y" }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
-                <a href="{% url "snowing-detail" area_id %}">Nouvelle saisie</a>
-            </div>
-        </div>
     </div>
 </div>
 
