@@ -3,7 +3,15 @@
 {% block title %}{% endblock %}
 {% block content %}
 <script type="text/javascript">
-	window.scrollTo(0,0)
+	window.iFrameResizer = {
+    readyCallback: function(){
+      if('parentIFrame' in window){
+          setTimeout(function() {
+            parentIFrame.sendMessage( { "positionScroll": 0 } );
+          }, 0);
+        }
+      }
+  }
   </script>
 <div class="row  table-row">
 
