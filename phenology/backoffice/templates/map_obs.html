@@ -162,8 +162,7 @@
             });
             names_of_species = current_species_name.join(',');
 
-            // Nb global areas
-            nb_areas++;
+            
             // Nb global obs
             nb_obs_total += nbobs;
             // Nb global individuals
@@ -171,6 +170,9 @@
 
             // Add marker
             if (nbobs > 0) {
+              // Nb global areas
+              nb_areas++;
+              
               var marker = L.circleMarker([item.lat, item.lon], {
                 radius: 5 + (nbobs * 0.04),
                 weight: 1,
