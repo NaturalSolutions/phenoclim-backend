@@ -6,7 +6,7 @@
 
 {% block navigation %} {% endblock %}
 
-{% block title %}{% endblock %}
+{% block notitle %}{% endblock %}
 
 {% block content %}
 
@@ -17,7 +17,7 @@
 </script>
 <div class="row  table-row">
   <div class=" col-xs-8 col-md-8  table-col">
-    <div id="map" class="map all_survey"></div>
+    <div id="map" class="map obs_map"></div>
   </div>
   <div class="col-xs-4 col-md-4 table-col">
     <div class="map-control">
@@ -162,8 +162,7 @@
             });
             names_of_species = current_species_name.join(',');
 
-            // Nb global areas
-            nb_areas++;
+            
             // Nb global obs
             nb_obs_total += nbobs;
             // Nb global individuals
@@ -171,6 +170,9 @@
 
             // Add marker
             if (nbobs > 0) {
+              // Nb global areas
+              nb_areas++;
+              
               var marker = L.circleMarker([item.lat, item.lon], {
                 radius: 5 + (nbobs * 0.04),
                 weight: 1,
