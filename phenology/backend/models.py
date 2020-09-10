@@ -175,10 +175,8 @@ class Area(models.Model):
     name = models.CharField(max_length=100, verbose_name=_("name"),
                             db_index=True, unique=True)
     lat = models.FloatField(verbose_name="latitude",
-                            default=DEFAULT_POSITION["lat"],
                             help_text=_("In degree, decimal."))
     lon = models.FloatField(verbose_name="longitude",
-                            default=DEFAULT_POSITION["lon"],
                             help_text=_("In degree, decimal."))
     altitude = models.FloatField(verbose_name="altitude", null=True, blank=True)
     remark = models.TextField(max_length=100, verbose_name=_("remark"),
@@ -271,6 +269,24 @@ class Observer(models.Model):
                                 blank=False)
     accept_newsletter = models.BooleanField(verbose_name=_("accept_newsletter"),
                                 default=False, blank=True)
+    is_relay = models.BooleanField(verbose_name=_("is_relay"),
+                                default=False, blank=True)
+    phone = models.CharField(max_length=20, verbose_name=_("phone"),
+                              null=True, blank=True)
+    adresse = models.TextField(max_length=80, null=True, blank=True, verbose_name=_("adresse"))
+    lat = models.FloatField(verbose_name="latitude",
+                            null=True, blank=True,
+                            help_text=_("In degree, decimal."))
+    lon = models.FloatField(verbose_name="longitude",
+                            null=True, blank=True,
+                            help_text=_("In degree, decimal."))
+    logo = ThumbnailerImageField(upload_to='picture/logos',
+                                           default='picture/logos/default_logo.png',
+                                           verbose_name=_('logo'))
+    web_site = models.CharField(max_length=150, verbose_name=_("web_site"),
+                              null=True, blank=True)
+    relay_email = models.CharField(max_length=150, verbose_name=_("relay_email"),
+                              null=True, blank=True)                             
 
     class Meta:
         verbose_name = _("Observer")

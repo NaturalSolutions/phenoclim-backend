@@ -24,7 +24,7 @@ var areaMarker = L.AwesomeMarkers.icon({
 
 phenoclim.map = function(options){
   self = this;
-  var bounds = [[46.38, -1.51],[42.71, 7.95]];
+  var bounds = [[47.6, -4],[42.71, 9]];
 
   var defaults = {
     draggable: false,
