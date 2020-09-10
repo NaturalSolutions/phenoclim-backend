@@ -6,113 +6,135 @@
 
 {% block title %}{{ form.instance.name }}{% endblock %}
 {% block content %}
-  <div class="row  table-row">
-    <div class="col-md-12  table-col">
-      <div class="row">
-        <div class="col-xs-12 text-center">
+<div class="row  table-row">
+  <div class="col-md-12  table-col">
+    <div class="row">
+      <div class="col-xs-12 text-center">
         <a href="{% url 'my-surveys' %}" class="btn btn-default">
           {% trans "Back" %}
         </a>
-          <h2>{{ form.instance.stage.name }}</h2>
-        </div>
+        <h2>{{ form.instance.stage.name }}</h2>
       </div>
-      <div class="row preview_pictures">
-        <div class="col-xs-4 text-center">
-          <img src="{% thumbnail form.instance.stage.picture_before 1000x1000 %}"></img>
-          <div>{% trans 'before' %}</div>
-        </div>
-        <div class="col-xs-4 text-center current">
-          <img src="{% thumbnail form.instance.stage.picture_current 1000x1000 %}"></img>
-          <div>{% trans 'current' %}</div>
-        </div>
-        <div class="col-xs-4 text-center">
-          <img src="{% thumbnail form.instance.stage.picture_after 1000x1000 %}"></img>
-          <div>{% trans 'after' %}</div>
-        </div>
+    </div>
+    <div class="row preview_pictures">
+      <div class="col-xs-4 text-center">
+        <img src="{% thumbnail form.instance.stage.picture_before 1000x1000 %}"></img>
+        <div>{% trans 'before' %}</div>
       </div>
-      <form method="post" class="form-horizontal" role="form">
-        {% csrf_token %}
-        <div class="form_group answer {% if form.errors.answer %} has-error {% endif %}">
-          {% if form.errors.answer %}
-          <span class="help-block">{{ form.errors.answer.as_text }}</span>
-          {% endif %}
+      <div class="col-xs-4 text-center current">
+        <img src="{% thumbnail form.instance.stage.picture_current 1000x1000 %}"></img>
+        <div>{% trans 'current' %}</div>
+      </div>
+      <div class="col-xs-4 text-center">
+        <img src="{% thumbnail form.instance.stage.picture_after 1000x1000 %}"></img>
+        <div>{% trans 'after' %}</div>
+      </div>
+    </div>
+    <form method="post" class="form-horizontal" role="form">
+      {% csrf_token %}
+      <div class="form_group answer {% if form.errors.answer %} has-error {% endif %}">
+        {% if form.errors.answer %}
+        <span class="help-block">{{ form.errors.answer.as_text }}</span>
+        {% endif %}
         <label>
           <div class="btn btn-block btn-lg btn-default radio left-block">
-              <input type="radio" name="{{ form.answer.html_name }}" id="{{ form.answer.id_for_label }}" value="isObserved"
-              {% if form.instance.answer == 'isObserved' %}checked{% endif %}>
-              {% trans "isObserved" %}
+            <input type="radio" name="{{ form.answer.html_name }}" id="{{ form.answer.id_for_label }}"
+              value="isObserved" {% if form.instance.answer == 'isObserved' %}checked{% endif %}>
+            {% trans "isObserved" %}
           </div>
         </label>
         <label>
           <div class="btn btn-block btn-lg btn-default radio">
-                <input type="radio" name="{{ form.answer.html_name }}" id="{{ form.answer.id_for_label }}" value="isLost"
-                {% if form.instance.answer == 'isLost' %}checked{% endif %}>
-                {% trans "isLost" %}
+            <input type="radio" name="{{ form.answer.html_name }}" id="{{ form.answer.id_for_label }}" value="isLost"
+              {% if form.instance.answer == 'isLost' %}checked{% endif %}>
+            {% trans "isLost" %}
           </div>
         </label>
         <label>
           <div class="btn btn-block btn-lg btn-default radio">
-                <input type="radio" name="{{ form.answer.html_name }}" id="{{ form.answer.id_for_label }}" value="isNever"
-                {% if form.instance.answer == 'isNever' %}checked{% endif %}>
-                {% trans "isNever" %}
+            <input type="radio" name="{{ form.answer.html_name }}" id="{{ form.answer.id_for_label }}" value="isNever"
+              {% if form.instance.answer == 'isNever' %}checked{% endif %}>
+            {% trans "isNever" %}
           </div>
         </label>
         <label>
           <div class="btn btn-block btn-lg btn-default radio">
-              <input type="radio" name="{{ form.answer.html_name }}" id="{{ form.answer.id_for_label }}" value="isPassed"
+            <input type="radio" name="{{ form.answer.html_name }}" id="{{ form.answer.id_for_label }}" value="isPassed"
               {% if form.instance.answer == 'isPassed' %}checked{% endif %}>
-              {% trans "isPassed" %}
+            {% trans "isPassed" %}
           </div>
         </label>
       </div>
-        <br/>
-
-        {% bootstrap_field form.remark layout='inline' %}
-        {% bootstrap_field form.individual %}
-
-        <div class="form-group required {% if form.errors.date %} has-error {% endif %}">
-          {{ form.date.label_tag }}
-          <input class="form-control" id="id_date" name="date" required="required" type="date" data-value="{{ form.instance.date|date:'d/m/Y' }}" value="{{ form.instance.date }}"></input>
-          {% if form.errors.date %}
-          <span class="help-block">{{ form.errors.date.as_text }}</span>
-          {% endif %}
-        </div>
-
-        {% bootstrap_field form.stage %}
-
-        {% buttons %}
-          <button type="submit" class="btn btn-primary btn-lg btn-block">
-            {% bootstrap_icon "tree-deciduous" %} {% trans 'Validate' %}
-          </button>
-        {% endbuttons %}
-      </form>
-
+      <div class="survey-info">
+      <p class="survey-info-section">Le choix "Stade observé" est à utiliser lorsque le stade est atteint à hauteur de 10% sur l'arbre/plante (50%
+        pour le stade "moitié de changement de couleur"). C'est le choix à privilégier.
+      </p>
+      <p class="survey-info-section">Si bien plus de 10% du stade est atteint sur l'arbre et s'il vous est impossible d'indiquer approximativement
+        la date correspondant aux 10% (à quelques jours près), vous pouvez choisir "Stade déjà passé".
+      </p>
+      <p class="survey-info-section">Enfin, lorsqu'un stade n'a pas encore eu lieu, cette information ne doit pas être saisie. "Stade absent
+        cette année" ne s'utilise que lorsqu'un stade n'a jamais eu lieu de toute l'année (exemple: un arbre qui
+        n'aurait pas fleuri).
+      </p>
     </div>
+      <br />
+
+      {% bootstrap_field form.remark layout='inline' %}
+      {% bootstrap_field form.individual %}
+
+      <div class="form-group required {% if form.errors.date %} has-error {% endif %}">
+        {{ form.date.label_tag }}
+        <input class="form-control" id="id_date" name="date" required="required" type="date"
+          data-value="{{ form.instance.date|date:'d/m/Y' }}" value="{{ form.instance.date }}"></input>
+        {% if form.errors.date %}
+        <span class="help-block">{{ form.errors.date.as_text }}</span>
+        {% endif %}
+      </div>
+
+      {% bootstrap_field form.stage %}
+
+      {% buttons %}
+      <button type="submit" class="btn btn-primary btn-lg btn-block">
+        {% bootstrap_icon "tree-deciduous" %} {% trans 'Validate' %}
+      </button>
+      {% endbuttons %}
+    </form>
+
+  </div>
 </div>
 
 <script src="{% static 'vendor/pickadate.js/lib/picker.js' %}"></script>
 <script src="{% static 'vendor/pickadate.js/lib/picker.date.js' %}"></script>
 <script src="{% static 'vendor/pickadate.js/lib/picker.time.js' %}"></script>
-<link rel="stylesheet" href="{% static 'vendor/pickadate.js/lib/themes/default.css' %}"></link>
-<link rel="stylesheet" href="{% static 'vendor/pickadate.js/lib/themes/default.date.css' %}"></link>
+<link rel="stylesheet" href="{% static 'vendor/pickadate.js/lib/themes/default.css' %}">
+</link>
+<link rel="stylesheet" href="{% static 'vendor/pickadate.js/lib/themes/default.date.css' %}">
+</link>
 {% with lang=LANGUAGE_CODE %}
-  {% if lang != "en" %}
-      <script src="{% static 'vendor/pickadate.js/lib/translations/' %}{{lang}}_{{lang|upper}}.js"></script>
-  {% endif %}
+{% if lang != "en" %}
+<script src="{% static 'vendor/pickadate.js/lib/translations/' %}{{lang}}_{{lang|upper}}.js"></script>
+{% endif %}
 {% endwith %}
 <script type="text/javascript">
-$( document ).ready(function() {
-  $('#id_date').pickadate({format: 'dddd d mmmm yyyy', formatSubmit: 'dd/mm/yyyy', max: true, hiddenName: true})
+  $(document).ready(function () {
+    $('#id_date').pickadate({
+      format: 'dddd d mmmm yyyy',
+      formatSubmit: 'dd/mm/yyyy',
+      max: true,
+      hiddenName: true
+    })
 
-  window.iFrameResizer = {
-    readyCallback: function(){
-      if('parentIFrame' in window){
-          setTimeout(function() {
-            parentIFrame.sendMessage( { "positionScroll": 0 } );
+    window.iFrameResizer = {
+      readyCallback: function () {
+        if ('parentIFrame' in window) {
+          setTimeout(function () {
+            parentIFrame.sendMessage({
+              "positionScroll": 0
+            });
           }, 0);
         }
       }
-  }
-});
+    }
+  });
 </script>
 {% endblock %}

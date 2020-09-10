@@ -4,73 +4,120 @@
 {% load bootstrap3 %}
 
 {% block title %}
-  {% if not form.instance.id %}
-    {% trans "New area" %}
-  {% else %}
-    {% trans "Area" %}
-  {% endif %} {{ form.instance.name }}
+{% if not form.instance.id %}
+{% trans "New area" %}
+{% else %}
+{% trans "Area" %}
+{% endif %} {{ form.instance.name }}
 {% endblock %}
 
 {% block content %}
-  <script type="text/javascript">
+<script type="text/javascript">
   phenoclim.options.draggable = true;
   phenoclim.options.filter_draggable = true;
-  </script>
-  <div class="row  table-row">
+  var areaMarker = L.AwesomeMarkers.icon({
+    icon: 'ios-analytics',
+    prefix: 'ion',
+    markerColor: 'blue'
+  });
 
-    <div class="col-xs-5  table-col">
+  // Check
+  function isPositionSet() {
+    var lon = $('#id_lon')[0],
+      lat = $('#id_lat')[0];
+    return Boolean(lon.value) && Boolean(lat.value);
+  }
+
+  function onMapClick(e) {
+    if (!isPositionSet()) {
+      var marker = L.marker(e.latlng, {
+          icon: areaMarker,
+          draggable: true
+        }).addTo(phenoclim.session.map._map)
+        .on('dragend', function (e) {
+          $('#id_lat').val(e.target._latlng.lat);
+          $('#id_lon').val(e.target._latlng.lng);
+        });
+      $('#id_lat').val(e.latlng.lat);
+      $('#id_lon').val(e.latlng.lng);
+    }
+  }
+
+  $(document).ready(function () {
+
+    setTimeout(() => {
+      phenoclim.session.map._map.on('click', onMapClick)
+    }, 0);
+
+    $('button[type="submit"]').click(function (event) {
+      if (!isPositionSet()) {
+        $('.alert').toggle()
+      }
+    });
+  })
+</script>
+
+<div class="row  table-row">
+
+  <div class="col-xs-5  table-col">
+    {% buttons %}
+    <a href="{% url 'my-studies' %}" class="btn btn-default">
+      {% trans "Back to my studies" %}
+    </a>
+    {% endbuttons %}
+    <form method="post" class="form-horizontal" role="form">
+      {% csrf_token %}
+      {% bootstrap_form form layout='horizontal' %}
       {% buttons %}
-        <a href="{% url 'my-studies' %}" class="btn btn-default">
-          {% trans "Back to my studies" %}
-        </a>
+      <button type="submit" class="btn btn-primary btn-lg btn-block">
+        {% trans "Validate" %}
+      </button>
       {% endbuttons %}
-      <form method="post" class="form-horizontal" role="form">
-        {% csrf_token %}
-        {% bootstrap_form form layout='horizontal' %}
-        {% buttons %}
-          <button type="submit" class="btn btn-primary btn-lg btn-block">
-            {% trans "Validate" %}
-          </button>
-        {% endbuttons %}
-      </form>
-    </div>
-
-    <div class="col-xs-7 table-col" style="position:relative">
-
-      <div id="map"></div>
-      {% if form.instance.id %}
-        <h4><u>{% trans "Indivuals" %} :</u></h4>
-
-        <table class="table table-striped mytable table-bordered">
-          <tr>
-            <th></th>
-            <th>{% trans "name" %}</th>
-            <th>{% trans "Species" %}</th>
-            <th>{% trans "Last survey" %}</th>
-          </tr>
-
-          {% for individual in form.instance.individual_set.all %}
-            <tr>
-              <td width="10px">
-                <a href="{% url 'individual-detail' individual.id %}" class="btn btn-default">
-                  {% bootstrap_icon "pencil" %}
-                </a>
-              </td>
-              <td>{{ individual.name }}</td>
-              <td>{{ individual.species.name }}</td>
-              <td>{% if individual.last_survey %}{{ individual.last_survey.stage.name }}  -  {{ individual.last_survey.date|date:'d M Y' }}{% endif %}</td>
-            </tr>
-          {% endfor %}
-
-        </table>
-
-        {% buttons %}
-          <a href="{% url 'individual-detail' %}?area_id={{ form.instance.id }}" class="pull-right btn btn-primary">
-            {% bootstrap_icon "plus" %} {% trans "Add a new individual" %}
-          </a>
-        {% endbuttons %}
-      {% endif %}
-    </div>
+    </form>
   </div>
 
+  <div class="col-xs-7 table-col" style="position:relative">
+
+    <div id="map"></div>
+    {% if form.instance.id %}
+    <h4><u>{% trans "Indivuals" %} :</u></h4>
+
+    <table class="table table-striped mytable table-bordered">
+      <tr>
+        <th></th>
+        <th>{% trans "name" %}</th>
+        <th>{% trans "Species" %}</th>
+        <th>{% trans "Last survey" %}</th>
+      </tr>
+
+      {% for individual in form.instance.individual_set.all %}
+      <tr>
+        <td width="10px">
+          <a href="{% url 'individual-detail' individual.id %}" class="btn btn-default">
+            {% bootstrap_icon "pencil" %}
+          </a>
+        </td>
+        <td>{{ individual.name }}</td>
+        <td>{{ individual.species.name }}</td>
+        <td>{% if individual.last_survey %}{{ individual.last_survey.stage.name }} -
+          {{ individual.last_survey.date|date:'d M Y' }}{% endif %}</td>
+      </tr>
+      {% endfor %}
+
+    </table>
+
+    {% buttons %}
+    <a href="{% url 'individual-detail' %}?area_id={{ form.instance.id }}" class="pull-right btn btn-primary">
+      {% bootstrap_icon "plus" %} {% trans "Add a new individual" %}
+    </a>
+    {% endbuttons %}
+    {% endif %}
+  </div>
+</div>
+<div class="alert alert-danger alert-dismissible" style='display:none;position: fixed;bottom: 20px'>Vous devez localiser
+  sur la carte votre zone d'observation
+  <button data-dismiss="alert" type="button" class="close" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
 {% endblock %}

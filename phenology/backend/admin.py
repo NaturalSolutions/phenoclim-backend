@@ -67,12 +67,12 @@ class SurveyAdmin(ImportExportModelAdmin):
 admin.site.register(models.Survey, SurveyAdmin)
 
 
-def create_modeladmin(modeladmin, model, name = None):
-    class  Meta:
+def create_modeladmin(modeladmin, model, name=None):
+    class Meta:
         proxy = True
         app_label = model._meta.app_label
         verbose_name = _(name)
-        verbose_name_plural = _(name +'s')
+        verbose_name_plural = _(name + 's')
 
     attrs = {'__module__': '', 'Meta': Meta}
 
@@ -80,6 +80,7 @@ def create_modeladmin(modeladmin, model, name = None):
 
     admin.site.register(newmodel, modeladmin)
     return modeladmin
+
 
 class DuplicateSurveyAdmin(ImportExportModelAdmin):
     resource_class = ressources.SurveyResource
@@ -117,7 +118,7 @@ class DuplicateSurveyAdmin(ImportExportModelAdmin):
     def queryset(self, request):
         qs = super(DuplicateSurveyAdmin, self).queryset(request)
         qs = qs.extra(where=[
-           '''(individual_id, stage_id, answer, date,  observer_id, name_obs, firstname_obs) IN (
+            '''(individual_id, stage_id, answer, date,  observer_id, name_obs, firstname_obs) IN (
                 SELECT individual_id, stage_id, answer, date, observer_id, name_obs, firstname_obs FROM (
                     SELECT individual_id, stage_id, answer, date, observer_id, name_obs, firstname_obs
                     FROM public.backend_survey
@@ -128,7 +129,9 @@ class DuplicateSurveyAdmin(ImportExportModelAdmin):
         ])
         return qs
 
-create_modeladmin(DuplicateSurveyAdmin, name='duplicate-survey', model=models.Survey)
+
+create_modeladmin(DuplicateSurveyAdmin,
+                  name='duplicate-survey', model=models.Survey)
 
 
 class IndividualAdmin(ImportExportModelAdmin):
@@ -140,6 +143,7 @@ class IndividualAdmin(ImportExportModelAdmin):
         return ("%s" % (obj.area.commune))
     area_city.short_description = _('Commune')
     area_city.admin_order_field = 'area__commune'
+
 
 admin.site.register(models.Individual, IndividualAdmin)
 
@@ -165,6 +169,7 @@ class AreaAdmin(ImportExportModelAdmin):
                              select_related('species')]))
     species.short_description = _('species')
 
+
 admin.site.register(models.Area, AreaAdmin)
 
 
@@ -177,6 +182,7 @@ class SnowingAdmin(ImportExportModelAdmin):
     def area_city(self, obj):
         return ("%s" % (obj.area.commune))
     area_city.short_description = _('Commune')
+
 
 admin.site.register(models.Snowing, SnowingAdmin)
 
@@ -191,7 +197,8 @@ class UserInline(admin.StackedInline):
 # Define a new User admin
 class ObserverAdmin(ImportExportModelAdmin):
     resource_class = ressources.ObserverResource
-    list_display = ('username', 'organism',
+    list_display = ('username', 'organism', "relay_email", "web_site", "lat", "lon",
+                     "is_relay", "phone", "adresse","logo",
                     'category', 'codepostal', 'nb_inds', 'nb_areas',
                     'nb_surveys', 'accept_policy', 'accept_email', 'accept_newsletter')
     search_fields = ['user__username',
@@ -222,6 +229,7 @@ class ObserverAdmin(ImportExportModelAdmin):
     def nb_surveys(self, obj):
         return models.Survey.objects.filter(individual__area__observer=obj).count()
     nb_surveys.admin_order_field = 'areas__individual__survey__count'
+
 
 admin.site.register(models.Observer, ObserverAdmin)
 
@@ -254,6 +262,7 @@ class SpeciesAdmin(TabAdmin, ImportExportModelAdmin):
 # Re-register UserAdmin
 # admin.site.unregister(models.User)
 # admin.site.register(models.User, UserAdmin)
+
 
 admin.site.register(models.Stage, StageAdmin)
 admin.site.register(models.Species, SpeciesAdmin)

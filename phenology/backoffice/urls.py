@@ -63,6 +63,8 @@ urls = patterns(
     url(r'^mysurveys', views.dashboard, name='my-surveys'),
     url(r'^get_species_list$', views.get_species_list, name='species-list'),
     url(r'^chart_surveys', views.chart_surveys, name="chart-surveys"),
+    url(r'^get_all_categories$', views.get_all_categories, name='get_all_categories'),
+    url(r'^get_new_area_obs$', views.get_new_area_obs, name='get_new_area_obs'),
 
     # mystudies
     url(r'^mystudies$', views.my_studies, name='my-studies'),
@@ -74,6 +76,8 @@ urls = patterns(
     # map
     url(r'^map_all_surveys$', views.map_all_surveys, name='map-surveys'),
     url(r'^search_surveys', views.search_surveys, name="search-surveys"),
+    url(r'^map_obs', views.map_obs, name="map_obs"),
+    url(r'^map_relay', views.map_relay, name="map_relay"),
 
     # viz
     url(r'^viz_all_surveys$', views.viz_all_surveys, name='viz-surveys'),
