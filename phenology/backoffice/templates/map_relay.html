@@ -34,8 +34,6 @@
     {% endautoescape %}
 
     relays_list.forEach(function (item) {
-      console.log('item',item);
-      
       if (item.lat && item.lon) {
 
         var marker = L.circleMarker([item.lat, item.lon], {
@@ -51,12 +49,11 @@
           "<p class='popup-text'> Organisme: " + item.organism + "</p></div>"+
           "<p class='popup-list'>Adresse:</p>" +
           "<p class='popup-text'>" + (item.adresse ? item.adresse : "")  + "</p>"+
-          "<p class='popup-text'>" + (item.codepostal ? item.codepostal : "") + "</p>"+
           "<p class='popup-list'>Contact:</p>"+
           "<p class='popup-text'>" + (item.email ? item.email : "") + "</p>"+
           "<p class='popup-text'>" + (item.phone ? item.phone : "") + "</p>"+
           "<p class='popup-list'>Site web:</p>"+
-          "<p class='popup-text'>" + (item.web_site ? item.web_site : "") + "</p>"+
+          "<a class='popup-text' href='http://" + item.web_site + "'>" + (item.web_site ? item.web_site : "") + "</a>" +
           "</div>"
         );
       }
