@@ -16,8 +16,8 @@
   }
 </script>
 <div class="row  table-row">
-  <div class=" col-xs-8 col-md-8  table-col">
-    <div id="map" class="map obs_map"></div>
+  <div class=" col-xs-12 col-md-12 table-col">
+    <div id="map" class="map relay_map"></div>
   </div>
 </div>
 
@@ -34,8 +34,6 @@
     {% endautoescape %}
 
     relays_list.forEach(function (item) {
-      console.log('item',item);
-      
       if (item.lat && item.lon) {
 
         var marker = L.circleMarker([item.lat, item.lon], {
@@ -51,19 +49,16 @@
           "<p class='popup-text'> Organisme: " + item.organism + "</p></div>"+
           "<p class='popup-list'>Adresse:</p>" +
           "<p class='popup-text'>" + (item.adresse ? item.adresse : "")  + "</p>"+
-          "<p class='popup-text'>" + (item.codepostal ? item.codepostal : "") + "</p>"+
           "<p class='popup-list'>Contact:</p>"+
           "<p class='popup-text'>" + (item.email ? item.email : "") + "</p>"+
           "<p class='popup-text'>" + (item.phone ? item.phone : "") + "</p>"+
           "<p class='popup-list'>Site web:</p>"+
-          "<p class='popup-text'>" + (item.web_site ? item.web_site : "") + "</p>"+
+          "<a class='popup-text' target='_blank' href='http://" + item.web_site + "'>" + (item.web_site ? item.web_site : "") + "</a>" +
           "</div>"
         );
       }
     });
   }
-
-
 
 
   $(document).ready(function () {
