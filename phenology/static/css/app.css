@@ -146,10 +146,10 @@ rect:hover{
   height: 90%;
 }
 .map.obs_map{
-  min-height: 480px;
+  min-height: 480px !important;;
 }
 .relay_map{
-  min-height: 480px;
+  min-height: 480px !important;;
 }
 
 .years_choices .rowyear .checkbox{

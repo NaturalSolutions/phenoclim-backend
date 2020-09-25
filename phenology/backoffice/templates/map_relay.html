@@ -53,14 +53,12 @@
           "<p class='popup-text'>" + (item.email ? item.email : "") + "</p>"+
           "<p class='popup-text'>" + (item.phone ? item.phone : "") + "</p>"+
           "<p class='popup-list'>Site web:</p>"+
-          "<a class='popup-text' href='http://" + item.web_site + "'>" + (item.web_site ? item.web_site : "") + "</a>" +
+          "<a class='popup-text' target='_blank' href='http://" + item.web_site + "'>" + (item.web_site ? item.web_site : "") + "</a>" +
           "</div>"
         );
       }
     });
   }
-
-
 
 
   $(document).ready(function () {
